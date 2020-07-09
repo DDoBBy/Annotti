@@ -1,4 +1,9 @@
-.button {
+body{
+  margin: 0;
+  padding: 0;
+}
+
+button {
     background-color: #4CAF50;
     border: none;
     color: white;
@@ -9,4 +14,42 @@
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
-  }
+}
+button.create-project{
+  background-color:rgb(7, 83, 138)
+}
+button.view-files{
+  width:100%;
+  left:0; 
+  right:0;
+  margin-left:auto;
+  margin-right:auto;
+  background-color:transparent
+}
+
+div.container{
+  width: 100%;
+  margin: 0 auto;
+}
+
+div.left-menu{
+  width: 200px;
+  position: relative;
+  float: left;
+  background-color: rgb(71, 83, 138);
+}
+
+div.working-area{
+  background-color: aliceblue;
+  overflow: hidden;
+  height: 100%;
+  margin-left: 200px; /* Same with left-menu width */
+  margin-right: 200px; /* Same with right-menu width */
+}
+
+div.right-menu{
+  width: 200px;
+  position: relative;
+  float: right;
+  background-color: rgb(51, 88, 255);
+}

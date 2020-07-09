@@ -3,8 +3,10 @@ const { app, BrowserWindow, Menu, ipcMain, remote } = require('electron')
 const appMenu = require('./main/menu.js')
 const selectDir = require('./main/select-file.js')
 
+global.workingDirectory = "None"
+
 function createWindow () {
-  const win = new BrowserWindow({
+  win = new BrowserWindow({
     width: 1440,
     height: 810,
     minWidth: 640,

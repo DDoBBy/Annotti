@@ -1,6 +1,7 @@
 
 function selectDir(event){
   const { dialog } = require('electron')
+
   dialog.showOpenDialog({
     title: 'Select working directory',
     defaultPath: __dirname,
@@ -8,8 +9,10 @@ function selectDir(event){
   }).then((results)=>{
     if(results.canceled)
       event.returnValue = "None"
-    else
+    else{
+      global.workingDirectory = results.filePaths
       event.returnValue = results.filePaths
+    }
   }).catch(err => {
     console.log(err)
   })
