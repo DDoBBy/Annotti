@@ -24,6 +24,7 @@
     "electron": "^9.0.5"
   },
   "dependencies": {
+    "glob": "^7.1.6",
     "jquery": "^3.5.1"
   }
 }
