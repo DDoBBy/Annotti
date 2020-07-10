@@ -1,4 +1,8 @@
+html{
+  height: 100%;
+}
 body{
+  height: 100%;
   margin: 0;
   padding: 0;
 }
@@ -28,28 +32,40 @@ button.view-files{
 }
 
 div.container{
-  width: 100%;
-  margin: 0 auto;
+  height: 100%;
+  display: flex;
 }
 
 div.left-menu{
-  width: 200px;
-  position: relative;
-  float: left;
+  height: 100%;
+  flex-basis: 70px;
   background-color: rgb(71, 83, 138);
 }
 
 div.working-area{
-  background-color: aliceblue;
-  overflow: hidden;
   height: 100%;
-  margin-left: 200px; /* Same with left-menu width */
-  margin-right: 200px; /* Same with right-menu width */
+  background-color: aliceblue;
+  flex: 1;
+}
+
+div.working-datas{
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  background-color: aliceblue;
+  flex: 1;
+}
+div.thumbnail{
+  width: 100px;
+  height: 100px;
+  background-color: aliceblue;
+}
+a.img-name{
+  align-content: center;
 }
 
 div.right-menu{
-  width: 200px;
-  position: relative;
-  float: right;
+  height: 100%;
+  flex-basis: 200px;
   background-color: rgb(51, 88, 255);
 }
