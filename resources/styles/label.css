@@ -1,0 +1,27 @@
+.label-color {
+    height: 25px;
+    width: 25px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+  }
+
+.label-color-circle {
+height: 17px;
+width: 17px;
+border-radius: 50%;
+display: inline-block;
+cursor: pointer;
+}
+
+/* details > summary::-webkit-details-marker {display: none} */
+
+.bubble{
+    border:1px solid; padding:10px;
+    background-color: #bbb;
+}
+
+.del{
+    cursor: pointer;
+}

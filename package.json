@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/DDoBBy/Annotti#readme",
   "devDependencies": {
-    "electron": "^9.0.5"
+    "electron": "^9.1.0"
   },
   "dependencies": {
     "glob": "^7.1.6",
