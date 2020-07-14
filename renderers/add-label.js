@@ -35,7 +35,7 @@ $('#add-label').on('click', () => {
         randomColor=generateRandomColor();
     }
     var appendTemplate = " <div class='appendLabel'>"+
-      "<div> <span class='label-color' style='background-color: "+randomColor+";'></span> <input type='text' class='label'> <div class='del' id='del'>X</div> </div>"+
+      "<div> <span class='label-color' id='"+labelColor.length+"'"+"style='background-color: "+randomColor+";'></span> <input type='text' class='label' placeholder='New Label'> <div class='del' id='del'>X</div> </div>"+
       "<div class = 'select-color bubble' style='display: none;'>"+
         "<span class='label-color-cand label-color-circle' style='background-color: #10b1fe;'></span>"+
         "<span class='label-color-cand label-color-circle' style='background-color: #3fc56b;'></span>"+
@@ -49,13 +49,13 @@ $('#add-label').on('click', () => {
         "<span class='label-color-cand label-color-circle' style='background-color: #ff6480;'></span>"+
         "<span class='label-color-cand label-color-circle' style='background-color: #7a82da;'></span>"+
       "</br>"+
-      "<input type='text'>"+
+      "<input id='color-input' type='text' placeholder='#aaa'>"+
       "<button class='label-color-cand-rgb'>OK</button>"+
       "</div>"+
     "</div>"
     $(".label-list").append(appendTemplate);
-    labelNo++;
     labelColor.push(randomColor);
+    console.log(labelColor)
  });
 
 // Click color selector
@@ -66,6 +66,10 @@ $('.label-list').on('click','.label-color', function(event) {
 // Click remove button
 var $item = $('.label-list').on('click','.del', function(event) {
     $(event.target).parent().parent().remove();
+    console.log($(event.target))
+    labelColor.splice($(event.target).parent().parent().index(),1);
+    console.log($(event.target).parent().parent()[0].id)
+    console.log(labelColor)
 });
 
 $('.label-list').on('click','.label-color-cand', function(event) {
@@ -85,6 +89,12 @@ function clickColor(r, g, b){
 
 
 $('.label-list').on('click','.label-color-cand-rgb', function(event) {
-
-    $(event.target).parent().prev().children('.label-color').css('background-color',$(event.target).css("background-color"));
+    var color = $(event.target).parent().children('#color-input')[0].value;
+    if (labelColor.includes(color)){
+        alertError("Duplicate Color","Color already used. Please select another color.")
+        return;
+    }
+    $(event.target).parent().prev().children('.label-color').css('background-color',color);
+    labelColor[$(event.target).parent().index()]=color
+    $(event.target).parent().toggle();
 });
