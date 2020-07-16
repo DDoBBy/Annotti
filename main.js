@@ -3,7 +3,7 @@ const { app, BrowserWindow, Menu, ipcMain, remote } = require('electron')
 const appMenu = require('./main/menu.js')
 const selectDir = require('./main/select-file.js')
 
-global.workingDirectory = "None"
+global.workingDirectory = ["/Users/yeon/Downloads/bwh"]
 
 function createWindow () {
   win = new BrowserWindow({
