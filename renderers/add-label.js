@@ -1,25 +1,18 @@
+const { alertError } = require('../commons/utils.js')
+
 var labelColor = new Array();
 var labelNo = 0;
 
-function alertError(msg, detail){
-    remote.dialog.showMessageBox({
-      type:'error',
-      title:'Error',
-      message: msg,
-      detail: detail
-    })
+function rgb2hex(rgb) {
+  if (  rgb.search("rgb") == -1 ) {
+        return rgb;
+  } else {
+        rgb = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+))?\)$/);
+        function hex(x) {
+            return ("0" + parseInt(x).toString(16)).slice(-2);
+        }
+        return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]); 
   }
-
-  function rgb2hex(rgb) {
-    if (  rgb.search("rgb") == -1 ) {
-         return rgb;
-    } else {
-         rgb = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+))?\)$/);
-         function hex(x) {
-              return ("0" + parseInt(x).toString(16)).slice(-2);
-         }
-         return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]); 
-    }
 } 
 
 function generateRandomColor()
