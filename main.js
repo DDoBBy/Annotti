@@ -1,9 +1,10 @@
 // Main process
-const { app, BrowserWindow, Menu, ipcMain, remote } = require('electron')
+const { app, BrowserWindow, Menu, ipcMain } = require('electron')
 const appMenu = require('./main/menu.js')
 const selectDir = require('./main/select-file.js')
+const setProjectManager = require('./main/set-project-manager.js')
 
-global.workingDirectory = ["/Users/yeon/Downloads/bwh"]
+global.projectManager = null
 
 function createWindow () {
   win = new BrowserWindow({
@@ -21,6 +22,7 @@ function createWindow () {
 }
 
 ipcMain.on('selectDir', selectDir)
+ipcMain.on('setProjectManager', setProjectManager)
 
 app.on('ready', () => {
   createWindow()

@@ -10,7 +10,6 @@ function selectDir(event){
     if(results.canceled)
       event.returnValue = "None"
     else{
-      global.workingDirectory = results.filePaths
       event.returnValue = results.filePaths
     }
   }).catch(err => {
