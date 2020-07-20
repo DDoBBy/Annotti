@@ -1,7 +1,5 @@
 const { alertError } = require('../commons/utils.js');
 
-var labelColor = new Array();
-
 function rgb2hex(rgb) {
   if (  rgb.search("rgb") == -1 ) {
         return rgb;
@@ -14,8 +12,7 @@ function rgb2hex(rgb) {
   }
 } 
 
-function generateRandomColor()
-{
+function generateRandomColor(){
     var randomColor = '#'+Math.floor(Math.random()*16777215).toString(16);
     return randomColor;
 }
@@ -23,12 +20,14 @@ function generateRandomColor()
 // Click add label button
 $('#add-label').on('click', () => {
     var randomColor = generateRandomColor()
-    while(labelColor.includes(randomColor)){
+    
+    var labelColors = Object.values(remote.getGlobal('projectManager').labelColors)
+    while(labelColors.includes(randomColor)){
         randomColor=generateRandomColor();
     }
 
-    labelID = remote.getGlobal('projectManager').labelCounter + 1
-    newLabel = remote.getGlobal('projectManager').appendLabel(null, randomColor)
+    var labelID = remote.getGlobal('projectManager').labelCounter + 1
+    var newLabel = remote.getGlobal('projectManager').appendLabel(null, randomColor)
     
     var appendTemplate = " <div class='appendLabel'>"+
       "<div> <span class='label-color' id='"+labelID+"'"+"style='background-color: "+newLabel.color+";'></span> <input type='text' class='label' placeholder='"+newLabel.name+"'> <div class='del' id='del'>X</div> </div>"+
@@ -50,8 +49,6 @@ $('#add-label').on('click', () => {
       "</div>"+
     "</div>"
     $(".label-list").append(appendTemplate);
-    labelColor.push(randomColor);
-    console.log(labelColor)
  });
 
 // Click color selector
@@ -63,28 +60,23 @@ $('.label-list').on('click','.label-color', function(event) {
 var $item = $('.label-list').on('click','.del', function(event) {
     $(event.target).parent().parent().remove();
     
-    let delKey = $(event.target).parent().parent().find('span').attr('id')
+    var delKey = $(event.target).parent().parent().find('span').attr('id')
     remote.getGlobal('projectManager').deleteLabel(delKey)
-    
-    console.log($(event.target))
-    labelColor.splice($(event.target).parent().parent().index(),1);
-    console.log($(event.target).parent().parent()[0].id)
-    console.log(labelColor)
-
 });
 
 $('.label-list').on('click','.label-color-cand', function(event) {
-    var color = rgb2hex($(event.target).css("background-color"));    
+    var color = rgb2hex($(event.target).css("background-color"));
+    
+    var labelColors = Object.values(remote.getGlobal('projectManager').labelColors)
     if (labelColors.includes(color)){
         alertError("Duplicate Color","Color already used. Please select another color.")
         return;
     }
     
-    $(event.target).parent().prev().children('.label-color').css('background-color',color);
-    labelColor[$(event.target).parent().index()]=color
+    $(event.target).parent().prev().children('.label-color').css('background-color', color);
     $(event.target).parent().toggle();  
 
-    let labelID = $(event.target).parent().prev().find('span').attr('id')
+    var labelID = $(event.target).parent().prev().find('span').attr('id')
     remote.getGlobal('projectManager').changeLabelColor(labelID, color)
 });
 
@@ -92,14 +84,18 @@ function clickColor(r, g, b){
 
 }
 
-
 $('.label-list').on('click','.label-color-cand-rgb', function(event) {
     var color = $(event.target).parent().children('#color-input')[0].value;
-    if (labelColor.includes(color)){
+    
+    var labelColors = Object.values(remote.getGlobal('projectManager').labelColors)
+    if (labelColors.includes(color)){
         alertError("Duplicate Color","Color already used. Please select another color.")
         return;
     }
+
     $(event.target).parent().prev().children('.label-color').css('background-color',color);
-    labelColor[$(event.target).parent().index()]=color
     $(event.target).parent().toggle();
+
+    var labelID = $(event.target).parent().prev().find('span').attr('id')
+    remote.getGlobal('projectManager').changeLabelColor(labelID, color)
 });

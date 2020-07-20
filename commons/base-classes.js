@@ -24,6 +24,7 @@ class projectManager{
     this.dataPaths = []
 
     this.labelCounter = 0    // To make default label ID
+    this.labelColors = {}
     this.labelList = {}        
   }
 
@@ -43,24 +44,25 @@ class projectManager{
     
     let newLabel = new label(name, color)
     this.labelList[this.labelCounter] = newLabel
-
+    this.labelColors[this.labelCounter] = color
     console.log(this.labelList)
-
+    console.log(this.labelColors)
     return newLabel
   }
 
   deleteLabel(labelID){
-    delete this.labelList[labelID];
-
+    delete this.labelList[labelID]
+    delete this.labelColors[labelID]
     console.log(this.labelList)
+    console.log(this.labelColors)
   }
 
   changeLabelColor(labelID, newColor){
     this.labelList[labelID].color = newColor
-
+    this.labelColors[labelID] = newColor
     console.log(this.labelList)
+    console.log(this.labelColors)
   }
-
 }
 
 module.exports = { file, label, projectManager }
