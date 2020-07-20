@@ -24,8 +24,7 @@ class projectManager{
     this.dataPaths = []
 
     this.labelCounter = 0    // To make default label ID
-    this.labelColors = {}
-    this.labelList = {}        
+    this.labelColors = {}    // To check duplicated label color
   }
 
   setWorkingDirectory(workingDirectory){
@@ -36,32 +35,16 @@ class projectManager{
     this.dataPaths = dataPaths
   }
 
-  appendLabel(name, color){
-    this.labelCounter += 1
-
-    if (name == null)
-      name = 'New Label ' + (this.labelCounter).toString()
-    
-    let newLabel = new label(name, color)
-    this.labelList[this.labelCounter] = newLabel
-    this.labelColors[this.labelCounter] = color
-    console.log(this.labelList)
-    console.log(this.labelColors)
-    return newLabel
-  }
-
-  deleteLabel(labelID){
-    delete this.labelList[labelID]
-    delete this.labelColors[labelID]
-    console.log(this.labelList)
-    console.log(this.labelColors)
-  }
-
   changeLabelColor(labelID, newColor){
-    this.labelList[labelID].color = newColor
     this.labelColors[labelID] = newColor
-    console.log(this.labelList)
-    console.log(this.labelColors)
+  }
+
+  appendLabel(){
+    throw new Error('appendLabel() not implemented');
+  }
+
+  deleteLabel(){
+    throw new Error('deleteLabel() not implemented');
   }
 }
 
