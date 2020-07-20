@@ -51,6 +51,7 @@ $('#add-label').on('click', () => {
     "</div>"
     $(".label-list").append(appendTemplate);
     labelColor.push(randomColor);
+    console.log(labelColor)
  });
 
 // Click color selector
@@ -62,24 +63,29 @@ $('.label-list').on('click','.label-color', function(event) {
 var $item = $('.label-list').on('click','.del', function(event) {
     $(event.target).parent().parent().remove();
     
-    let delKey = $(event.target).parent().find('span').attr('id')
+    let delKey = $(event.target).parent().parent().find('span').attr('id')
     remote.getGlobal('projectManager').deleteLabel(delKey)
-
+    
     console.log($(event.target))
-    labelColor.splice($(event.target).parent().parent().index(), 1);
+    labelColor.splice($(event.target).parent().parent().index(),1);
     console.log($(event.target).parent().parent()[0].id)
     console.log(labelColor)
+
 });
 
 $('.label-list').on('click','.label-color-cand', function(event) {
-    var color = rgb2hex($(event.target).css("background-color"));
-    if (labelColor.includes(color)){
+    var color = rgb2hex($(event.target).css("background-color"));    
+    if (labelColors.includes(color)){
         alertError("Duplicate Color","Color already used. Please select another color.")
         return;
     }
+    
     $(event.target).parent().prev().children('.label-color').css('background-color',color);
     labelColor[$(event.target).parent().index()]=color
     $(event.target).parent().toggle();  
+
+    let labelID = $(event.target).parent().prev().find('span').attr('id')
+    remote.getGlobal('projectManager').changeLabelColor(labelID, color)
 });
 
 function clickColor(r, g, b){

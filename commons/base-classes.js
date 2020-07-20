@@ -9,7 +9,7 @@ class label{
     this.name = name
     this.color = color
     this.hotKey = null
-    this.labelShow = true // blink 상태
+    this.labelShow = true   // blink status
   }
   setHotKey(hotKey){
     this.hotKey = hotKey
@@ -19,11 +19,12 @@ class label{
 class projectManager{
   constructor(taskId){
     this.taskId = taskId
+
     this.workingDirectory = []
     this.dataPaths = []
 
     this.labelCounter = 0    // To make default label ID
-    this.lables = {}
+    this.labelList = {}        
   }
 
   setWorkingDirectory(workingDirectory){
@@ -41,13 +42,23 @@ class projectManager{
       name = 'New Label ' + (this.labelCounter).toString()
     
     let newLabel = new label(name, color)
-    this.lables[this.labelCounter] = newLabel
+    this.labelList[this.labelCounter] = newLabel
+
+    console.log(this.labelList)
 
     return newLabel
   }
 
   deleteLabel(labelID){
-    delete this.lables[labelID];
+    delete this.labelList[labelID];
+
+    console.log(this.labelList)
+  }
+
+  changeLabelColor(labelID, newColor){
+    this.labelList[labelID].color = newColor
+
+    console.log(this.labelList)
   }
 
 }

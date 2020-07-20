@@ -8,8 +8,8 @@ class classificationFileInfo extends file{
 }
 
 class classificationLabel extends label{
-    constructor(name, color, hotKey){
-        super(name, color, hotKey)
+    constructor(name, color){
+        super(name, color)
         this.files = new Array()
     }
 }
@@ -17,12 +17,6 @@ class classificationLabel extends label{
 class classificationProjectManager extends projectManager{
     constructor(){
         super("IC")
-        this.icLabels = new Array()
-        this.icFileInfos = new Array()
-    }
-
-    append_icLabel(label){
-        this.icLabels.push(label)
     }
 }
 
