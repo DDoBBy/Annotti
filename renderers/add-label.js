@@ -1,7 +1,6 @@
-const { alertError } = require('../commons/utils.js')
+const { alertError } = require('../commons/utils.js');
 
 var labelColor = new Array();
-var labelNo = 0;
 
 function rgb2hex(rgb) {
   if (  rgb.search("rgb") == -1 ) {
@@ -27,8 +26,12 @@ $('#add-label').on('click', () => {
     while(labelColor.includes(randomColor)){
         randomColor=generateRandomColor();
     }
+
+    labelID = remote.getGlobal('projectManager').labelCounter + 1
+    newLabel = remote.getGlobal('projectManager').appendLabel(null, randomColor)
+    
     var appendTemplate = " <div class='appendLabel'>"+
-      "<div> <span class='label-color' id='"+labelColor.length+"'"+"style='background-color: "+randomColor+";'></span> <input type='text' class='label' placeholder='New Label'> <div class='del' id='del'>X</div> </div>"+
+      "<div> <span class='label-color' id='"+labelID+"'"+"style='background-color: "+newLabel.color+";'></span> <input type='text' class='label' placeholder='"+newLabel.name+"'> <div class='del' id='del'>X</div> </div>"+
       "<div class = 'select-color bubble' style='display: none;'>"+
         "<span class='label-color-cand label-color-circle' style='background-color: #10b1fe;'></span>"+
         "<span class='label-color-cand label-color-circle' style='background-color: #3fc56b;'></span>"+
@@ -48,7 +51,6 @@ $('#add-label').on('click', () => {
     "</div>"
     $(".label-list").append(appendTemplate);
     labelColor.push(randomColor);
-    console.log(labelColor)
  });
 
 // Click color selector
@@ -59,8 +61,12 @@ $('.label-list').on('click','.label-color', function(event) {
 // Click remove button
 var $item = $('.label-list').on('click','.del', function(event) {
     $(event.target).parent().parent().remove();
+    
+    let delKey = $(event.target).parent().find('span').attr('id')
+    remote.getGlobal('projectManager').deleteLabel(delKey)
+
     console.log($(event.target))
-    labelColor.splice($(event.target).parent().parent().index(),1);
+    labelColor.splice($(event.target).parent().parent().index(), 1);
     console.log($(event.target).parent().parent()[0].id)
     console.log(labelColor)
 });
