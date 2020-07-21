@@ -32,10 +32,12 @@ $('#add-label').on('click', () => {
   var appendTemplate = "<div class='appendLabel'>"+
     "<div>"+
       "<span class='label-color' id='"+labelID+"'style='background-color: "+newLabel.color+";'></span>"+
-      "<input type='text' class='label' value='"+newLabel.name+"'>"+
-      "<input type='checkbox' class='activate' id='"+labelID+"'>"+
-      "<div class='del' id='del'>X</div>"+
-    "</div>"+
+      "<input type='text' class='label' value='"+newLabel.name+"'>"
+  
+  if (remote.getGlobal('projectManager').taskId == "IC") // Activation button
+    appendTemplate += "<input type='checkbox' class='activate' id='"+labelID+"'>"
+  
+  appendTemplate += "<div class='del' id='del'>X</div></div>"+
     "<div class = 'select-color bubble' style='display: none;'>"+
       "<span class='label-color-cand label-color-circle' style='background-color: #10b1fe;'></span>"+
       "<span class='label-color-cand label-color-circle' style='background-color: #3fc56b;'></span>"+

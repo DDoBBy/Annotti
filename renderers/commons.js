@@ -1,4 +1,3 @@
-// const {remote} = require('electron')
 let $ = require('jquery')
 const fs = require('fs')
 const path = require('path')
@@ -11,8 +10,8 @@ function composeImgElements(filePath, thumbnailId){
   if (basename.length > 10){
     basename = basename.slice(0, 5) + "..." + basename.slice(-5)
   }
-  var element = '<div class="thumbnail" id="thumbnail-'+thumbnailId+'">'+
-  '<img src="'+filePath+'" style="display: block;width:50px; height:50px"></img>'+
+  var element = '<div class="img-info" id="thumbnail-'+thumbnailId+'">'+
+  '<img class="thumbnail" src="'+filePath+'" style="display: block;width:50px; height:50px"></img>'+
   '<a class"img-name">'+basename+"</a></div>"
   $('#all-imgs').append(element)
 }

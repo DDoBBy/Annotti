@@ -43,6 +43,10 @@ class classificationProjectManager extends projectManager{
     delete this.labelColors[labelID]
   }
 
+  activateLabel(labelID){
+    this.activated = labelID
+  }
+
 }
 
 module.exports = { classificationFileInfo, classificationLabel, classificationProjectManager }

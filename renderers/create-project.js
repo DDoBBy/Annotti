@@ -1,5 +1,3 @@
-// Create project
-
 let $ = require('jquery')
 const {remote, ipcRenderer} = require('electron')
 const { alertError } = require('../commons/utils.js')
@@ -25,6 +23,9 @@ $('#create-project').on('click', () => {
   else{
     ipcRenderer.sendSync('setProjectManager', taskId)
     remote.getGlobal('projectManager').setWorkingDirectory(workingDirectory)
-    remote.getCurrentWindow().loadURL(`file://${__dirname}/../templates/default.html`)
+    if(taskId == "IC")
+      remote.getCurrentWindow().loadURL(`file://${__dirname}/../templates/classification.html`)
+    else
+      remote.getCurrentWindow().loadURL(`file://${__dirname}/../templates/classification.html`)
   }
 }) 
