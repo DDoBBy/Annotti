@@ -1,0 +1,30 @@
+{
+  "name": "annotti",
+  "version": "1.0.0",
+  "description": "Data annotation tool for deep learning",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DDoBBy/Annotti.git"
+  },
+  "keywords": [
+    "Annotation"
+  ],
+  "author": "DDobby",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DDoBBy/Annotti/issues"
+  },
+  "homepage": "https://github.com/DDoBBy/Annotti#readme",
+  "devDependencies": {
+    "electron": "^9.1.0"
+  },
+  "dependencies": {
+    "glob": "^7.1.6",
+    "jquery": "^3.5.1"
+  }
+}

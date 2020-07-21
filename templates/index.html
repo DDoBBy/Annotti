@@ -1,0 +1,41 @@
+
+<!-- Create project -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <link rel="stylesheet" type="text/css" href="../resources/styles/main.css">
+    <title>Annotti</title>
+  </head>
+
+  <body>    
+    <!-- Title -->
+    <h1>Annotti</h1> 
+    <!--Select task -->
+    <div id="select-task-div"> 
+      <select id="select-task">
+        <option value="None" disabled selected>Select task to annotate</option>
+        <option value="IC" selected>Image classification</option>
+        <option value="OD">Object detection</option>
+        <option value="SS">Semantic Segmentation</option>  
+        <option value="OCR"> Optical character recognition</option>
+      </select>
+    </div>
+
+    <!-- Select working directory -->
+    <div>
+      <h3 id="selected-dirs">Select at least one directory</h3>
+      <button class="create-project" id="select-dir">Select working directory</button>
+    </div>
+
+    <!-- Create project -->
+    <div>
+      <button class="button" id="create-project">Create Project</button>
+    </div>
+
+    <script src="../renderers/create-project.js"></script>
+
+  </body>
+
