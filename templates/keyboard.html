@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+    <head>
+        
+        <script>
+            var jQuery = $ = require('jquery');
+            require('../node_modules/electron-virtual-keyboard/src/client.js')(window, jQuery);
+        </script>
+        <link href="../node_modules/electron-virtual-keyboard/virtual-keyboard.css" type="text/css" rel="stylesheet"/>
+    </head>
+    <body>
+        <div>
+            <input class='kb' type="text" />
+            <button class='ok'>Save</button>
+            <div class="kb-container"></div>
+            <script>
+                var keyboard = $('input:text').keyboard({
+                    autoPosition: true,
+                    container: function ($el) {
+                        console.log($el)
+                    return $el.parent().find('.kb-container');
+                }
+                });
+            </script>
+        </div>
+        <div>
+            
+        </div>
+    </body>
+    <script src="../renderers/shortcut.js"></script>
+</html>

@@ -24,6 +24,7 @@
     "electron": "^9.1.0"
   },
   "dependencies": {
+    "electron-virtual-keyboard": "^1.0.7",
     "glob": "^7.1.6",
     "jquery": "^3.5.1"
   }
