@@ -1,3 +1,5 @@
+const { file } = require("../commons/base-classes");
+
 $('.label-list').on('click','.activate', function(event) {
     if ($(event.target).prop('checked')){
         $('[class=activate]').prop('checked', false)

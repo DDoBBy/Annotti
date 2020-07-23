@@ -66,9 +66,11 @@ $('.label-list').on('click','.label-color', function(event) {
 // Click remove button
 var $item = $('.label-list').on('click','.del', function(event) {
     $(event.target).parent().parent().remove();
-    
     var delKey = $(event.target).parent().parent().find('span').attr('id')
-    remote.getGlobal('projectManager').deleteLabel(delKey)
+    var fileIDs = remote.getGlobal('projectManager').deleteLabel(delKey)
+    fileIDs.forEach(element => {
+      $("#"+element+".thumbnail").css({border: "none"})
+    });
 });
 
 
@@ -108,5 +110,8 @@ $('.label-list').on('click','.label-color-cand-rgb', function(event) {
     $(event.target).parent().toggle();
 
     var labelID = $(event.target).parent().prev().find('span').attr('id')
-    remote.getGlobal('projectManager').changeLabelColor(labelID, color)
-});
+    var fileIDs = remote.getGlobal('projectManager').changeLabelColor(labelID, color)
+    fileIDs.forEach(element => {
+      $("#"+element+".thumbnail").css({border: "8px solid" + color})
+    });
+  });

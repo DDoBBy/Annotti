@@ -40,8 +40,14 @@ class classificationProjectManager extends projectManager{
   }
 
   deleteLabel(labelID){ // Delete label from project
+    var fileIDs = Object.keys(this.labelList[labelID].files)
     delete this.labelList[labelID]
     delete this.labelColors[labelID]
+    fileIDs.forEach(fildID => {
+      delete this.checkedFiles[fildID]
+    })
+    console.log(fileIDs)
+    return fileIDs
   }
 
   activateLabel(labelID){
