@@ -57,3 +57,9 @@ async function getAllDataPaths(){
 }
 
 $(document).ready(getAllDataPaths)
+
+// 임의로 폴더 버튼 누르면 그리드 뷰 다시 보이게
+$('.view-files').on('click', function(){
+    $('#working-area').css("display", "grid");
+    $('#tab-area').css("display", "none");    
+});
