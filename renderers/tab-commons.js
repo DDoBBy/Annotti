@@ -3,7 +3,7 @@ let $ = require('jquery')
 const fs = require('fs')
 const path = require('path')
 const { remote } = require('electron')
-const { openTab } = require('../renderers/tab-functions.js')
+const { readyTab, openTab } = require('../renderers/tab-functions.js')
 
 let id = 0
 
@@ -51,9 +51,10 @@ async function searchSelectedDirs(ext){
 }
 
 async function getAllDataPaths(){
-  const imgExtensions = ['.png', '.jpg', '.jpeg']
-  let dataPaths = await searchSelectedDirs(imgExtensions)
-  remote.getGlobal('projectManager').setDataPaths(dataPaths)
+    readyTab()
+    const imgExtensions = ['.png', '.jpg', '.jpeg']
+    let dataPaths = await searchSelectedDirs(imgExtensions)
+    remote.getGlobal('projectManager').setDataPaths(dataPaths)
 }
 
 $(document).ready(getAllDataPaths)
