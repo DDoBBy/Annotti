@@ -6,26 +6,36 @@
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
     <link rel="stylesheet" type="text/css" href="../resources/styles/tab-main.css">
     <link rel="stylesheet" type="text/css" href="../resources/styles/label.css">
+    <link rel="stylesheet" href="../node_modules/electron-tabs/electron-tabs.css">
     <title>Annotti</title>
   </head>
 
   <body>
     <div class='container'>
-      <div class='left-menu'>
-        <h1 style="text-align:center;">Left Menu</h1>
-        <button class="view-files"><img style="width:50px; height:50px" src="../resources/imgs/folder.png" alt="folder-img"></button>
-      </div>
-
-      <div class='working-area'>
-        <h1 style="text-align:center;">Working area</h1>
-        
-        <div class='working-datas' id='all-imgs'>
+        <div class='left-menu'>
+            <h1 style="text-align:center;">Left Menu</h1>
+            <button class="view-files"><img style="width:50px; height:50px" src="../resources/imgs/folder.png" alt="folder-img"></button>
         </div>
 
-      </div>
+        <div class='working-area' id='working-area'>
+            <h1 style="text-align:center;">Working area</h1>
+            
+            <div class='working-datas' id='all-imgs'>
+            </div>
 
+        </div>
+
+        <div class="tab-area" id="tab-area">
+            <div class="etabs-tabgroup">
+                <div class="etabs-tabs"></div>
+                <div class="etabs-buttons"></div>
+            </div>
+            <div class="etabs-views"></div>
+        </div>
       
     </div>
+    
+    
 
     <script src="../renderers/tab-commons.js"></script>
     <script src="../renderers/add-label.js"></script>

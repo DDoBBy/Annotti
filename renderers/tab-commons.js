@@ -3,6 +3,7 @@ let $ = require('jquery')
 const fs = require('fs')
 const path = require('path')
 const { remote } = require('electron')
+const { openTab } = require('../renderers/tab-functions.js')
 
 let id = 0
 
@@ -11,7 +12,7 @@ function composeImgElements(filePath, thumbnailId){
   if (basename.length > 10){
     basename = basename.slice(0, 5) + "..." + basename.slice(-5)
   }
-  var element = '<div class="thumbnail" id="thumbnail-'+thumbnailId+'">'+
+  var element = '<div class="thumbnail" id="thumbnail-'+thumbnailId+'" onclick="openTab(' + thumbnailId + ')">'+
   '<img src="'+filePath+'" style="display: block;width:80%; height:80%"></img>'+
   '<a class"img-name">'+basename+"</a></div>"
   $('#all-imgs').append(element)

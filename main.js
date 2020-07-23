@@ -14,7 +14,8 @@ function createWindow () {
     minHeight: 360,
     webPreferences: {
       enableRemoteModule: true,
-      nodeIntegration: true
+      nodeIntegration: true,
+      webviewTag: true
     }
   })
   win.loadURL(`file://${__dirname}/templates/index.html`)

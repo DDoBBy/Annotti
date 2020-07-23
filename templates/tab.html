@@ -1,0 +1,44 @@
+<!-- Project default setting -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+        <link rel="stylesheet" type="text/css" href="../resources/styles/tab-main.css">
+        <link rel="stylesheet" type="text/css" href="../resources/styles/tab.css">
+        <link rel="stylesheet" type="text/css" href="../resources/styles/label.css">
+        <link rel="stylesheet" href="../node_modules/electron-tabs/electron-tabs.css">
+        <title></title>
+    </head>
+
+    <body>
+        <div class="tab-wrapper">
+            <div class='working-tab-area'>
+                <div class='tab-image' id='tab-image'>
+                    <canvas id='img-canvas' style='max-width: 100%'></canvas>
+                </div>
+                <div class='bottom-menu' id='bottom-menu'>
+                    <div class='bottom-buttons' id='bottom-buttons'>
+                        <button id='zoom-in-button'>zoom in</button>
+                        <button id='zoom-out-button'>zoom out</button>
+                        <button id='undo-button'>undo</button>
+                        <button id='redo-button'>redo</button>
+                        <button id='prev-button'>prev</button>
+                        <button id='next-button'>next</button>
+                    </div>
+                </div>
+            </div>
+    
+            <div class='right-menu'>
+                <h1 class = 'label-tit' style='text-align:center;'>Label</h1>
+                <div class = 'label-list'></div>
+                <button id='add-label' class ='add-label'>Add Label</button>
+            </div>
+        </div>
+        
+        <script src="../renderers/tab-commons.js"></script>
+        <script src="../renderers/add-label.js"></script>
+
+    </body>
+  
+</html>
