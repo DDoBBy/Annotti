@@ -4,6 +4,7 @@ const path = require('path')
 const { remote } = require('electron')
 
 let id;
+let img; 
 
 function getThumbnailId(){
     console.log("HELLOO");
@@ -16,6 +17,7 @@ function getThumbnailId(){
 
 function getImageCanvas(thumbnailId){
     var filePath = remote.getGlobal('projectManager').dataPaths[thumbnailId];
+    img = new Image();
     drawImageOnCanvas(filePath);
 }
 
@@ -23,36 +25,40 @@ $(document).ready(getThumbnailId)
 
 // 줌, 패닝 기능 되는 캔버스 로드
 function drawImageOnCanvas(filePath){
-    var img = new Image();
     img.src = filePath; 
   
     var canvas = document.getElementById('img-canvas');
     var ctx = canvas.getContext('2d');
     trackTransforms(ctx);
   
-    // var w = $('#all-imgs').width();
-    // var h = $('#all-imgs').height();
-    // canvas.width = w;
-    // canvas.height = h;
-    // img.addEventListener('load', function(){
-    //   var ratio = this.height / this.width;
-    //   //if(ratio < 1.0) canvas.height = w * ratio;
-    //   canvas.width = h * (1 / ratio);
-    // }, false);
+    var w = $('#tab-image').width();
+    var h = $('#tab-image').height();
+    canvas.width = w;
+    canvas.height = h;
+    $('#img-canvas').css("width", "100%");
+    $('#img-canvas').css("height", "100%");
+    img.addEventListener('load', function(){
+        var ratio = this.height / this.width;
+        // if(ratio < 1.0) this.height = w * ratio;
+        // else this.width = h * (1 / ratio);
+
+        console.log("w: " + this.width + " h: " + this.height);
+        ctx.drawImage(img,0,0);
+    }, false);
     
     function redraw(){
       
-      // Clear the entire canvas
-      var p1 = ctx.transformedPoint(0,0);
-      var p2 = ctx.transformedPoint(canvas.width,canvas.height);
-      ctx.clearRect(p1.x,p1.y,p2.x-p1.x,p2.y-p1.y);
-  
-      ctx.save();
-      ctx.setTransform(1,0,0,1,0,0);
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      ctx.restore();
-  
-      ctx.drawImage(img,0,0);
+        // Clear the entire canvas
+        var p1 = ctx.transformedPoint(0,0);
+        var p2 = ctx.transformedPoint(canvas.width,canvas.height);
+        ctx.clearRect(p1.x,p1.y,p2.x-p1.x,p2.y-p1.y);
+    
+        ctx.save();
+        ctx.setTransform(1,0,0,1,0,0);
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        ctx.restore();
+    
+        ctx.drawImage(img,0,0);
   
     }
     redraw();
@@ -63,62 +69,62 @@ function drawImageOnCanvas(filePath){
   
     // 마우스 클릭한 순간
     canvas.addEventListener('mousedown',function(evt){
-      document.body.style.mozUserSelect = document.body.style.webkitUserSelect = document.body.style.userSelect = 'none';
-      lastX = evt.offsetX || (evt.pageX - canvas.offsetLeft);
-      lastY = evt.offsetY || (evt.pageY - canvas.offsetTop);
-      dragStart = ctx.transformedPoint(lastX,lastY);
-      dragged = false;
+        document.body.style.mozUserSelect = document.body.style.webkitUserSelect = document.body.style.userSelect = 'none';
+        lastX = evt.offsetX || (evt.pageX - canvas.offsetLeft);
+        lastY = evt.offsetY || (evt.pageY - canvas.offsetTop);
+        dragStart = ctx.transformedPoint(lastX,lastY);
+        dragged = false;
     },false);
   
     // 클릭해서 움직이는 순간
     canvas.addEventListener('mousemove',function(evt){
-      lastX = evt.offsetX || (evt.pageX - canvas.offsetLeft);
-      lastY = evt.offsetY || (evt.pageY - canvas.offsetTop);
-      dragged = true;
-      if (dragStart){
-        var pt = ctx.transformedPoint(lastX,lastY);
-        ctx.translate(pt.x-dragStart.x,pt.y-dragStart.y);
-        redraw();
-      }
+        lastX = evt.offsetX || (evt.pageX - canvas.offsetLeft);
+        lastY = evt.offsetY || (evt.pageY - canvas.offsetTop);
+        dragged = true;
+        if (dragStart){
+            var pt = ctx.transformedPoint(lastX,lastY);
+            ctx.translate(pt.x-dragStart.x,pt.y-dragStart.y);
+            redraw();
+        }
     },false);
   
     // 마우스에서 손 떼는 순간
     canvas.addEventListener('mouseup',function(evt){
-      dragStart = null;
-      //if (!dragged) zoom(evt.shiftKey ? -1 : 1 );
+        dragStart = null;
+        //if (!dragged) zoom(evt.shiftKey ? -1 : 1 );
     },false);
   
     var scaleFactor = 1.1;
   
     var zoom = function(clicks){
-      var pt = ctx.transformedPoint(lastX,lastY);
-      ctx.translate(pt.x,pt.y);
-      var factor = Math.pow(scaleFactor,clicks);
-      ctx.scale(factor,factor);
-      ctx.translate(-pt.x,-pt.y);
-      redraw();
+        var pt = ctx.transformedPoint(lastX,lastY);
+        ctx.translate(pt.x,pt.y);
+        var factor = Math.pow(scaleFactor,clicks);
+        ctx.scale(factor,factor);
+        ctx.translate(-pt.x,-pt.y);
+        redraw();
     }
   
     // 확대 
     $('#zoom-in-button').on('click', function(){
-      zoom(1);
+        zoom(1);
     });
   
     // 축소
     $('#zoom-out-button').on('click', function(){
-      zoom(-1);
+        zoom(-1);
     });
   
     // 스크롤 올리면 확대 내리면 축소
     var handleScroll = function(evt){
-      var delta = evt.wheelDelta ? evt.wheelDelta/40 : evt.detail ? -evt.detail : 0;
-      if (delta) zoom(delta);
-      return evt.preventDefault() && false;
+        var delta = evt.wheelDelta ? evt.wheelDelta/40 : evt.detail ? -evt.detail : 0;
+        if (delta) zoom(delta);
+        return evt.preventDefault() && false;
     };
   
     canvas.addEventListener('DOMMouseScroll',handleScroll,false);
     canvas.addEventListener('mousewheel',handleScroll,false);
-  }
+}
   
 function trackTransforms(ctx){
     var svg = document.createElementNS("http://www.w3.org/2000/svg",'svg');

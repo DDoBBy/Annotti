@@ -7,7 +7,7 @@ function readyTab(){
 }
 
 function openTab(thumbnailId){
-    //console.log(thumbnailId);
+    console.log(thumbnailId);
     var filePath = remote.getGlobal('projectManager').dataPaths[thumbnailId];
     var basename = path.basename(filePath);
     // if (basename.length > 10){
@@ -18,17 +18,26 @@ function openTab(thumbnailId){
     $('#working-area').css("display", "none");
     $('#tab-area').css("display", "block");
     
-    tabGroup = new TabGroup();
-
     tab = tabGroup.addTab({
         title: basename,
         src: "../templates/tab.html?id=" + thumbnailId,
+        //src: "../templates/tab.html",
+        //src: "#sibal",
         visible: true,
-        active: true
+        active: true,
+
+        webviewAttributes: {
+            nodeintegration: true
+        }
     });
 
+    
+
     tab.on("webview-ready", (tab) => {
-        
+        const webview = document.querySelector('webview')
+        webview.addEventListener('console-message', (e) => {
+            console.log('Guest page logged a message:', e.message)
+        })
     });
 
     tab.on("close", (tab) => {
