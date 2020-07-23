@@ -5,13 +5,13 @@ const { remote } = require('electron')
 
 let id = 0
 
-function composeImgElements(filePath, thumbnailId){
+function composeImgElements(filePath, imgInfoId){
   var basename = path.basename(filePath)
   if (basename.length > 10){
     basename = basename.slice(0, 5) + "..." + basename.slice(-5)
   }
-  var element = '<div class="img-info" id="thumbnail-'+thumbnailId+'">'+
-  '<img class="thumbnail" src="'+filePath+'" style="display: block;width:50px; height:50px"></img>'+
+  var element = '<div class="img-info" id="'+imgInfoId+'">'+
+  '<img class="thumbnail" id="'+imgInfoId+'" src="'+filePath+'" style="display: block;width:80px; height:80px"></img>'+
   '<a class"img-name">'+basename+"</a></div>"
   $('#all-imgs').append(element)
 }

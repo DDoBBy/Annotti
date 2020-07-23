@@ -34,6 +34,9 @@ button.view-files{
 div.container{
   height: 100%;
   display: flex;
+  margin: 0;
+  padding: 0;
+  max-width: inherit;
 }
 
 div.left-menu{

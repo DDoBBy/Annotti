@@ -71,6 +71,7 @@ var $item = $('.label-list').on('click','.del', function(event) {
     remote.getGlobal('projectManager').deleteLabel(delKey)
 });
 
+
 $('.label-list').on('click','.label-color-cand', function(event) {
     var color = rgb2hex($(event.target).css("background-color"));
     
@@ -84,7 +85,10 @@ $('.label-list').on('click','.label-color-cand', function(event) {
     $(event.target).parent().toggle();  
 
     var labelID = $(event.target).parent().prev().find('span').attr('id')
-    remote.getGlobal('projectManager').changeLabelColor(labelID, color)
+    var fileIDs = remote.getGlobal('projectManager').changeLabelColor(labelID, color)
+    fileIDs.forEach(element => {
+      $("#"+element+".thumbnail").css({border: "8px solid" + color})
+    });
 });
 
 function clickColor(r, g, b){
