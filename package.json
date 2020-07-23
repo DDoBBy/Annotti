@@ -27,7 +27,7 @@
     "bootstrap": "^4.5.0",
     "electron-tabs": "^0.15.0",
     "jquery": "^3.5.1",
-    "keypress": "^0.2.1",
+    "jquery-ui": "^1.12.1",
     "popper.js": "^1.16.1"
   }
 }

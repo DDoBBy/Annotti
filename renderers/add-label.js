@@ -10,7 +10,7 @@ function rgb2hex(rgb) {
     }
     return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]); 
   }
-} 
+}
 
 function generateRandomColor(){
   var randomColor = '#'+Math.floor(Math.random()*16777215).toString(16);
@@ -35,7 +35,7 @@ $('#add-label').on('click', () => {
       "<input type='text' class='label' value='"+newLabel.name+"'>"
   
   if (remote.getGlobal('projectManager').taskId == "IC") // Activation button
-    appendTemplate += "<input type='checkbox' class='activate' id='"+labelID+"'>"
+    appendTemplate += "<input type='checkbox' class='activate' id='"+labelID+"'>" + "<span class='label-counter' id='"+labelID+"'>"+"0</span>"
   
   appendTemplate += "<div class='del' id='del'>X</div></div>"+
     "<div class = 'select-color bubble' style='display: none;'>"+
@@ -73,24 +73,24 @@ var $item = $('.label-list').on('click','.del', function(event) {
     });
 });
 
-
 $('.label-list').on('click','.label-color-cand', function(event) {
-    var color = rgb2hex($(event.target).css("background-color"));
-    
-    var labelColors = Object.values(remote.getGlobal('projectManager').labelColors)
-    if (labelColors.includes(color)){
-        alertError("Duplicate Color","Color already used. Please select another color.")
-        return;
-    }
-    
-    $(event.target).parent().prev().children('.label-color').css('background-color', color);
-    $(event.target).parent().toggle();  
+  var prev_color = rgb2hex($(event.target).parent().prev().children('.label-color').css("background-color"))
+  var color = rgb2hex($(event.target).css("background-color"));
+  var labelID = $(event.target).parent().prev().find('span').attr('id')
 
-    var labelID = $(event.target).parent().prev().find('span').attr('id')
-    var fileIDs = remote.getGlobal('projectManager').changeLabelColor(labelID, color)
-    fileIDs.forEach(element => {
-      $("#"+element+".thumbnail").css({border: "8px solid" + color})
-    });
+  if (prev_color != color){
+    if (!remote.getGlobal('projectManager').colorAlreadyOccupied(color)){
+      var fileIDs = remote.getGlobal('projectManager').changeLabelColor(labelID, color)
+      fileIDs.forEach(element => { $("#"+element+".thumbnail").css({border: "8px solid" + color})});
+      $(event.target).parent().children('#color-input').val(color)
+      $(event.target).parent().prev().children('.label-color').css('background-color', color);
+    } else{
+      alertError("Duplicate Color","Color already used. Please select another color.")
+      return;
+    }
+  }
+
+  $(event.target).parent().toggle();  
 });
 
 function clickColor(r, g, b){
@@ -98,20 +98,21 @@ function clickColor(r, g, b){
 }
 
 $('.label-list').on('click','.label-color-cand-rgb', function(event) {
-    var color = $(event.target).parent().children('#color-input')[0].value;
-    
-    var labelColors = Object.values(remote.getGlobal('projectManager').labelColors)
-    if (labelColors.includes(color)){
-        alertError("Duplicate Color","Color already used. Please select another color.")
-        return;
+  var prev_color = rgb2hex($(event.target).parent().prev().children('.label-color').css("background-color"))
+  var color = $(event.target).parent().children('#color-input')[0].value;
+  var labelID = $(event.target).parent().prev().find('span').attr('id')
+
+  if (prev_color != color){
+    if (!remote.getGlobal('projectManager').colorAlreadyOccupied(color)){
+      var fileIDs = remote.getGlobal('projectManager').changeLabelColor(labelID, color)
+      fileIDs.forEach(element => { $("#"+element+".thumbnail").css({border: "8px solid" + color})});
+      $(event.target).parent().children('#color-input').val(color)
+      $(event.target).parent().prev().children('.label-color').css('background-color', color);
+    } else{
+      alertError("Duplicate Color","Color already used. Please select another color.")
+      return;
     }
+  }
 
-    $(event.target).parent().prev().children('.label-color').css('background-color',color);
-    $(event.target).parent().toggle();
-
-    var labelID = $(event.target).parent().prev().find('span').attr('id')
-    var fileIDs = remote.getGlobal('projectManager').changeLabelColor(labelID, color)
-    fileIDs.forEach(element => {
-      $("#"+element+".thumbnail").css({border: "8px solid" + color})
-    });
-  });
+  $(event.target).parent().toggle();  
+});

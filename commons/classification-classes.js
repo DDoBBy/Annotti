@@ -21,6 +21,18 @@ class classificationProjectManager extends projectManager{
     this.activated = null
   }
 
+  colorAlreadyOccupied(color){
+    return Object.values(this.labelColors).includes(color)
+  }
+
+  getColorbyLabelID(labelID){
+    return this.labelColors[labelID]
+  }
+
+  getLabelIDbyColor(color){
+    return Object.keys(this.labelColors).find(key => this.labelColors[key] === color);
+  }
+
   changeLabelColor(labelID, newColor){
     this.labelList[labelID].color = newColor
     this.labelColors[labelID] = newColor
@@ -46,7 +58,6 @@ class classificationProjectManager extends projectManager{
     fileIDs.forEach(fildID => {
       delete this.checkedFiles[fildID]
     })
-    console.log(fileIDs)
     return fileIDs
   }
 
