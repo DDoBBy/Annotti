@@ -1,33 +1,51 @@
 class file{
-    constructor(path){
-        this.path = path
-    }
+  constructor(path){
+    this.path = path
+  }
 }
 
 class label{
-    constructor(name, color, hotKey){
-        this.name = name
-        this.color = color
-        this.hotKey = hotKey
-        this.labelShow = true // blink 상태
-    }
+  constructor(name, color){
+    this.name = name
+    this.color = color
+    this.hotKey = null
+    this.labelShow = true   // blink status
+  }
+  setHotKey(hotKey){
+    this.hotKey = hotKey
+  }
 }
 
 class projectManager{
-    constructor(taskId){
-        this.taskId = taskId
-        this.workingDirectory = []
-        this.dataPaths = []
-    }
+  constructor(taskId){
+    this.taskId = taskId
 
-    setWorkingDirectory(workingDirectory){
-        this.workingDirectory = workingDirectory
-    }
+    this.workingDirectory = []
+    this.dataPaths = []
 
-    setDataPaths(dataPaths){
-        this.dataPaths = dataPaths
-    }
+    this.labelCounter = 0    // To make default label ID
+    this.labelColors = {}    // To check duplicated label color
+  }
 
+  setWorkingDirectory(workingDirectory){
+    this.workingDirectory = workingDirectory
+  }
+
+  setDataPaths(dataPaths){
+    this.dataPaths = dataPaths
+  }
+
+  changeLabelColor(labelID, newColor){
+    this.labelColors[labelID] = newColor
+  }
+
+  appendLabel(){
+    throw new Error('appendLabel() not implemented');
+  }
+
+  deleteLabel(){
+    throw new Error('deleteLabel() not implemented');
+  }
 }
 
 module.exports = { file, label, projectManager }

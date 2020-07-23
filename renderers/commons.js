@@ -51,8 +51,8 @@ async function searchSelectedDirs(ext){
 
 async function getAllDataPaths(){
   const imgExtensions = ['.png', '.jpg', '.jpeg']
-  let test = await searchSelectedDirs(imgExtensions)
-  console.log(test) // 모든 이미지 경로 array 필요한 사람 이 뒤로부터 쓰면 될듯
+  let dataPaths = await searchSelectedDirs(imgExtensions)
+  remote.getGlobal('projectManager').setDataPaths(dataPaths)
 }
 
 $(document).ready(getAllDataPaths)
