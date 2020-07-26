@@ -6,6 +6,8 @@ const { remote } = require('electron')
 let id;
 let img;
 let ratio; 
+let scaleFactor = 1.1;
+let lock_num = 0;
 
 function getThumbnailId(){
     console.log("HELLOO");
@@ -24,7 +26,7 @@ function getImageCanvas(thumbnailId){
 
 $(document).ready(getThumbnailId)
 
-// 줌, 패닝 기능 되는 캔버스 로드
+// load canvas with zoom in/out, and panning
 function drawImageOnCanvas(filePath){
     img.src = filePath; 
   
@@ -55,7 +57,6 @@ function drawImageOnCanvas(filePath){
     }, false);
     
     function redraw(){
-      
         // Clear the entire canvas
         var p1 = ctx.transformedPoint(0,0);
         var p2 = ctx.transformedPoint(canvas.width,canvas.height);
@@ -75,17 +76,17 @@ function drawImageOnCanvas(filePath){
   
     var dragStart,dragged;
   
-    // 마우스 클릭한 순간
-    canvas.addEventListener('mousedown',function(evt){
+    // the moment when mouse is clicked
+    var mouseDown = function(evt){
         document.body.style.mozUserSelect = document.body.style.webkitUserSelect = document.body.style.userSelect = 'none';
         lastX = evt.offsetX || (evt.pageX - canvas.offsetLeft);
         lastY = evt.offsetY || (evt.pageY - canvas.offsetTop);
         dragStart = ctx.transformedPoint(lastX,lastY);
         dragged = false;
-    },false);
+    }
   
-    // 클릭해서 움직이는 순간
-    canvas.addEventListener('mousemove',function(evt){
+    // the moment when mouse is moving after click
+    var mouseMove = function(evt){
         lastX = evt.offsetX || (evt.pageX - canvas.offsetLeft);
         lastY = evt.offsetY || (evt.pageY - canvas.offsetTop);
         dragged = true;
@@ -94,16 +95,15 @@ function drawImageOnCanvas(filePath){
             ctx.translate(pt.x-dragStart.x,pt.y-dragStart.y);
             redraw();
         }
-    },false);
+    }
   
-    // 마우스에서 손 떼는 순간
-    canvas.addEventListener('mouseup',function(evt){
+    // the moment when click event is finished
+    var mouseUp = function(evt){
         dragStart = null;
         //if (!dragged) zoom(evt.shiftKey ? -1 : 1 );
-    },false);
+    }
   
-    var scaleFactor = 1.1;
-  
+    // zoom in & out
     var zoom = function(clicks){
         var pt = ctx.transformedPoint(lastX,lastY);
         ctx.translate(pt.x,pt.y);
@@ -113,25 +113,50 @@ function drawImageOnCanvas(filePath){
         redraw();
     }
   
-    // 확대 
-    $('#zoom-in-button').on('click', function(){
-        zoom(1);
-    });
-  
-    // 축소
-    $('#zoom-out-button').on('click', function(){
-        zoom(-1);
-    });
-  
-    // 스크롤 올리면 확대 내리면 축소
+    // scroll (up: zoom-in) (down: zoom-out)
     var handleScroll = function(evt){
         var delta = evt.wheelDelta ? evt.wheelDelta/40 : evt.detail ? -evt.detail : 0;
         if (delta) zoom(delta);
         return evt.preventDefault() && false;
     };
   
+    // add moving events
+    canvas.addEventListener('mousedown', mouseDown, false);
+    canvas.addEventListener('mousemove', mouseMove, false);
+    canvas.addEventListener('mouseup', mouseUp, false);
+    // add scroll events
     canvas.addEventListener('DOMMouseScroll',handleScroll,false);
     canvas.addEventListener('mousewheel',handleScroll,false);
+
+    // button click events
+    $('#zoom-in-button').on('click', function(){
+        zoom(1);
+    });
+
+    $('#zoom-out-button').on('click', function(){
+        zoom(-1);
+    });
+
+    $('#lock-button').on('click', function(){
+        lock_num++;
+        if(lock_num % 2 == 1){
+            canvas.removeEventListener('mousedown', mouseDown, false);
+            canvas.removeEventListener('mousemove', mouseMove, false);
+            canvas.removeEventListener('mouseup', mouseUp, false);
+            canvas.removeEventListener('DOMMouseScroll',handleScroll,false);
+            canvas.removeEventListener('mousewheel',handleScroll,false);
+            $('#lock-button').text('un-lock');
+            $('#lock-button').css('background-color', 'green');
+        }else{
+            canvas.addEventListener('mousedown', mouseDown, false);
+            canvas.addEventListener('mousemove', mouseMove, false);
+            canvas.addEventListener('mouseup', mouseUp, false);
+            canvas.addEventListener('DOMMouseScroll',handleScroll,false);
+            canvas.addEventListener('mousewheel',handleScroll,false);
+            $('#lock-button').text('lock');
+            $('#lock-button').css('background-color', '#4CAF50');
+        }
+    })
 }
   
 function trackTransforms(ctx){

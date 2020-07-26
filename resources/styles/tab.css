@@ -15,8 +15,6 @@ div.working-tab-area{
 div.tab-image{
     width: 100%;
     height: 90%;
-    overflow-x: hidden;
-    overflow-y: scroll;
 }
 
 div.bottom-menu{
@@ -28,7 +26,7 @@ div.bottom-buttons{
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(5, 1fr);
 }
 
 div.right-menu{

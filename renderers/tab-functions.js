@@ -22,7 +22,6 @@ function openTab(thumbnailId){
         title: basename,
         src: "../templates/tab.html?id=" + thumbnailId,
         //src: "../templates/tab.html",
-        //src: "#sibal",
         visible: true,
         active: true,
 
@@ -31,6 +30,7 @@ function openTab(thumbnailId){
         }
     });
 
+    $('.etabs-tab-title').css("title", basename);
     
 
     tab.on("webview-ready", (tab) => {
