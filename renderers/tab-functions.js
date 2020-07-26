@@ -10,18 +10,23 @@ function openTab(thumbnailId){
     console.log(thumbnailId);
     var filePath = remote.getGlobal('projectManager').dataPaths[thumbnailId];
     var basename = path.basename(filePath);
-    // if (basename.length > 10){
-    //     basename = basename.slice(0, 5) + "..." + basename.slice(-5);
-    // }
-
 
     $('#working-area').css("display", "none");
     $('#tab-area').css("display", "block");
     
+    var ret_flag = false;
+    tabGroup.eachTab(function(cur){
+        if(cur.title == basename){
+            cur.activate();
+            ret_flag = true;
+        }
+    });
+    if(ret_flag) return;
+    
+
     tab = tabGroup.addTab({
         title: basename,
         src: "../templates/tab.html?id=" + thumbnailId,
-        //src: "../templates/tab.html",
         visible: true,
         active: true,
 
