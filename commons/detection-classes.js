@@ -52,13 +52,37 @@ class detectionLabelForSearch extends label{
 class detectionProjectManager extends projectManager{
     constructor(){
         super("OD")
-        this.odLabels = new Array()
-        this.odFileInfos = new Array()
+        //this.odLabels = new Array()
+        //this.odFileInfos = new Array()
+        this.labelList = {}
+        this.activated = null
     }
 
     append_odLabel(path, label){
         //this.odFileInfos[this.odFileInfos.indexOf(path)].labels.push(label)
         this.odLabels.push(label)
+    }
+
+    changeLabelColor(labelID, newColor){
+        this.labelList[labelID].color = newColor
+        this.labelColors[labelID] = newColor
+    }
+    
+    appendLabel(name, color){
+        this.labelCounter += 1
+    
+        if (name == null)
+            name = 'New Label ' + (this.labelCounter).toString()
+        
+        let newLabel = new detectionLabel(name, color)
+        this.labelList[this.labelCounter] = newLabel
+        this.labelColors[this.labelCounter] = color
+        return newLabel
+    }
+    
+    deleteLabel(labelID){
+        delete this.labelList[labelID]
+        delete this.labelColors[labelID]
     }
 }
 

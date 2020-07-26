@@ -14,7 +14,7 @@ function openTab(thumbnailId){
     $('#working-area').css("display", "none");
     $('#tab-area').css("display", "block");
     $('.etabs-tabgroup').css("max-width", $('#tab-area').width());
-    
+
     var ret_flag = false;
     tabGroup.eachTab(function(cur){
         if(cur.title == basename){
@@ -36,6 +36,7 @@ function openTab(thumbnailId){
         }
     });
 
+    tab.setPosition(1);
     $('.etabs-tab-title').css("title", basename);
     
 
