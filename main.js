@@ -1,6 +1,7 @@
 // Main process
 const { app, BrowserWindow, Menu, ipcMain } = require('electron')
-const appMenu = require('./main/menu.js')
+
+const menu = require('./main/menu.js')
 const selectDir = require('./main/select-file.js')
 const setProjectManager = require('./main/set-project-manager.js')
 
@@ -27,7 +28,7 @@ ipcMain.on('setProjectManager', setProjectManager)
 
 app.on('ready', () => {
   createWindow()
-  Menu.setApplicationMenu(appMenu)
+  Menu.setApplicationMenu(menu)
 })
 
 app.on('window-all-closed', () => {
