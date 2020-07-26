@@ -22,7 +22,7 @@ button {
 button.create-project{
   background-color:rgb(7, 83, 138)
 }
-button.view-files{
+button.left-img-buttons{
   width:100%;
   left:0; 
   right:0;
@@ -30,6 +30,7 @@ button.view-files{
   margin-right:auto;
   background-color:transparent
 }
+
 
 div.container{
   height: 100%;

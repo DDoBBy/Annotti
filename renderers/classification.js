@@ -40,3 +40,8 @@ $('.working-datas').on('click', '.thumbnail', function(event) {
     }
   }
 });
+
+
+$('#data-analysis').on('click', () => {
+  remote.getCurrentWindow().loadURL(`file://${__dirname}/../templates/classification-analysis.html`)
+});

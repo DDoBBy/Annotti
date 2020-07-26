@@ -33,6 +33,10 @@ class classificationProjectManager extends projectManager{
     return Object.keys(this.labelColors).find(key => this.labelColors[key] === color);
   }
 
+  getLabelInfos(){
+    return Object.values(this.labelList)
+  }
+
   changeLabelColor(labelID, newColor){
     this.labelList[labelID].color = newColor
     this.labelColors[labelID] = newColor
