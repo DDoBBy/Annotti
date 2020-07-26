@@ -1,35 +1,41 @@
 let $ = require('jquery')
+const { remote } = require('electron')
+const menu = remote.Menu
+var shortcutArray = new Array()
 
-$(function(){
-	var $write = $('#write'),
-		shift = false,
-		capslock = false;
-	
-	// The rest of the code goes here.
-});
+function getLabels(){
+    var labelNo = remote.getGlobal('projectManager').labelCounter
+    var labelList = Object.values(remote.getGlobal('projectManager').labelList)
+    for(label in labelList){
+        var labelColor = labelList[label].color
+        var labelName = labelList[label].name
+        var labelTemplate = setLabelDiv(labelName, labelColor, label)
+        $(".list-label").append(labelTemplate)
+    }
+}
 
 $('#keyboard li').click(function(){
-	var $this = $(this), character = $this.html(); // If it's a lowercase letter, nothing happens to this variable
-    console.log(character)
+	var $this = $(this), character = $this.html();
     
     var selectedKey = "<div class = 'selected-key'>"+character+"</div>"
     $("#selected").append(selectedKey);
-	// Code for processing the key.
+
+    shortcutArray.push(character);
 });
 
-// // Delete
-// if ($this.hasClass('delete')) {
-// 	var html = $write.html();
-	
-// 	$write.html(html.substr(0, html.length - 1));
-// 	return false;
-// }
+function setLabelDiv(labelName, labelColor, labelID){
+    var labelTemplate = "<div class = 'label' style='background-color: "+labelColor+"'>"+labelName+"<input type='radio' class='selected-label' value='"+labelID+"' "+"/>"+"</div>"
+    return labelTemplate
+}
 
-// $('.ok').on('click', () => {
-//     let shortcut = $('.kb')[0].value;
-//     console.log(shortcut);
+//OK 버튼을 어디에 둘까...?
+$('.ok').on('click', () => {
+    if(shortcutArray.includes("Ctrl")){
+        shortcutArray.splice(shortcutArray.indexOf("Ctrl"),1,"CmdOrCtrl")
+    }
+    var labelID = $("input:radio[class='selected-label']:checked"). val( );
+    var label = Object.values(remote.getGlobal('projectManager').labelList)[labelID]
+    label.setHotKey(shortcutArray.join('+'))
+  });
 
-//     var appendTemplate = "<div class = 'label-item'">+
-//     ""+"</div>"
-
-//   });
+$(document).ready(getLabels)

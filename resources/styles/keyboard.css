@@ -7,8 +7,9 @@ font: 71%/1.5 Verdana, Sans-Serif;
 background: #eee;
 }
 #container {
-margin: 100px auto;
+margin:50px auto;
 width: 688px;
+position: relative;
 }
 #write {
 margin: 0 0 5px;
@@ -34,24 +35,30 @@ text-align: center;
 background: #fff;
 border: 1px solid #f9f9f9;
 }
-.capslock, .tab, .left-shift {
+.capslock, .tab, .left-shift, .left-ctrl{
 clear: left;
 }
-    #keyboard .tab, #keyboard .delete {
-    width: 70px;
-    }
-    #keyboard .capslock {
-    width: 80px;
-    }
-    #keyboard .return {
-    width: 77px;
-    }
-    #keyboard .left-shift {
+#keyboard .tab, #keyboard .delete {
+width: 70px;
+}
+#keyboard .capslock {
+width: 80px;
+}
+#keyboard .return {
+width: 77px;
+}
+#keyboard .left-shift {
+width: 95px;
+}
+#keyboard .right-shift {
+width: 109px;
+}
+#keyboard .left-ctrl{
     width: 95px;
-    }
-    #keyboard .right-shift {
+}
+#keyboard .right-ctrl{
     width: 109px;
-    }
+}
 .lastitem {
 margin-right: 0;
 }
@@ -59,8 +66,7 @@ margin-right: 0;
 text-transform: uppercase;
 }
 #keyboard .space {
-clear: left;
-width: 681px;
+width: 463px;
 }
 .on {
 display: none;
@@ -72,9 +78,30 @@ left: 1px;
 border-color: #e5e5e5;
 cursor: pointer;
 }
-
+#selected{
+    width:100%;
+    height: 50px;
+    padding: 10px;
+}
 .selected-key{
     background-color: #ffffff;
+    display: inline-block;
     width: 100px;
-    height: 30px;
+    height: 50px;
+    margin-right: 5px;
+    margin-left: 5px;
 }
+
+.list-label{
+    position: absolute;
+    top: 400px;
+    width: 300px;
+    margin:0 auto;
+}
+
+.label{
+    position: relative;
+    height: 50px;
+    margin: 10px;
+}
+

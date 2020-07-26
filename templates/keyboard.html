@@ -6,9 +6,9 @@
         <link rel="stylesheet" type="text/css" href="../resources/styles/keyboard.css" />
     </head>
     <body>
-     
+    <div id="selected"></div>
+    <button class="ok">OK</button>
     <div id="container">
-        <div id="selected"></div>
         <ul id="keyboard">
             <li class="symbol"><span class="off">`</span><span class="on">~</span></li>
             <li class="symbol"><span class="off">1</span><span class="on">!</span></li>
@@ -51,7 +51,7 @@
             <li class="symbol"><span class="off">;</span><span class="on">:</span></li>
             <li class="symbol"><span class="off">'</span><span class="on">&quot;</span></li>
             <li class="return lastitem">return</li>
-            <li class="left-shift">shift</li>
+            <li class="left-shift">Shift</li>
             <li class="letter">z</li>
             <li class="letter">x</li>
             <li class="letter">c</li>
@@ -62,11 +62,13 @@
             <li class="symbol"><span class="off">,</span><span class="on">&lt;</span></li>
             <li class="symbol"><span class="off">.</span><span class="on">&gt;</span></li>
             <li class="symbol"><span class="off">/</span><span class="on">?</span></li>
-            <li class="right-shift lastitem">shift</li>
-            <li class="space lastitem">&nbsp;</li>
+            <li class="right-shift lastitem">Shift</li>
+            <li class="left-ctrl">Ctrl</li>
+            <li class="space">&nbsp;</li>
+            <li class="right-ctrl lastitem">Ctrl</li>
         </ul>
     </div>
-
+    <div class="list-label"></div>
     <script src="../renderers/shortcut.js"></script>
     </body>
 
