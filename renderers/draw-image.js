@@ -4,7 +4,8 @@ const path = require('path')
 const { remote } = require('electron')
 
 let id;
-let img; 
+let img;
+let ratio; 
 
 function getThumbnailId(){
     console.log("HELLOO");
@@ -33,17 +34,24 @@ function drawImageOnCanvas(filePath){
   
     var w = $('#tab-image').width();
     var h = $('#tab-image').height();
-    canvas.width = w;
-    canvas.height = h;
-    $('#img-canvas').css("width", "100%");
-    $('#img-canvas').css("height", "100%");
+    
     img.addEventListener('load', function(){
-        var ratio = this.height / this.width;
-        // if(ratio < 1.0) this.height = w * ratio;
-        // else this.width = h * (1 / ratio);
-
-        console.log("w: " + this.width + " h: " + this.height);
-        ctx.drawImage(img,0,0);
+        canvas.width = w;
+        canvas.height = h;
+        ratio = this.height / this.width;
+        if(ratio < 1.0) {
+            this.width = w;
+            this.height = w * ratio;
+            ctx.drawImage(img,0,(h-this.height)/2, this.width, this.height);
+        }else {
+            this.height = h;
+            this.width = h * (1 / ratio);
+            ctx.drawImage(img,(w-this.width)/2,0, this.width, this.height);
+        }
+        w = this.width;
+        h = this.height;
+        //console.log("w: " + this.width + " h: " + this.height);
+        //ctx.drawImage(img,0,0, this.width, this.height);
     }, false);
     
     function redraw(){
@@ -58,8 +66,8 @@ function drawImageOnCanvas(filePath){
         ctx.clearRect(0,0,canvas.width,canvas.height);
         ctx.restore();
     
-        ctx.drawImage(img,0,0);
-  
+        if(ratio < 1.0) ctx.drawImage(img,0,(canvas.height-h)/2, w, h);
+        else ctx.drawImage(img,(canvas.width-w)/2,0, w, h);
     }
     redraw();
   
