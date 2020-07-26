@@ -22,7 +22,7 @@ button {
 button.create-project{
   background-color:rgb(7, 83, 138)
 }
-button.view-files{
+button.left-img-buttons{
   width:100%;
   left:0; 
   right:0;
@@ -31,9 +31,13 @@ button.view-files{
   background-color:transparent
 }
 
+
 div.container{
   height: 100%;
   display: flex;
+  margin: 0;
+  padding: 0;
+  max-width: inherit;
 }
 
 div.left-menu{
@@ -55,7 +59,7 @@ div.working-datas{
   background-color: aliceblue;
   flex: 1;
 }
-div.thumbnail{
+div.img-info{
   width: 100px;
   height: 100px;
   background-color: aliceblue;

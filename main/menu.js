@@ -126,6 +126,4 @@ if (process.platform === 'darwin') {
 }
 
 var menu = Menu.buildFromTemplate(arrMenu);
-
-// export 없으면 다른 파일에서 reference 안됨 main.js에서 쓰려고 exports 해둠
 module.exports = menu;
