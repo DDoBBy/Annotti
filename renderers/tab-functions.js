@@ -7,7 +7,6 @@ function readyTab(){
 }
 
 function openTab(thumbnailId){
-    console.log(thumbnailId);
     var filePath = remote.getGlobal('projectManager').dataPaths[thumbnailId];
     var basename = path.basename(filePath);
 
@@ -43,7 +42,7 @@ function openTab(thumbnailId){
     tab.on("webview-ready", (tab) => {
         const webview = document.querySelector('webview')
         webview.addEventListener('console-message', (e) => {
-            console.log('Guest page logged a message:', e.message)
+            //console.log('Guest page logged a message:', e.message)
         })
     });
 

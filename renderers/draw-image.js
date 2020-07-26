@@ -6,7 +6,7 @@ const { remote } = require('electron')
 let id;
 let img;
 let ratio; 
-let scaleFactor = 1.1;
+let scaleFactor = 1.05;
 let lock_num = 0;
 
 function getThumbnailId(){
@@ -116,7 +116,9 @@ function drawImageOnCanvas(filePath){
     // scroll (up: zoom-in) (down: zoom-out)
     var handleScroll = function(evt){
         var delta = evt.wheelDelta ? evt.wheelDelta/40 : evt.detail ? -evt.detail : 0;
-        if (delta) zoom(delta);
+        //if (delta) zoom(delta);
+        if(delta > 0) zoom(1);
+        else zoom(-1)
         return evt.preventDefault() && false;
     };
   
@@ -125,7 +127,7 @@ function drawImageOnCanvas(filePath){
     canvas.addEventListener('mousemove', mouseMove, false);
     canvas.addEventListener('mouseup', mouseUp, false);
     // add scroll events
-    canvas.addEventListener('DOMMouseScroll',handleScroll,false);
+    canvas.addEventListener('DOMMouseScroll',handleScroll,false); 
     canvas.addEventListener('mousewheel',handleScroll,false);
 
     // button click events
