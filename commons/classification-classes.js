@@ -34,7 +34,7 @@ class classificationProjectManager extends projectManager{
   }
 
   getLabelInfos(){
-    return Object.values(this.labelList)
+    return this.labelList
   }
 
   changeLabelColor(labelID, newColor){
@@ -44,14 +44,13 @@ class classificationProjectManager extends projectManager{
   }
 
   appendLabel(name, color){ // Add new label to project
-    this.labelCounter += 1
-
     if (name == null)
-        name = 'New Label ' + (this.labelCounter).toString()
+        name = 'New Label ' + (this.labelCounter+1).toString()
     
     var newLabel = new classificationLabel(name, color)
     this.labelList[this.labelCounter] = newLabel
     this.labelColors[this.labelCounter] = color
+    this.labelCounter += 1
     return newLabel
   }
 

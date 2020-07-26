@@ -41,7 +41,16 @@ $('.working-datas').on('click', '.thumbnail', function(event) {
   }
 });
 
-
 $('#data-analysis').on('click', () => {
   remote.getCurrentWindow().loadURL(`file://${__dirname}/../templates/classification-analysis.html`)
+});
+
+$('#save').on('click', () => {
+  var labelInfos = remote.getGlobal('projectManager').getLabelInfos()
+  var names = {}
+  for ([key, value] of Object.entries(labelInfos)) {
+    names[key] = value.name
+  }  
+  jsonInfo = JSON.stringify(names)
+  fs.writeFileSync('test.json', jsonInfo)
 });

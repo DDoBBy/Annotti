@@ -26,7 +26,7 @@ $('#add-label').on('click', () => {
       randomColor=generateRandomColor();
   }
 
-  var labelID = remote.getGlobal('projectManager').labelCounter + 1
+  var labelID = remote.getGlobal('projectManager').labelCounter
   var newLabel = remote.getGlobal('projectManager').appendLabel(null, randomColor)
   
   var appendTemplate = "<div class='appendLabel'>"+

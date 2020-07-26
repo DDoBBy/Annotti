@@ -19,7 +19,7 @@ function showAnalytics(){
   var backgroundColors = []
   var borderColors = []
 
-  var labelInfos = remote.getGlobal('projectManager').getLabelInfos()
+  var labelInfos = Object.values(remote.getGlobal('projectManager').getLabelInfos())
   labelInfos.forEach(element => {
     graphLables.push(element.name)
     datas.push(Object.keys(element.files).length)
