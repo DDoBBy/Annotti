@@ -13,6 +13,7 @@ function openTab(thumbnailId){
 
     $('#working-area').css("display", "none");
     $('#tab-area').css("display", "block");
+    $('.etabs-tabgroup').css("max-width", $('#tab-area').width());
     
     var ret_flag = false;
     tabGroup.eachTab(function(cur){

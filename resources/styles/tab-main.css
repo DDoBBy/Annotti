@@ -74,17 +74,26 @@ a.img-name{
 div.tab-area{
     height: 100%;
     width: 100%;
+    max-width: 100%;
     flex: 1;
     display: none;
 }
 .etabs-tabgroup.visible{
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
     background-color: transparent;
 }
 .etabs-tab{
+    display: inline-block;
+    float: none;
     background: none;
     background-color: white;
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
+}
+.etabs-tab.visible{
+    float: none;
 }
 .etabs-tab.visible.active{
     background-color: lemonchiffon;
@@ -104,4 +113,9 @@ div.tab-area{
 button.etabs-tab-button-close{
     width: 20px;
     padding: 0;
+}
+
+::-webkit-scrollbar {
+    width: 0px;  
+    height: 0px;  
 }
