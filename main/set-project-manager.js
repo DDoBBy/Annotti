@@ -6,7 +6,7 @@ function setProjectManager(event, taskId){
   if (taskId == "IC") // Image classification
     global.projectManager = new classificationProjectManager()
   else if (taskId == "OD") // Object detection
-    console.log("OD")
+    global.projectManager = new detectionProjectManager()
   else if (taskId == "SS") // Symantic segmentation
     console.log("SS")
   else if (taskId == "OCR") // Optical character recognition
