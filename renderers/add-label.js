@@ -38,7 +38,6 @@ $('#add-label').on('click', () => {
     appendTemplate += "<input type='checkbox' class='activate' id='"+labelID+"'>" + "<span class='label-counter' id='"+labelID+"'>"+"0</span>"
   
   appendTemplate += "<div class='del' id='del'>X</div></div>"+
-    "</div>"+
     "<div class = 'select-color bubble' style='display: none;'>"+
       "<span class='label-color-cand label-color-circle' style='background-color: #10b1fe;'></span>"+
       "<span class='label-color-cand label-color-circle' style='background-color: #3fc56b;'></span>"+
@@ -61,7 +60,7 @@ $('#add-label').on('click', () => {
 
 // Click color selector
 $('.label-list').on('click','.label-color', function(event) {
-    $(event.target).parent().next().toggle();   
+  $(event.target).parent().next().toggle();   
 });
 
 // Click remove button
