@@ -1,17 +1,19 @@
+// const {remote} = require('electron')
 let $ = require('jquery')
 const fs = require('fs')
 const path = require('path')
 const { remote } = require('electron')
+const { readyTab, openTab } = require('../renderers/tab-functions.js')
 
 let id = 0
 
-function composeImgElements(filePath, imgInfoId){
+function composeImgElements(filePath, thumbnailId){
   var basename = path.basename(filePath)
   if (basename.length > 10){
     basename = basename.slice(0, 5) + "..." + basename.slice(-5)
   }
-  var element = '<div class="img-info" id="'+imgInfoId+'">'+
-  '<img class="thumbnail" id="'+imgInfoId+'" src="'+filePath+'" style="display: block;width:80px; height:80px"></img>'+
+  var element = '<div class="thumbnail" id="thumbnail-'+thumbnailId+'" onclick="openTab(' + thumbnailId + ')">'+
+  '<img src="'+filePath+'" style="display: block;width:80%; height:80%"></img>'+
   '<a class"img-name">'+basename+"</a></div>"
   $('#all-imgs').append(element)
 }
@@ -49,9 +51,16 @@ async function searchSelectedDirs(ext){
 }
 
 async function getAllDataPaths(){
-  const imgExtensions = ['.png', '.jpg', '.jpeg']
-  let dataPaths = await searchSelectedDirs(imgExtensions)
-  remote.getGlobal('projectManager').setDataPaths(dataPaths)
+    readyTab()
+    const imgExtensions = ['.png', '.jpg', '.jpeg']
+    let dataPaths = await searchSelectedDirs(imgExtensions)
+    remote.getGlobal('projectManager').setDataPaths(dataPaths)
 }
 
 $(document).ready(getAllDataPaths)
+
+// show grid view of images
+$('.view-files').on('click', function(){
+    $('#working-area').css("display", "grid");
+    $('#tab-area').css("display", "none");    
+});
