@@ -24,7 +24,11 @@
     "electron": "^9.1.0"
   },
   "dependencies": {
-    "glob": "^7.1.6",
-    "jquery": "^3.5.1"
+    "electron-tabs": "^0.15.0",
+    "bootstrap": "^4.5.0",
+    "electron-chartjs": "^1.0.0",
+    "jquery": "^3.5.1",
+    "jquery-ui": "^1.12.1",
+    "popper.js": "^1.16.1"
   }
 }
