@@ -1,6 +1,6 @@
 let $ = require('jquery')
 const { remote } = require('electron')
-const menu = remote.Menu
+const { app, globalShortcut } = remote
 var shortcutArray = new Array()
 
 function getLabels(){
@@ -36,6 +36,18 @@ $('.ok').on('click', () => {
     var labelID = $("input:radio[class='selected-label']:checked"). val( );
     var label = Object.values(remote.getGlobal('projectManager').labelList)[labelID]
     label.setHotKey(shortcutArray.join('+'))
+    console.log(label.hotKey)
+
+    //여기에 단축키 설정하는 코드를 넣을까?
+
+    app.whenReady().then(() => {
+        globalShortcut.register(label.hotKey, () => {
+            console.log('HIHI')
+        })
+    })
+
+    // Mousetrap.bind(label.hotKey, () => { console.log('HOTKEY CLICKED') })
+
   });
 
 $(document).ready(getLabels)
