@@ -1,0 +1,121 @@
+html{
+    height: 100%;
+}
+body{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+button.create-project{
+    background-color:rgb(7, 83, 138)
+}
+button.view-files{
+    width:100%;
+    left:0; 
+    right:0;
+    margin-left:auto;
+    margin-right:auto;
+    background-color:transparent
+}
+
+div.container{
+    height: 100%;
+    display: flex;
+}
+
+div.left-menu{
+    height: 100%;
+    flex-basis: 70px;
+    background-color: rgb(71, 83, 138);
+}
+
+div.working-area{
+    height: 100%;
+    background-color: aliceblue;
+    flex: 1;
+}
+div.working-area.h1{
+    height: 10%;
+}
+
+div.working-datas{
+    height: 90%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    background-color: aliceblue;
+    flex: 1;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+div.thumbnail{
+    width: 100px;
+    height: 100px;
+    background-color: aliceblue;
+}
+a.img-name{
+    align-content: center;
+}
+  
+
+div.tab-area{
+    height: 100%;
+    width: 100%;
+    max-width: 100%;
+    flex: 1;
+    display: none;
+}
+.etabs-tabgroup.visible{
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    background-color: transparent;
+}
+.etabs-tab{
+    display: inline-block;
+    float: none;
+    background: none;
+    background-color: white;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+.etabs-tab.visible{
+    float: none;
+}
+.etabs-tab.visible.active{
+    background-color: lemonchiffon;
+}
+.etabs-tab-title{
+    width: 150px;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.etabs-views{
+    width: 100%;
+    display: block;
+    border-top: 0;
+}
+button.etabs-tab-button-close{
+    width: 20px;
+    padding: 0;
+}
+
+::-webkit-scrollbar {
+    width: 0px;  
+    height: 0px;  
+}
