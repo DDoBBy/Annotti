@@ -21,10 +21,6 @@ class classificationProjectManager extends projectManager{
     this.activated = null
   }
 
-  colorAlreadyOccupied(color){
-    return Object.values(this.labelColors).includes(color)
-  }
-
   getColorbyLabelID(labelID){
     return this.labelColors[labelID]
   }
@@ -37,12 +33,6 @@ class classificationProjectManager extends projectManager{
     return this.labelList
   }
 
-  changeLabelColor(labelID, newColor){
-    this.labelList[labelID].color = newColor
-    this.labelColors[labelID] = newColor
-    return Object.keys(this.labelList[labelID].files)
-  }
-
   appendLabel(name, color){ // Add new label to project
     if (name == null)
         name = 'New Label ' + (this.labelCounter+1).toString()
@@ -50,6 +40,7 @@ class classificationProjectManager extends projectManager{
     var newLabel = new classificationLabel(name, color)
     this.labelList[this.labelCounter] = newLabel
     this.labelColors[this.labelCounter] = color
+    this.labelNames[this.labelCounter] = name
     this.labelCounter += 1
     return newLabel
   }
@@ -58,9 +49,8 @@ class classificationProjectManager extends projectManager{
     var fileIDs = Object.keys(this.labelList[labelID].files)
     delete this.labelList[labelID]
     delete this.labelColors[labelID]
-    fileIDs.forEach(fildID => {
-      delete this.checkedFiles[fildID]
-    })
+    delete this.labelNames[labelID]
+    fileIDs.forEach(fildID => { delete this.checkedFiles[fildID] })
     return fileIDs
   }
 
@@ -90,13 +80,30 @@ class classificationProjectManager extends projectManager{
     delete this.checkedFiles[fileID]
   }
  
-  changeFileLabel(labelID, fileID, filePath){
+  changeFileLabel(labelID, fileID, newFilePath){
     var prevLabel = this.checkedFiles[fileID]
     delete this.labelList[prevLabel].files[fileID]
 
-    var newFile = new classificationFile(filePath)
+    var newFile = new classificationFile(newFilePath)
     this.labelList[labelID].files[fileID] = newFile
     this.checkedFiles[fileID] = labelID
+  }
+  
+  colorAlreadyOccupied(color){
+    return Object.values(this.labelColors).includes(color)
+  }
+  changeLabelColor(labelID, newColor){
+    this.labelList[labelID].color = newColor
+    this.labelColors[labelID] = newColor
+    return Object.keys(this.labelList[labelID].files)
+  }
+  
+  nameAlreadyOccupied(name){
+    return Object.values(this.labelNames).includes(name)
+  }
+  changeLabelName(labelID, newName){
+    this.labelList[labelID].name = newName
+    this.labelNames[labelID] = newName
   }
 
 }

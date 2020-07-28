@@ -25,6 +25,7 @@ class projectManager{
 
     this.labelCounter = 0    // To make default label ID
     this.labelColors = {}    // To check duplicated label color
+    this.labelNames = {}     // To check duplicated label name
   }
 
   setWorkingDirectory(workingDirectory){
@@ -37,6 +38,10 @@ class projectManager{
 
   changeLabelColor(labelID, newColor){
     this.labelColors[labelID] = newColor
+  }
+
+  changeLabelName(labelID, newName){
+    this.labelNames[labelID] = newName
   }
 
   appendLabel(){
