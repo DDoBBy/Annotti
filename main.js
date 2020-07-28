@@ -1,5 +1,5 @@
 // Main process
-const { app, BrowserWindow, Menu, ipcMain } = require('electron')
+const { app, BrowserWindow, Menu, ipcMain, globalShortcut } = require('electron')
 
 const menu = require('./main/menu.js')
 const selectDir = require('./main/select-file.js')
@@ -25,6 +25,13 @@ function createWindow () {
 
 ipcMain.on('selectDir', selectDir)
 ipcMain.on('setProjectManager', setProjectManager)
+ipcMain.on('hotkeySetting',function(event,labelID, hotKey){
+  console.log(labelID)
+  console.log(hotKey)
+  globalShortcut.register(hotKey, () => {
+        console.log('HIHI')
+  })
+})
 
 app.on('ready', () => {
   createWindow()

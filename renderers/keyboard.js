@@ -1,6 +1,7 @@
 
-const electron = require('electron')
-const BrowserWindow = electron.remote.BrowserWindow
+// const electron = require('electron')
+const BrowserWindow = remote.BrowserWindow
+const { ipcMain } = remote.ipcMain
 
 function createVirtualWindow() {
     /* Your setup code here */
