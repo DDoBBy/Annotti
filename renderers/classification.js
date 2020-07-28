@@ -42,6 +42,8 @@ $('.working-datas').on('click', '.thumbnail', function(event) {
 });
 
 $('#data-analysis').on('click', () => {
+  !fs.existsSync('logs') && fs.mkdirSync('logs');
+  fs.writeFileSync('logs/log-classification.html', document.documentElement.outerHTML)
   remote.getCurrentWindow().loadURL(`file://${__dirname}/../templates/classification-analysis.html`)
 });
 
@@ -52,5 +54,6 @@ $('#save').on('click', () => {
     names[key] = value.name
   }  
   jsonInfo = JSON.stringify(names)
-  fs.writeFileSync('test.json', jsonInfo)
+  !fs.existsSync('results') && fs.mkdirSync('results');
+  fs.writeFileSync('results/classification.json', jsonInfo)
 });

@@ -54,4 +54,4 @@ async function getAllDataPaths(){
   remote.getGlobal('projectManager').setDataPaths(dataPaths)
 }
 
-$(document).ready(getAllDataPaths)
+$('document').ready(getAllDataPaths)

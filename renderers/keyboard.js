@@ -9,7 +9,8 @@ function createVirtualWindow() {
         height: 600,
         show: false,
         webPreferences:{
-            nodeIntegration : true
+            nodeIntegration : true,
+            enableRemoteModule: true,
         }
     })
 
@@ -22,6 +23,5 @@ function createVirtualWindow() {
         mainWindow = null
     })
 }
-$('#keyboard').on('click', () => {
-    createVirtualWindow();
-  }) 
+
+$('#keyboard').on('click', createVirtualWindow)

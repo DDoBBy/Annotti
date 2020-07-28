@@ -23,9 +23,10 @@ $('#create-project').on('click', () => {
   else{
     ipcRenderer.sendSync('setProjectManager', taskId)
     remote.getGlobal('projectManager').setWorkingDirectory(workingDirectory)
-  if(taskId == "IC")
-    remote.getCurrentWindow().loadURL(`file://${__dirname}/../templates/classification.html`)
-  else
-    remote.getCurrentWindow().loadURL(`file://${__dirname}/../templates/tab-default.html`)
+    
+    if(taskId == "IC")
+      remote.getCurrentWindow().loadURL(`file://${__dirname}/../templates/classification.html`)
+    else
+      remote.getCurrentWindow().loadURL(`file://${__dirname}/../templates/tab-default.html`)
   }
 }) 

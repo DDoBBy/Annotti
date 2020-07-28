@@ -40,7 +40,10 @@ function showAnalytics(){
       }]
     }
   });
-
 }
 
 $(document).ready(showAnalytics)
+
+$('.go-back').on('click', () => {
+  remote.getCurrentWindow().loadURL(`file://${__dirname}/../logs/log-classification.html`)
+});
