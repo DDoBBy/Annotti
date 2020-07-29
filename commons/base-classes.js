@@ -32,8 +32,11 @@ class projectManager{
     this.workingDirectory = workingDirectory
   }
 
-  setDataPaths(dataPaths){
+  setDataPaths(dataPaths){        // Legacy
     this.dataPaths = dataPaths
+  }
+  appendDataPaths(dataPaths){
+    this.dataPaths = this.dataPaths.concat(dataPaths)
   }
 
   changeLabelColor(labelID, newColor){

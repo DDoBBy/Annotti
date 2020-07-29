@@ -2,8 +2,10 @@ let $ = require('jquery')
 const fs = require('fs')
 const path = require('path')
 const { remote } = require('electron')
+const { data } = require('jquery')
 
 let id = 0
+const imgExtensions = ['.png', '.jpg', '.jpeg', '.PNG', '.JPG', '.JPEG']
 
 function composeImgElements(filePath, imgInfoId){
   var basename = path.basename(filePath)
@@ -16,42 +18,45 @@ function composeImgElements(filePath, imgInfoId){
   $('#all-imgs').append(element)
 }
 
-async function* fileWaker(ext, dir) {
-  const dirents = await fs.promises.readdir(dir, { withFileTypes: true });
-  for (const dirent of dirents) {
-    const res = path.resolve(dir, dirent.name)
+function composeFolderElements(folderPath){
+  var basename = path.basename(folderPath)
+  var element = '<div class="folder-info">'+
+  '<img class="folder-thumbnail" id="'+folderPath+'" src="../resources/imgs/folder.png" style="display: block;width:80px; height:80px"></img>'+
+  '<a class"img-name">'+basename+"</a></div>"
+  $('#all-imgs').append(element)
+}
+
+
+async function readFolder(folderPath) {
+  var dataPaths = []
+  var dir = await fs.promises.opendir(folderPath);
+  for await (const dirent of dir) {
+    dataPath = path.resolve(folderPath, dirent.name)
     if (dirent.isDirectory())
-      yield* fileWaker(ext, res)
-    else {
-      if(ext.includes(path.extname(res))){
-        composeImgElements(res, id++)
-        yield res
+      composeFolderElements(dataPath)
+    else{
+      if(imgExtensions.includes(path.extname(dataPath))){
+        composeImgElements(dataPath, id++)
+        dataPaths.push(dataPath)
       }
     }
   }
-}
-
-async function getDataPathFromDir(ext, dir){
-  let dataPaths = []
-  for await (const f of fileWaker(ext, dir))
-    dataPaths.push(f)
+  remote.getGlobal('projectManager').appendDataPaths(dataPaths)
   return dataPaths
 }
 
-async function searchSelectedDirs(ext){
-  let dataPaths = []
-  let workingDirectory = remote.getGlobal('projectManager').workingDirectory
-  for (i=0;i<workingDirectory.length;i++){
-    let paths = await getDataPathFromDir(ext, workingDirectory[i])
-    dataPaths = dataPaths.concat(paths)
+
+async function showSelectedDirectories(){
+  var workingDirectory = remote.getGlobal('projectManager').workingDirectory
+  for (const folderPath of workingDirectory){
+    await composeFolderElements(folderPath)
   }
-  return dataPaths
 }
 
-async function getAllDataPaths(){
-  const imgExtensions = ['.png', '.jpg', '.jpeg']
-  let dataPaths = await searchSelectedDirs(imgExtensions)
-  remote.getGlobal('projectManager').setDataPaths(dataPaths)
-}
+$('.working-datas').on('click', '.folder-thumbnail', function(event) {
+  var folderPath = $(event.target).attr('id')
+  readFolder(folderPath)
+});
 
-$('document').ready(getAllDataPaths)
+
+$('document').ready(showSelectedDirectories)
