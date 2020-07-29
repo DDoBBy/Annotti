@@ -42,7 +42,7 @@ function openTab(thumbnailId){
     tab.on("webview-ready", (tab) => {
         const webview = document.querySelector('webview')
         webview.addEventListener('console-message', (e) => {
-            //console.log('Guest page logged a message:', e.message)
+            console.log('Guest page logged a message:', e.message)
         })
     });
 

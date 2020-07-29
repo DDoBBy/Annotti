@@ -2,7 +2,9 @@ let $ = require('jquery')
 const {remote, ipcRenderer} = require('electron')
 const { alertError } = require('../commons/utils.js')
 
-let workingDirectory =  ["/Users/sinhyeonji/image", "/Users/sinhyeonji/image"]
+//let workingDirectory =  ["/Users/yeon/Downloads/bwh", "/Users/yeon/Downloads/modify_bwh_w"]
+let workingDirectory =  ["/Users/hansangmee/Desktop/AnnottiTestData", "/Users/hansangmee/Desktop/AnnottiTestData"]
+//let workingDirectory = ["C:\\Users\\user\\Desktop\\배경화면\\bts", "C:\\Users\\user\\Desktop\\배경화면\\bts"]
 
 // Click select directory button
 $('#select-dir').on('click', () => {
