@@ -150,7 +150,7 @@ function drawImageOnCanvas(filePath){
             ctx.drawImage(img,(canvas.width-w)/2,0, w, h);
         }
     }
-
+    
     // button click events
     $('#zoom-in-button').on('click', function(){
         zoom(1);
