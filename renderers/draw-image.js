@@ -10,7 +10,6 @@ let scaleFactor = 1.05;
 let lock_num = 0;
 
 function getThumbnailId(){
-    console.log("HELLOO");
     var tmp = location.href.split("?");
     var data = tmp[1].split("=");
     id = data[1];
@@ -130,6 +129,28 @@ function drawImageOnCanvas(filePath){
     canvas.addEventListener('DOMMouseScroll',handleScroll,false); 
     canvas.addEventListener('mousewheel',handleScroll,false);
 
+    $(window).resize(function(){
+        var resizeTimer = null;
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(getFullView, 100);
+    })
+
+    var getFullView = function(){
+        canvas.width = $('#tab-image').width();
+        canvas.height = $('#tab-image').height();
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+
+        if(ratio < 1.0) {
+            w = canvas.width;
+            h = w * ratio;
+            ctx.drawImage(img,0,(canvas.height-h)/2, w, h);
+        } else {
+            h = canvas.height;
+            w = h * (1 / ratio);
+            ctx.drawImage(img,(canvas.width-w)/2,0, w, h);
+        }
+    }
+    
     // button click events
     $('#zoom-in-button').on('click', function(){
         zoom(1);
@@ -138,6 +159,10 @@ function drawImageOnCanvas(filePath){
     $('#zoom-out-button').on('click', function(){
         zoom(-1);
     });
+
+    $('#back-to-original-button').on('click', function(){
+        getFullView();
+    })
 
     $('#lock-button').on('click', function(){
         lock_num++;
