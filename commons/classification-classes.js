@@ -21,6 +21,7 @@ class classificationProjectManager extends projectManager{
     this.activated = null
   }
 
+<<<<<<< HEAD
   getColorbyLabelID(labelID){
     return this.labelColors[labelID]
   }
@@ -33,6 +34,30 @@ class classificationProjectManager extends projectManager{
     return this.labelList
   }
 
+=======
+  colorAlreadyOccupied(color){
+    return Object.values(this.labelColors).includes(color)
+  }
+
+  getColorbyLabelID(labelID){
+    return this.labelColors[labelID]
+  }
+
+  getLabelIDbyColor(color){
+    return Object.keys(this.labelColors).find(key => this.labelColors[key] === color);
+  }
+
+  getLabelInfos(){
+    return this.labelList
+  }
+
+  changeLabelColor(labelID, newColor){
+    this.labelList[labelID].color = newColor
+    this.labelColors[labelID] = newColor
+    return Object.keys(this.labelList[labelID].files)
+  }
+
+>>>>>>> f82a97d2f0526bb56b5b04014bb251beb975a3cb
   appendLabel(name, color){ // Add new label to project
     if (name == null)
         name = 'New Label ' + (this.labelCounter+1).toString()
@@ -40,7 +65,10 @@ class classificationProjectManager extends projectManager{
     var newLabel = new classificationLabel(name, color)
     this.labelList[this.labelCounter] = newLabel
     this.labelColors[this.labelCounter] = color
+<<<<<<< HEAD
     this.labelNames[this.labelCounter] = name
+=======
+>>>>>>> f82a97d2f0526bb56b5b04014bb251beb975a3cb
     this.labelCounter += 1
     return newLabel
   }
@@ -49,8 +77,14 @@ class classificationProjectManager extends projectManager{
     var fileIDs = Object.keys(this.labelList[labelID].files)
     delete this.labelList[labelID]
     delete this.labelColors[labelID]
+<<<<<<< HEAD
     delete this.labelNames[labelID]
     fileIDs.forEach(fildID => { delete this.checkedFiles[fildID] })
+=======
+    fileIDs.forEach(fildID => {
+      delete this.checkedFiles[fildID]
+    })
+>>>>>>> f82a97d2f0526bb56b5b04014bb251beb975a3cb
     return fileIDs
   }
 
@@ -80,6 +114,7 @@ class classificationProjectManager extends projectManager{
     delete this.checkedFiles[fileID]
   }
  
+<<<<<<< HEAD
   changeFileLabel(labelID, fileID, newFilePath){
     var prevLabel = this.checkedFiles[fileID]
     delete this.labelList[prevLabel].files[fileID]
@@ -104,6 +139,15 @@ class classificationProjectManager extends projectManager{
   changeLabelName(labelID, newName){
     this.labelList[labelID].name = newName
     this.labelNames[labelID] = newName
+=======
+  changeFileLabel(labelID, fileID, filePath){
+    var prevLabel = this.checkedFiles[fileID]
+    delete this.labelList[prevLabel].files[fileID]
+
+    var newFile = new classificationFile(filePath)
+    this.labelList[labelID].files[fileID] = newFile
+    this.checkedFiles[fileID] = labelID
+>>>>>>> f82a97d2f0526bb56b5b04014bb251beb975a3cb
   }
 
 }

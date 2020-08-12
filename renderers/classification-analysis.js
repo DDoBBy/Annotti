@@ -40,6 +40,7 @@ function showAnalytics(){
       }]
     }
   });
+<<<<<<< HEAD
 }
 
 $(document).ready(showAnalytics)
@@ -47,3 +48,9 @@ $(document).ready(showAnalytics)
 $('.go-back').on('click', () => {
   remote.getCurrentWindow().loadURL(`file://${__dirname}/../logs/log-classification.html`)
 });
+=======
+
+}
+
+$(document).ready(showAnalytics)
+>>>>>>> f82a97d2f0526bb56b5b04014bb251beb975a3cb

@@ -2,7 +2,6 @@ let $ = require("jquery");
 const fs = require("fs");
 const path = require("path");
 const { remote } = require("electron");
-const { data } = require("jquery");
 
 let id = 0;
 const imgExtensions = [".png", ".jpg", ".jpeg", ".PNG", ".JPG", ".JPEG"];

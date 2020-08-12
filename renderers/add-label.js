@@ -32,7 +32,11 @@ $('#add-label').on('click', () => {
   var appendTemplate = "<div class='appendLabel'>"+
     "<div>"+
       "<span class='label-color' id='"+labelID+"'style='background-color: "+newLabel.color+";'></span>"+
+<<<<<<< HEAD
       "<input type='text' class='label-name' id='"+labelID+"' value='"+newLabel.name+"'>"
+=======
+      "<input type='text' class='label' value='"+newLabel.name+"'>"
+>>>>>>> f82a97d2f0526bb56b5b04014bb251beb975a3cb
   
   if (remote.getGlobal('projectManager').taskId == "IC") // Activation button
     appendTemplate += "<input type='checkbox' class='activate' id='"+labelID+"'>" + "<span class='label-counter' id='"+labelID+"'>"+"0</span>"
@@ -75,6 +79,7 @@ var $item = $('.label-list').on('click','.del', function(event) {
 
 // Change label color by select candidates
 $('.label-list').on('click','.label-color-cand', function(event) {
+<<<<<<< HEAD
   var prevColor = rgb2hex($(event.target).parent().prev().children('.label-color').css("background-color"))
   var newColor = rgb2hex($(event.target).css("background-color"));
   var labelID = $(event.target).parent().prev().find('span').attr('id')
@@ -85,6 +90,18 @@ $('.label-list').on('click','.label-color-cand', function(event) {
       fileIDs.forEach(element => { $("#"+element+".thumbnail").css({border: "8px solid" + newColor})});
       $(event.target).parent().children('#color-input').val(newColor)
       $(event.target).parent().prev().children('.label-color').css('background-color', newColor);
+=======
+  var prev_color = rgb2hex($(event.target).parent().prev().children('.label-color').css("background-color"))
+  var color = rgb2hex($(event.target).css("background-color"));
+  var labelID = $(event.target).parent().prev().find('span').attr('id')
+
+  if (prev_color != color){
+    if (!remote.getGlobal('projectManager').colorAlreadyOccupied(color)){
+      var fileIDs = remote.getGlobal('projectManager').changeLabelColor(labelID, color)
+      fileIDs.forEach(element => { $("#"+element+".thumbnail").css({border: "8px solid" + color})});
+      $(event.target).parent().children('#color-input').val(color)
+      $(event.target).parent().prev().children('.label-color').css('background-color', color);
+>>>>>>> f82a97d2f0526bb56b5b04014bb251beb975a3cb
     } else{
       alertError("Duplicate Color","Color already used. Please select another color.")
       return;
@@ -100,6 +117,7 @@ function clickColor(r, g, b){
 
 // Change label color by hex text
 $('.label-list').on('click','.label-color-cand-rgb', function(event) {
+<<<<<<< HEAD
   var prevColor = rgb2hex($(event.target).parent().prev().children('.label-color').css("background-color"))
   var newColor = $(event.target).parent().children('#color-input')[0].value;
   var labelID = $(event.target).parent().prev().find('span').attr('id')
@@ -131,3 +149,23 @@ $('.label-list').on('change','.label-name', function(event) {
   }
 });
 
+=======
+  var prev_color = rgb2hex($(event.target).parent().prev().children('.label-color').css("background-color"))
+  var color = $(event.target).parent().children('#color-input')[0].value;
+  var labelID = $(event.target).parent().prev().find('span').attr('id')
+
+  if (prev_color != color){
+    if (!remote.getGlobal('projectManager').colorAlreadyOccupied(color)){
+      var fileIDs = remote.getGlobal('projectManager').changeLabelColor(labelID, color)
+      fileIDs.forEach(element => { $("#"+element+".thumbnail").css({border: "8px solid" + color})});
+      $(event.target).parent().children('#color-input').val(color)
+      $(event.target).parent().prev().children('.label-color').css('background-color', color);
+    } else{
+      alertError("Duplicate Color","Color already used. Please select another color.")
+      return;
+    }
+  }
+
+  $(event.target).parent().toggle();  
+});
+>>>>>>> f82a97d2f0526bb56b5b04014bb251beb975a3cb

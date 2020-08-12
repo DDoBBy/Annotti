@@ -42,8 +42,11 @@ $('.working-datas').on('click', '.thumbnail', function(event) {
 });
 
 $('#data-analysis').on('click', () => {
+<<<<<<< HEAD
   !fs.existsSync('logs') && fs.mkdirSync('logs');
   fs.writeFileSync('logs/log-classification.html', document.documentElement.outerHTML)
+=======
+>>>>>>> f82a97d2f0526bb56b5b04014bb251beb975a3cb
   remote.getCurrentWindow().loadURL(`file://${__dirname}/../templates/classification-analysis.html`)
 });
 
@@ -54,6 +57,10 @@ $('#save').on('click', () => {
     names[key] = value.name
   }  
   jsonInfo = JSON.stringify(names)
+<<<<<<< HEAD
   !fs.existsSync('results') && fs.mkdirSync('results');
   fs.writeFileSync('results/classification.json', jsonInfo)
+=======
+  fs.writeFileSync('test.json', jsonInfo)
+>>>>>>> f82a97d2f0526bb56b5b04014bb251beb975a3cb
 });
