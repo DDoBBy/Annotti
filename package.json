@@ -2,7 +2,7 @@
   "name": "annotti",
   "version": "1.0.0",
   "description": "Data annotation tool for deep learning",
-  "main": "main.js",
+  "main": "app/main.js",
   "scripts": {
     "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -75,7 +75,7 @@
     "electron": "^9.1.0"
   },
   "dependencies": {
-    "bootstrap": "^4.5.0",
+    "bootstrap": "^4.5.2",
     "electron-builder": "^22.8.0",
     "electron-chartjs": "^1.0.0",
     "electron-tabs": "^0.15.0",
