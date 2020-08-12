@@ -1,0 +1,20 @@
+<!-- Project default setting -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';"/>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../resources/styles/main.css">
+    <script src="../node_modules/chart.js/dist/Chart.min.js"></script>
+    <title>Classification Analytics</title>
+  </head>
+
+  <body>
+    <h1 align='center'># of datas for each label</h1>
+    <canvas class="analytic-chart" id="classification-chart"></canvas>
+    <input type=button name="back" value="Go Back" onclick="history.back();">
+    <script src="../renderers/classification-analysis.js"></script>
+  </body>
+  
+</html>

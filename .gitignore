@@ -3,3 +3,5 @@ results
 logs
 *.log
 .DS_STORE
+package-lock.json
+test.json
