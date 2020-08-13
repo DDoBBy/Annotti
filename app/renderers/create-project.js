@@ -4,7 +4,7 @@ const { classificationTemplate } = require('../templates/classification');
 // const { segmentationTemplate } = require('../templates/segmentation');
 // const { ocrTemplate } = require('../templates/ocr');
 
-let workingDirectory = ['/Users/yeon/Downloads/bwh', '/Users/yeon/Downloads/modify_bwh_w'];
+let workingDirectory = 'None'; //['/Users/yeon/Downloads/bwh', '/Users/yeon/Downloads/annotti_icon'];
 
 function composeUI() {
   $('#root').append(createProjectTemplate);
