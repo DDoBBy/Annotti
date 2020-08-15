@@ -85,4 +85,4 @@ class detectionProjectManager extends projectManager {
   }
 }
 
-(module.exports = detectionFileInfo), detectionLabel, detectionProjectManager;
+module.exports = { detectionProjectManager };

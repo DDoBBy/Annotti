@@ -1,8 +1,3 @@
-let $ = require('jquery');
-const fs = require('fs');
-const path = require('path');
-const { remote } = require('electron');
-
 let id = 0;
 const imgExtensions = ['.png', '.jpg', '.jpeg', '.PNG', '.JPG', '.JPEG'];
 
@@ -63,7 +58,7 @@ async function showSelectedDirectories() {
   }
 }
 
-$('.working-datas').on('click', '.folder-thumbnail', function (event) {
+$('.grid-view-files').on('click', '.folder-thumbnail', function (event) {
   var folderPath = $(event.target).attr('id');
   readFolder(folderPath);
 });

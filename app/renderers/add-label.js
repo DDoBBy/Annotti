@@ -83,6 +83,7 @@ $('#root').on('click', '.label-color-cand', function (event) {
     }
   }
   $('#popover'+labelID).toggle();
+
 });
 
 // function clickColor(r, g, b) {}

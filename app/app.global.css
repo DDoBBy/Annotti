@@ -79,7 +79,17 @@ div.main-view {
   background-color: aliceblue;
   flex: 1;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+}
+div.grid-view-files {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  background-color: aliceblue;
+  flex: 1;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 /* LABEL-MENU */
