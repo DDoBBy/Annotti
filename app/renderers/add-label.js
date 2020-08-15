@@ -1,4 +1,17 @@
 const { appendLabelTemplate } = require('../templates/labels');
+// function findPosition() {
+//   const target = document.getElementById(); // 요소의 id 값이 target이라 가정
+// ​   
+//   // const clientRect = target.getBoundingClientRect(); // DomRect 구하기 (각종 좌표값이 들어있는 객체)
+//   // const relativeTop = clientRect.top; // Viewport의 시작지점을 기준으로한 상대좌표 Y 값.
+//   // ​
+//   // // const scrolledTopLength = window.pageYOffset; // 스크롤된 길이
+//   // const scrolledTopLength = pageYOffset; // 스크롤된 길이
+//   // const absoluteTop = scrolledTopLength + relativeTop; 
+//   console.log(target);
+
+//   // return absoluteTop;
+// }
 function rgb2hex(rgb) {
   if (rgb.search('rgb') == -1) {
     return rgb;
@@ -16,6 +29,14 @@ function generateRandomColor() {
   return randomColor;
 }
 
+function findTopPosition(id){
+  const target = document.getElementById(id); 
+  const clientRect = target.getBoundingClientRect(); 
+  const relativeTop = clientRect.top; 
+  const scrolledTopLength = pageYOffset; // 스크롤된 길이
+  const absoluteTop = scrolledTopLength + relativeTop; 
+  return absoluteTop;
+}
 // Click add label button
 $('#root').on('click', '#add-label', () => {
   var randomColor = generateRandomColor();
@@ -33,7 +54,15 @@ $('#root').on('click', '#add-label', () => {
 
 // Click color selector
 $('#root').on('click', '.label-color', function (event) {
+  topPosition = findTopPosition($(event.target).parent().parent()[0].id);
+  rightPosition = $(event.target).parent().parent()[0].offsetWidth;
+  leftPosition = $(event.target).parent().parent()[0].offsetLeft;
+  console.log($(event.target).parent().parent());
+  console.log(findTopPosition($(event.target).parent().parent()[0].id));
+  console.log($(event.target).parent().parent()[0].offsetWidth);
   $(event.target).parent().next().toggle();
+  $(event.target).parent().next().css("top", topPosition);
+  $(event.target).parent().next().css("left", leftPosition-rightPosition-10);
 });
 
 // Click remove button
