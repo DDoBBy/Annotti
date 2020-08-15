@@ -1,17 +1,6 @@
 const { appendLabelTemplate } = require('../templates/labels');
-// function findPosition() {
-//   const target = document.getElementById(); // 요소의 id 값이 target이라 가정
-// ​   
-//   // const clientRect = target.getBoundingClientRect(); // DomRect 구하기 (각종 좌표값이 들어있는 객체)
-//   // const relativeTop = clientRect.top; // Viewport의 시작지점을 기준으로한 상대좌표 Y 값.
-//   // ​
-//   // // const scrolledTopLength = window.pageYOffset; // 스크롤된 길이
-//   // const scrolledTopLength = pageYOffset; // 스크롤된 길이
-//   // const absoluteTop = scrolledTopLength + relativeTop; 
-//   console.log(target);
+const { label } = require('../project_managers/base-classes');
 
-//   // return absoluteTop;
-// }
 function rgb2hex(rgb) {
   if (rgb.search('rgb') == -1) {
     return rgb;
@@ -54,12 +43,10 @@ $('#root').on('click', '#add-label', () => {
 
 // Click color selector
 $('#root').on('click', '.label-color', function (event) {
+  console.log("SPAN click")
   topPosition = findTopPosition($(event.target).parent().parent()[0].id);
   rightPosition = $(event.target).parent().parent()[0].offsetWidth;
   leftPosition = $(event.target).parent().parent()[0].offsetLeft;
-  console.log($(event.target).parent().parent());
-  console.log(findTopPosition($(event.target).parent().parent()[0].id));
-  console.log($(event.target).parent().parent()[0].offsetWidth);
   $(event.target).parent().next().toggle();
   $(event.target).parent().next().css("top", topPosition);
   $(event.target).parent().next().css("left", leftPosition-rightPosition-10);
@@ -78,11 +65,10 @@ var $item = $('#root').on('click', '.del', function (event) {
 // Change label color by select candidates
 $('#root').on('click', '.label-color-cand', function (event) {
   var prevColor = rgb2hex(
-    $(event.target).parent().prev().children('.label-color').css('background-color')
+    $(event.target).parent().parent().prev().children('.label-color').css('background-color')
   );
   var newColor = rgb2hex($(event.target).css('background-color'));
-  var labelID = $(event.target).parent().prev().find('span').attr('id');
-
+  var labelID = $(event.target).parent()[0].id;
   if (prevColor != newColor) {
     if (!remote.getGlobal('projectManager').colorAlreadyOccupied(newColor)) {
       var fileIDs = remote.getGlobal('projectManager').changeLabelColor(labelID, newColor);
@@ -90,25 +76,25 @@ $('#root').on('click', '.label-color-cand', function (event) {
         $('#' + element + '.thumbnail').css({ border: '8px solid' + newColor });
       });
       $(event.target).parent().children('#color-input').val(newColor);
-      $(event.target).parent().prev().children('.label-color').css('background-color', newColor);
+      document.getElementById('span'+labelID).style.backgroundColor = newColor;
     } else {
       alertError('Duplicate Color', 'Color already used. Please select another color.');
       return;
     }
   }
-  $(event.target).parent().toggle();
+  $('#popover'+labelID).toggle();
 });
 
 // function clickColor(r, g, b) {}
 
 // // Change label color by hex text
 $('#root').on('click', '.label-color-cand-rgb', function (event) {
+  var labelID = event.target.id;
   var prevColor = rgb2hex(
-    $(event.target).parent().prev().children('.label-color').css('background-color')
+    document.getElementById('span'+labelID).style.backgroundColor
   );
-  var newColor = $(event.target).parent().children('#color-input')[0].value;
-  var labelID = $(event.target).parent().prev().find('span').attr('id');
-
+  var newColor = document.getElementById('color-input'+labelID).value;
+  console.log(newColor)
   if (prevColor != newColor) {
     if (!remote.getGlobal('projectManager').colorAlreadyOccupied(newColor)) {
       var fileIDs = remote.getGlobal('projectManager').changeLabelColor(labelID, newColor);
@@ -116,13 +102,13 @@ $('#root').on('click', '.label-color-cand-rgb', function (event) {
         $('#' + element + '.thumbnail').css({ border: '8px solid' + newColor });
       });
       $(event.target).parent().children('#color-input').val(newColor);
-      $(event.target).parent().prev().children('.label-color').css('background-color', newColor);
+      document.getElementById('span'+labelID).style.backgroundColor = newColor;
     } else {
       alertError('Duplicate Color', 'Color already used. Please select another color.');
       return;
     }
   }
-  $(event.target).parent().toggle();
+  $('#popover'+labelID).toggle();
 });
 
 // Change label name
