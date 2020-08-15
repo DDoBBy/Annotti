@@ -54,12 +54,13 @@ $('#root').on('click', '.label-color', function (event) {
 
 // Click remove button
 var $item = $('#root').on('click', '.del', function (event) {
-  $(event.target).parent().parent().remove();
-  var delKey = $(event.target).parent().parent().find('span').attr('id');
-  var fileIDs = remote.getGlobal('projectManager').deleteLabel(delKey);
+  var labelID = event.target.id;
+  document.getElementById('label'+labelID).remove();
+  var fileIDs = remote.getGlobal('projectManager').deleteLabel(labelID);
   fileIDs.forEach((element) => {
     $('#' + element + '.thumbnail').css({ border: 'none' });
   });
+  console.log(remote.getGlobal('projectManager').labelList)
 });
 
 // Change label color by select candidates

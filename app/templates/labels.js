@@ -36,7 +36,7 @@ function appendLabelTemplate(labelID, color, name) {
       '0</span>';
 
   appendTemplate +=
-    "<div class='del' id='del'>X</div></div>" +
+    "<div class='del' id='"+labelID+"'>X</div></div>" +
     "<div class = 'select-color bubble popover' id='popover"+labelID+"' style='display: none;'>"+
     "<div class='popover-content' id='"+labelID+"'>"+
         "<div class='popover-arrow'></div>"+
