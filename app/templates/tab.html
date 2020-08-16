@@ -1,43 +1,39 @@
 <!-- Project default setting -->
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
-        <link rel="stylesheet" type="text/css" href="../resources/styles/tab-main.css">
-        <link rel="stylesheet" type="text/css" href="../resources/styles/tab.css">
-        <link rel="stylesheet" type="text/css" href="../resources/styles/label.css">
-        <title></title>
-    </head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <link rel="stylesheet" type="text/css" href="../app.global.css" />
+    <title></title>
+  </head>
 
-    <body>
-        <div class="tab-wrapper">
-            <div class='working-tab-area'>
-                <div class='tab-image' id='tab-image'>
-                    <canvas id='img-canvas' style='max-width: 100%'></canvas>
-                </div>
-                <div class='bottom-menu' id='bottom-menu'>
-                    <div class='bottom-buttons' id='bottom-buttons'>
-                        <button id='zoom-in-button'>zoom in</button>
-                        <button id='zoom-out-button'>zoom out</button>
-                        <button id='undo-button'>undo</button>
-                        <button id='redo-button'>redo</button>
-                        <button id='back-to-original-button'>original size</button>
-                        <button id='lock-button'>lock</button>
-                    </div>
-                </div>
-            </div>
-    
-            <div class='right-menu'>
-                <h1 class = 'label-tit' style='text-align:center;'>Label</h1>
-                <div class = 'label-list'></div>
-                <button id='add-label' class ='add-label'>Add Label</button>
-            </div>
+  <body>
+    <div class="tab-wrapper">
+      <div class="working-tab-area">
+        <div class="tab-image" id="tab-image">
+          <canvas id="img-canvas" style="max-width: 100%; max-height: 100%;"></canvas>
         </div>
-        
-        <script src="../renderers/draw-image.js"></script>
-        <script src="../renderers/add-label.js"></script>
+        <div class="bottom-menu" id="bottom-menu">
+          <div class="bottom-buttons" id="bottom-buttons">
+            <button id="zoom-in-button">zoom in</button>
+            <button id="zoom-out-button">zoom out</button>
+            <button id="undo-button">undo</button>
+            <button id="redo-button">redo</button>
+            <button id="back-to-original-button">original size</button>
+            <button id="lock-button">lock</button>
+          </div>
+        </div>
+      </div>
 
-    </body>
-  
+      <div class="right-menu">
+        <h1 class="label-tit" style="text-align: center;">Label</h1>
+        <div class="label-list"></div>
+        <button id="add-label" class="add-label">Add Label</button>
+      </div>
+    </div>
+
+    <script src="../renderers/draw-image.js"></script>
+    <script src="../renderers/add-label.js"></script>
+  </body>
 </html>

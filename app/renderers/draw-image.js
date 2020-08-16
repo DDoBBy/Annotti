@@ -1,6 +1,4 @@
 let $ = require('jquery');
-const fs = require('fs');
-const path = require('path');
 const { remote } = require('electron');
 
 let id;
@@ -10,11 +8,9 @@ let scaleFactor = 1.05;
 let lock_num = 0;
 
 function getThumbnailId() {
-  console.log('HELLOO');
   var tmp = location.href.split('?');
   var data = tmp[1].split('=');
   id = data[1];
-  console.log(id);
   getImageCanvas(id);
 }
 
@@ -128,6 +124,12 @@ function drawImageOnCanvas(filePath) {
     return evt.preventDefault() && false;
   };
 
+  var getFullView = function () {
+    canvas.width = $('#tab-image').width();
+    canvas.height = $('#tab-image').height();
+    redraw();
+  };
+
   // add moving events
   canvas.addEventListener('mousedown', mouseDown, false);
   canvas.addEventListener('mousemove', mouseMove, false);
@@ -164,6 +166,13 @@ function drawImageOnCanvas(filePath) {
       $('#lock-button').text('lock');
       $('#lock-button').css('background-color', '#4CAF50');
     }
+  });
+
+  $('#back-to-original-button').on('click', function () {
+    getFullView();
+  });
+  $(window).resize(() => {
+    getFullView();
   });
 }
 

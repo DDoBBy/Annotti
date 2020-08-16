@@ -114,31 +114,31 @@ div.label-menu {
   cursor: pointer;
 }
 
-.del{
+.del {
   cursor: pointer;
 }
 
-.popover{
-  padding-right:10px;
-  text-align:left;
+.popover {
+  padding-right: 10px;
+  text-align: left;
   transform-origin: -4px 50%;
-  color: rgba(0,0,0,.65);
+  color: rgba(0, 0, 0, 0.65);
   border: 0;
   background-color: transparent;
 }
-.popover-content{
+.popover-content {
   box-sizing: border-box;
   background-color: #bbb;
 }
-.popover-arrow{
-  top:50%;
+.popover-arrow {
+  top: 50%;
   transform: translateY(-50%) rotate(45deg);
-  right:6px;
+  right: 6px;
   border-top-color: #bbb;
   border-right-color: #bbb;
   border-bottom-color: transparent;
   border-left-color: transparent;
-  box-shadow: 3px -3px 7px rgba(0,0,0,.07);
+  box-shadow: 3px -3px 7px rgba(0, 0, 0, 0.07);
   position: absolute;
   display: block;
   width: 8.48528137px;
@@ -146,4 +146,107 @@ div.label-menu {
   background: 0 0;
   border-style: solid;
   border-width: 4.54264069px;
+}
+
+/* TAB */
+div.tab-area {
+  height: 100%;
+  width: 100%;
+  max-width: inherit;
+  flex: 1;
+  display: none;
+  flex-direction: column;
+}
+.etabs-tabgroup.visible {
+  flex-basis: 32px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  background-color: transparent;
+}
+.etabs-tab {
+  display: inline-block;
+  float: none;
+  background: none;
+  background-color: white;
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+}
+.etabs-tab.visible {
+  float: none;
+}
+.etabs-tab.visible.active {
+  background-color: lemonchiffon;
+}
+.etabs-tab-title {
+  display: inline-block;
+  width: 150px;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.etabs-views {
+  flex: 1;
+  display: block;
+  border-top: 0;
+}
+button.etabs-tab-button-close {
+  width: 20px;
+  padding: 0;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
+/* TAB CONTENT */
+.etabs-view {
+  position: relative;
+  display: none;
+  width: 100%;
+  height: 100%;
+}
+.etabs-view.visible {
+  display: flex;
+}
+div.tab-wrapper {
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  display: flex;
+  background-color: lemonchiffon;
+}
+
+div.working-tab-area {
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  display: block;
+}
+div.tab-image {
+  width: 100%;
+  height: 90%;
+}
+
+div.bottom-menu {
+  width: 100%;
+  height: 10%;
+  background-color: yellow;
+}
+
+div.bottom-buttons {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+}
+
+div.right-menu {
+  height: 100%;
+  flex-basis: 200px;
+  background-color: rgb(51, 88, 255);
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
