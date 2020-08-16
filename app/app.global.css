@@ -1,5 +1,6 @@
 html {
   height: 100%;
+  background-color: white;
 }
 body {
   height: 100%;
@@ -13,6 +14,9 @@ div#root {
   height: 100%;
   margin: 0;
   padding: 0;
+}
+* {
+  color: #707070;
 }
 
 /* CREATE PROJECT */
@@ -43,8 +47,12 @@ div#root {
 /* LEFT MENU */
 div.left-menu {
   height: 100%;
-  width: 100px;
-  background-color: rgb(71, 83, 138);
+  width: 80px;
+}
+img.small-logo {
+  width: 50px;
+  height: 50px;
+  margin: 5px 15px 15px 15px;
 }
 button.left-img-buttons {
   width: 100%;
@@ -52,8 +60,17 @@ button.left-img-buttons {
   right: 0;
   display: inline-block;
   border: none;
-  padding: 15px 25px;
+  padding: 5px 15px;
   background-color: transparent;
+}
+button.left-img-buttons > img {
+  width: 50px;
+  padding: 10px;
+}
+button.left-img-buttons.setting {
+  position: absolute;
+  width: 80px;
+  bottom: 0;
 }
 
 /* MAIN CONTAINER = ALL */
@@ -69,39 +86,97 @@ div.main-container {
 div.working-area {
   display: flex;
   height: 100%;
-  background-color: aliceblue;
   flex: 1;
+}
+div.folder-info,
+div.img-info {
+  margin: 0 auto;
+}
+img.folder-thumbnail,
+img.thumbnail {
+  margin: 0 auto;
 }
 
 /* MAIN-VIEW */
 div.main-view {
   height: 100%;
-  background-color: aliceblue;
   flex: 1;
   display: flex;
   flex-direction: row;
+  padding: 15px 0;
+  margin-right: 15px;
 }
 div.grid-view-files {
   height: 100%;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  background-color: aliceblue;
   flex: 1;
   overflow-x: hidden;
   overflow-y: scroll;
+  border-radius: 30px;
+  background-color: #f0f0f0;
+  padding: 15px;
 }
 
 /* LABEL-MENU */
 div.label-menu {
   height: 100%;
   flex-basis: 200px;
-  background-color: rgb(51, 88, 255);
+  max-width: 200px;
+  padding: 0 20px;
+  text-align: center;
+}
+div.label-header {
+  display: flex;
+}
+h1.label-tit {
+  text-align: left;
+  font-weight: bold;
+  font-size: 1.5em;
+  height: 50px;
+  margin: 0;
+  margin-right: 10px;
+  padding: 5px 0;
+}
+button.label-setting {
+  width: 30px;
+  height: 30px;
+  border: 0;
+  padding: 5px;
+  background-color: transparent;
+}
+button.label-setting > img {
+  width: 100%;
+  padding: 0;
+}
+button.add-label {
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+}
+button.add-label > img {
+  width: 20px;
+  height: 20px;
+}
+div.label-appended {
+  display: flex;
+  width: 100%;
+  padding: 10px;
+  border-radius: 70px;
+  background-color: #f0f0f0;
+  margin-bottom: 5px;
+}
+input.label-name {
+  flex: 1;
+  width: 100%;
+  font-size: smaller;
+  background-color: transparent;
+  border: 0;
 }
 .label-color {
-  height: 25px;
-  width: 25px;
-  background-color: #bbb;
+  height: 18px;
+  width: 18px;
   border-radius: 50%;
   display: inline-block;
   cursor: pointer;
@@ -158,17 +233,23 @@ div.tab-area {
   flex-direction: column;
 }
 .etabs-tabgroup.visible {
+  font-size: smaller;
+  position: relative;
+  left: 15px;
   flex-basis: 32px;
+  margin-top: 10px;
   overflow-x: auto;
   overflow-y: hidden;
   white-space: nowrap;
   background-color: transparent;
 }
 .etabs-tab {
+  height: 32px;
   display: inline-block;
   float: none;
   background: none;
   background-color: white;
+  border: 1px solid #f0f0f0;
   border-top-left-radius: 7px;
   border-top-right-radius: 7px;
 }
@@ -176,12 +257,15 @@ div.tab-area {
   float: none;
 }
 .etabs-tab.visible.active {
-  background-color: lemonchiffon;
+  background-color: #f0f0f0;
 }
 .etabs-tab-title {
   display: inline-block;
+  padding-left: 5px;
+  padding-top: 5px;
   width: 150px;
   max-width: 150px;
+  height: 20px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -193,7 +277,10 @@ div.tab-area {
 }
 button.etabs-tab-button-close {
   width: 20px;
+  height: 20px;
   padding: 0;
+  border: 0;
+  background-color: transparent;
 }
 
 ::-webkit-scrollbar {
@@ -212,41 +299,49 @@ button.etabs-tab-button-close {
   display: flex;
 }
 div.tab-wrapper {
-  width: 100%;
-  height: 100%;
   flex: 1;
+  max-height: 100%;
+  height: 100%;
   display: flex;
-  background-color: lemonchiffon;
 }
 
 div.working-tab-area {
-  width: 100%;
-  height: 100%;
   flex: 1;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  background-color: #f0f0f0;
+  padding: 0 15px;
+  border-radius: 20px;
+  margin-bottom: 15px;
 }
 div.tab-image {
-  width: 100%;
-  height: 90%;
+  flex: 1;
+  max-height: 90%;
 }
 
 div.bottom-menu {
-  width: 100%;
-  height: 10%;
-  background-color: yellow;
+  width: 350px;
+  height: 50px;
+  padding: 0;
+  margin: auto;
 }
 
 div.bottom-buttons {
+  background-color: white;
+  border-radius: 10px;
   width: 100%;
   height: 100%;
+  margin: 0;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
 }
-
-div.right-menu {
+div.bottom-buttons > button {
+  width: 100%;
   height: 100%;
-  flex-basis: 200px;
-  background-color: rgb(51, 88, 255);
-  overflow-x: hidden;
-  overflow-y: scroll;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+}
+div.bottom-buttons > button > img {
+  width: 25px;
 }
