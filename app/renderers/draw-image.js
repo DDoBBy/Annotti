@@ -1,4 +1,4 @@
-let $ = require('jquery');
+// let $ = require('jquery');
 const { remote } = require('electron');
 
 let id;
@@ -155,16 +155,14 @@ function drawImageOnCanvas(filePath) {
       canvas.removeEventListener('mouseup', mouseUp, false);
       canvas.removeEventListener('DOMMouseScroll', handleScroll, false);
       canvas.removeEventListener('mousewheel', handleScroll, false);
-      $('#lock-button').text('un-lock');
-      $('#lock-button').css('background-color', 'green');
+      $('#lock-button').html('<img src="../resources/imgs/annotti_unlock.png" alt="un-lock">');
     } else {
       canvas.addEventListener('mousedown', mouseDown, false);
       canvas.addEventListener('mousemove', mouseMove, false);
       canvas.addEventListener('mouseup', mouseUp, false);
       canvas.addEventListener('DOMMouseScroll', handleScroll, false);
       canvas.addEventListener('mousewheel', handleScroll, false);
-      $('#lock-button').text('lock');
-      $('#lock-button').css('background-color', '#4CAF50');
+      $('#lock-button').html('<img src="../resources/imgs/annotti_lock.png" alt="lock">');
     }
   });
 

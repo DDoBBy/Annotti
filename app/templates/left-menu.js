@@ -1,13 +1,20 @@
 var leftMenu =
   '<div class="left-menu">' +
+  '<img class="small-logo" src="../resources/imgs/annotti_logo_alternative.png" alt="logo"></img>' +
   '<button class="left-img-buttons" id="view-files-btn">' +
-  '<img style="width: 50px; height: 50px" src="../resources/imgs/folder.png" alt="folder image"></img>' +
+  '<img src="../resources/imgs/annotti_directory.png" alt="folder image"></img>' +
   '</button>' +
   '<button class="left-img-buttons" id="data-analysis">' +
-  '<img style="width: 50px; height: 50px" src="../resources/imgs/analysis.png" alt="graph image"></img>' +
+  '<img src="../resources/imgs/annotti_statistic.png" alt="graph image"></img>' +
+  '</button>' +
+  '<button class="left-img-buttons" id="data-analysis">' +
+  '<img src="../resources/imgs/annotti_info.png" alt="graph image"></img>' +
   '</button>' +
   '<button class="left-img-buttons" id="save">' +
-  '<img style="width: 50px; height: 50px" src="../resources/imgs/save.png" alt="disk image"></img>' +
+  '<img src="../resources/imgs/annotti_export.png" alt="disk image"></img>' +
+  '</button>' +
+  '<button class="left-img-buttons setting" id="view-files-btn">' +
+  '<img src="../resources/imgs/annotti_setting.png" alt="folder image"></img>' +
   '</button>' +
   '</div>';
 

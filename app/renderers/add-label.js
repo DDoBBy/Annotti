@@ -18,12 +18,12 @@ function generateRandomColor() {
   return randomColor;
 }
 
-function findTopPosition(id){
-  const target = document.getElementById(id); 
-  const clientRect = target.getBoundingClientRect(); 
-  const relativeTop = clientRect.top; 
+function findTopPosition(id) {
+  const target = document.getElementById(id);
+  const clientRect = target.getBoundingClientRect();
+  const relativeTop = clientRect.top;
   const scrolledTopLength = pageYOffset; // 스크롤된 길이
-  const absoluteTop = scrolledTopLength + relativeTop; 
+  const absoluteTop = scrolledTopLength + relativeTop;
   return absoluteTop;
 }
 // Click add label button
@@ -43,24 +43,27 @@ $('#root').on('click', '#add-label', () => {
 
 // Click color selector
 $('#root').on('click', '.label-color', function (event) {
-  console.log("SPAN click")
+  console.log('SPAN click');
   topPosition = findTopPosition($(event.target).parent().parent()[0].id);
   rightPosition = $(event.target).parent().parent()[0].offsetWidth;
   leftPosition = $(event.target).parent().parent()[0].offsetLeft;
   $(event.target).parent().next().toggle();
-  $(event.target).parent().next().css("top", topPosition);
-  $(event.target).parent().next().css("left", leftPosition-rightPosition-10);
+  $(event.target).parent().next().css('top', topPosition);
+  $(event.target)
+    .parent()
+    .next()
+    .css('left', leftPosition - rightPosition - 40);
 });
 
 // Click remove button
 var $item = $('#root').on('click', '.del', function (event) {
   var labelID = event.target.id;
-  document.getElementById('label'+labelID).remove();
+  document.getElementById('label' + labelID).remove();
   var fileIDs = remote.getGlobal('projectManager').deleteLabel(labelID);
   fileIDs.forEach((element) => {
     $('#' + element + '.thumbnail').css({ border: 'none' });
   });
-  console.log(remote.getGlobal('projectManager').labelList)
+  console.log(remote.getGlobal('projectManager').labelList);
 });
 
 // Change label color by select candidates
@@ -77,14 +80,13 @@ $('#root').on('click', '.label-color-cand', function (event) {
         $('#' + element + '.thumbnail').css({ border: '8px solid' + newColor });
       });
       $(event.target).parent().children('#color-input').val(newColor);
-      document.getElementById('span'+labelID).style.backgroundColor = newColor;
+      document.getElementById('span' + labelID).style.backgroundColor = newColor;
     } else {
       alertError('Duplicate Color', 'Color already used. Please select another color.');
       return;
     }
   }
-  $('#popover'+labelID).toggle();
-
+  $('#popover' + labelID).toggle();
 });
 
 // function clickColor(r, g, b) {}
@@ -92,11 +94,9 @@ $('#root').on('click', '.label-color-cand', function (event) {
 // // Change label color by hex text
 $('#root').on('click', '.label-color-cand-rgb', function (event) {
   var labelID = event.target.id;
-  var prevColor = rgb2hex(
-    document.getElementById('span'+labelID).style.backgroundColor
-  );
-  var newColor = document.getElementById('color-input'+labelID).value;
-  console.log(newColor)
+  var prevColor = rgb2hex(document.getElementById('span' + labelID).style.backgroundColor);
+  var newColor = document.getElementById('color-input' + labelID).value;
+  console.log(newColor);
   if (prevColor != newColor) {
     if (!remote.getGlobal('projectManager').colorAlreadyOccupied(newColor)) {
       var fileIDs = remote.getGlobal('projectManager').changeLabelColor(labelID, newColor);
@@ -104,13 +104,13 @@ $('#root').on('click', '.label-color-cand-rgb', function (event) {
         $('#' + element + '.thumbnail').css({ border: '8px solid' + newColor });
       });
       $(event.target).parent().children('#color-input').val(newColor);
-      document.getElementById('span'+labelID).style.backgroundColor = newColor;
+      document.getElementById('span' + labelID).style.backgroundColor = newColor;
     } else {
       alertError('Duplicate Color', 'Color already used. Please select another color.');
       return;
     }
   }
-  $('#popover'+labelID).toggle();
+  $('#popover' + labelID).toggle();
 });
 
 // Change label name

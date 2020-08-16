@@ -12,7 +12,7 @@ function openTab(thumbnailId) {
 
   $('.working-area').css('display', 'none');
   $('.tab-area').css('display', 'flex');
-  $('.etabs-tabgroup').css('max-width', $('.tab-area').width());
+  $('.etabs-tabgroup').css('max-width', $('.tab-area').width() - 15);
 
   var ret_flag = false;
   tabGroup.eachTab(function (cur) {
@@ -37,8 +37,12 @@ function openTab(thumbnailId) {
   tab.setPosition(1);
   $('.etabs-tab-title').css('title', basename);
 
+  const webview = document.querySelector('webview');
+  webview.addEventListener('dom-ready', () => {
+    webview.openDevTools();
+  });
+
   tab.on('webview-ready', (tab) => {
-    const webview = document.querySelector('webview');
     webview.addEventListener('console-message', (e) => {
       //console.log('Guest page logged a message:', e.message);
     });
