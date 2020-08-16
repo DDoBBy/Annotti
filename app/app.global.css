@@ -1,0 +1,149 @@
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+div#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* CREATE PROJECT */
+.create-project {
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  flex-direction: column;
+}
+#select-task-div {
+  margin-top: 10px;
+  margin-bottom: 16px;
+}
+.select-dirs {
+  width: auto;
+}
+#selected-dir-list {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+#select-dirs-btn {
+  margin: 0;
+}
+
+/* LEFT MENU */
+div.left-menu {
+  height: 100%;
+  width: 100px;
+  background-color: rgb(71, 83, 138);
+}
+button.left-img-buttons {
+  width: 100%;
+  left: 0;
+  right: 0;
+  display: inline-block;
+  border: none;
+  padding: 15px 25px;
+  background-color: transparent;
+}
+
+/* MAIN CONTAINER = ALL */
+div.main-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  margin: 0;
+  max-width: inherit;
+}
+
+/* WORKING-AREA = MAIN-VIEW + LABEL */
+div.working-area {
+  display: flex;
+  height: 100%;
+  background-color: aliceblue;
+  flex: 1;
+}
+
+/* MAIN-VIEW */
+div.main-view {
+  height: 100%;
+  background-color: aliceblue;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+}
+div.grid-view-files {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  background-color: aliceblue;
+  flex: 1;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+/* LABEL-MENU */
+div.label-menu {
+  height: 100%;
+  flex-basis: 200px;
+  background-color: rgb(51, 88, 255);
+}
+.label-color {
+  height: 25px;
+  width: 25px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+}
+.label-color-circle {
+  height: 17px;
+  width: 17px;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.del{
+  cursor: pointer;
+}
+
+.popover{
+  padding-right:10px;
+  text-align:left;
+  transform-origin: -4px 50%;
+  color: rgba(0,0,0,.65);
+  border: 0;
+  background-color: transparent;
+}
+.popover-content{
+  box-sizing: border-box;
+  background-color: #bbb;
+}
+.popover-arrow{
+  top:50%;
+  transform: translateY(-50%) rotate(45deg);
+  right:6px;
+  border-top-color: #bbb;
+  border-right-color: #bbb;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+  box-shadow: 3px -3px 7px rgba(0,0,0,.07);
+  position: absolute;
+  display: block;
+  width: 8.48528137px;
+  height: 8.48528137px;
+  background: 0 0;
+  border-style: solid;
+  border-width: 4.54264069px;
+}

@@ -2,10 +2,11 @@
   "name": "annotti",
   "version": "1.0.0",
   "description": "Data annotation tool for deep learning",
-  "main": "main.js",
+  "main": "app/main.js",
   "scripts": {
     "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "electron-builder"
   },
   "repository": {
     "type": "git",
@@ -19,14 +20,65 @@
   "bugs": {
     "url": "https://github.com/DDoBBy/Annotti/issues"
   },
+  "build": {
+    "productName": "Annotti",
+    "appId": "org.develar.ElectronReact",
+    "files": [
+      "dist/",
+      "node_modules/",
+      "index.html",
+      "main.prod.js",
+      "main.prod.js.map",
+      "package.json"
+    ],
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "msi"
+      ]
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "rpm",
+        "AppImage"
+      ],
+      "category": "Development"
+    },
+    "directories": {
+      "buildResources": "resources",
+      "output": "release"
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "Team-DDoBBy",
+      "repo": "Annotti-React",
+      "private": false
+    }
+  },
   "homepage": "https://github.com/DDoBBy/Annotti#readme",
   "devDependencies": {
     "electron": "^9.1.0"
   },
   "dependencies": {
-    "electron-tabs": "^0.15.0",
-    "bootstrap": "^4.5.0",
+    "bootstrap": "^4.5.2",
+    "electron-builder": "^22.8.0",
     "electron-chartjs": "^1.0.0",
+    "electron-tabs": "^0.15.0",
     "jquery": "^3.5.1",
     "jquery-ui": "^1.12.1",
     "popper.js": "^1.16.1"
