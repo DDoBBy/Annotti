@@ -10,6 +10,8 @@ var classificationTemplate =
   labelMenu +
   '</div>' +
   '</div>' +
-  '<script src="../renderers/add-label.js"></script>';
+  '<script src="../renderers/commons.js"></script>' +
+  '<script src="../renderers/add-label.js"></script>' +
+  '<script src="../renderers/classification.js"></script>';
 
 module.exports = { classificationTemplate };

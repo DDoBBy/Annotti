@@ -1,4 +1,4 @@
-$('.label-list').on('click', '.activate', function (event) {
+$('.label-infos').on('click', '.activate', function (event) {
   if ($(event.target).prop('checked')) {
     $('[class=activate]').prop('checked', false);
     $(event.target).prop('checked', true);

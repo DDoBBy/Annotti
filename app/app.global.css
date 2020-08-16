@@ -79,7 +79,17 @@ div.main-view {
   background-color: aliceblue;
   flex: 1;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+}
+div.grid-view-files {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  background-color: aliceblue;
+  flex: 1;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 /* LABEL-MENU */
@@ -103,11 +113,37 @@ div.label-menu {
   display: inline-block;
   cursor: pointer;
 }
-.bubble {
-  border: 1px solid;
-  padding: 10px;
+
+.del{
+  cursor: pointer;
+}
+
+.popover{
+  padding-right:10px;
+  text-align:left;
+  transform-origin: -4px 50%;
+  color: rgba(0,0,0,.65);
+  border: 0;
+  background-color: transparent;
+}
+.popover-content{
+  box-sizing: border-box;
   background-color: #bbb;
 }
-.del {
-  cursor: pointer;
+.popover-arrow{
+  top:50%;
+  transform: translateY(-50%) rotate(45deg);
+  right:6px;
+  border-top-color: #bbb;
+  border-right-color: #bbb;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+  box-shadow: 3px -3px 7px rgba(0,0,0,.07);
+  position: absolute;
+  display: block;
+  width: 8.48528137px;
+  height: 8.48528137px;
+  background: 0 0;
+  border-style: solid;
+  border-width: 4.54264069px;
 }
