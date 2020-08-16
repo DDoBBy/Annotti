@@ -10,9 +10,9 @@ function openTab(thumbnailId) {
   var filePath = remote.getGlobal('projectManager').dataPaths[thumbnailId];
   var basename = path.basename(filePath);
 
-  $('#working-area').css('display', 'none');
-  $('#tab-area').css('display', 'block');
-  $('.etabs-tabgroup').css('max-width', $('#tab-area').width());
+  $('.working-area').css('display', 'none');
+  $('.tab-area').css('display', 'flex');
+  $('.etabs-tabgroup').css('max-width', $('.tab-area').width());
 
   var ret_flag = false;
   tabGroup.eachTab(function (cur) {
@@ -40,14 +40,14 @@ function openTab(thumbnailId) {
   tab.on('webview-ready', (tab) => {
     const webview = document.querySelector('webview');
     webview.addEventListener('console-message', (e) => {
-      //console.log('Guest page logged a message:', e.message)
+      //console.log('Guest page logged a message:', e.message);
     });
   });
 
   tab.on('close', (tab) => {
     if (tabGroup.getActiveTab() == null) {
-      $('#working-area').css('display', 'block');
-      $('#tab-area').css('display', 'none');
+      $('.working-area').css('display', 'block');
+      $('.tab-area').css('display', 'none');
     }
   });
 }
