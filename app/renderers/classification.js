@@ -1,3 +1,5 @@
+const { getImageCanvas } = require('../renderers/draw-image');
+
 $('.label-infos').on('click', '.activate', function (event) {
   if ($(event.target).prop('checked')) {
     $('[class=activate]').prop('checked', false);
@@ -46,7 +48,18 @@ $('.working-area').on('click', '.thumbnail', function (event) {
         $(event.target).css({ border: '8px solid' + labelColor });
       }
     }
+  } else {
+    var fileID = $(event.target).attr('id');
+    var filePath = $(event.target).attr('src');
+    var basename = path.basename(filePath);
+    $('#classification-file-name').text(basename);
+    $('.classification-zoom-window').css('display', 'block');
+    getImageCanvas(fileID);
   }
+});
+
+$('.classification-close-btn').on('click', () => {
+  $('.classification-zoom-window').css('display', 'none');
 });
 
 $('#data-analysis').on('click', () => {
