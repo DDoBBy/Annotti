@@ -1,3 +1,5 @@
+const { getImageCanvas } = require('../renderers/draw-image');
+
 $('.label-infos').on('click', '.activate', function (event) {
   if ($(event.target).prop('checked')) {
     $('[class=activate]').prop('checked', false);
@@ -6,7 +8,7 @@ $('.label-infos').on('click', '.activate', function (event) {
   } else remote.getGlobal('projectManager').activateLabel(null);
 });
 
-$('.working-datas').on('click', '.thumbnail', function (event) {
+$('.working-area').on('click', '.thumbnail', function (event) {
   if (event.altKey) {
     // Ctrl key doesn't working at MAC OS
     if (remote.getGlobal('projectManager').activated == null)
@@ -46,7 +48,18 @@ $('.working-datas').on('click', '.thumbnail', function (event) {
         $(event.target).css({ border: '8px solid' + labelColor });
       }
     }
+  } else {
+    var fileID = $(event.target).attr('id');
+    var filePath = $(event.target).attr('src');
+    var basename = path.basename(filePath);
+    $('#classification-file-name').text(basename);
+    $('.classification-zoom-window').css('display', 'block');
+    getImageCanvas(fileID);
   }
+});
+
+$('.classification-close-btn').on('click', () => {
+  $('.classification-zoom-window').css('display', 'none');
 });
 
 $('#data-analysis').on('click', () => {

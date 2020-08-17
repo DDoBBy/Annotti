@@ -8,7 +8,9 @@ let scaleFactor = 1.05;
 let lock_num = 0;
 
 function getThumbnailId() {
+  if (location.href === undefined) return;
   var tmp = location.href.split('?');
+  if (tmp.length <= 1) return;
   var data = tmp[1].split('=');
   id = data[1];
   getImageCanvas(id);
@@ -243,3 +245,5 @@ function trackTransforms(ctx) {
     return pt.matrixTransform(xform.inverse());
   };
 }
+
+module.exports = { getImageCanvas };
