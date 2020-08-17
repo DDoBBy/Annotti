@@ -43,10 +43,11 @@ $('#root').on('click', '#add-label', () => {
 
 // Click color selector
 $('#root').on('click', '.label-color', function (event) {
-  console.log("SPAN click")
-  topPosition = findTopPosition($(event.target).parent().parent()[0].id);
-  rightPosition = $(event.target).parent().parent()[0].offsetWidth;
-  leftPosition = $(event.target).parent().parent()[0].offsetLeft;
+  topPosition = findTopPosition($(event.target).parent().parent()[0].id)-($(event.target).parent()[0].offsetHeight/2)
+  rightPosition = $(event.target).parent()[0].offsetWidth;
+  leftPosition = $(event.target).parent()[0].offsetLeft;
+  console.log($(event.target).parent())
+  console.log(topPosition, rightPosition, leftPosition)
   $(event.target).parent().next().toggle();
   $(event.target).parent().next().css('top', topPosition);
   $(event.target)

@@ -6,7 +6,7 @@ $('.label-infos').on('click', '.activate', function (event) {
   } else remote.getGlobal('projectManager').activateLabel(null);
 });
 
-$('.working-datas').on('click', '.thumbnail', function (event) {
+$('.working-area').on('click', '.thumbnail', function (event) {
   if (event.altKey) {
     // Ctrl key doesn't working at MAC OS
     if (remote.getGlobal('projectManager').activated == null)

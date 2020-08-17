@@ -62,6 +62,7 @@ function appendLabelTemplate(labelID, color, name) {
     "<input id='color-input"+labelID+"' type='text' value='" +
     color +
     "'>" +
+    "</br>"+
     "<button class='btn btn-secondary label-color-cand-rgb' id='"+labelID+"'>OK</button>" +
     "</div>"+
     "</div>"+
