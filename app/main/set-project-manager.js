@@ -7,6 +7,7 @@ function setProjectManager(event, taskId) {
     global.projectManager = new classificationProjectManager();
   else if (taskId == 'OD') {
     // Object detection
+    console.log('OD');
     global.projectManager = new detectionProjectManager();
   } else if (taskId == 'SS')
     // Symantic segmentation
