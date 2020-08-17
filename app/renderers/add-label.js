@@ -48,8 +48,11 @@ $('#root').on('click', '.label-color', function (event) {
   rightPosition = $(event.target).parent().parent()[0].offsetWidth;
   leftPosition = $(event.target).parent().parent()[0].offsetLeft;
   $(event.target).parent().next().toggle();
-  $(event.target).parent().next().css("top", topPosition);
-  $(event.target).parent().next().css("left", leftPosition-rightPosition-10);
+  $(event.target).parent().next().css('top', topPosition);
+  $(event.target)
+    .parent()
+    .next()
+    .css('left', leftPosition - rightPosition - 40);
 });
 
 // Click remove button

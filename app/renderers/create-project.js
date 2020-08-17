@@ -1,6 +1,6 @@
 const { createProjectTemplate } = require('../templates/create-project');
 const { classificationTemplate } = require('../templates/classification');
-// const { objectDetectionTemplate } = require('../templates/object-detection');
+const { objectDetectionTemplate } = require('../templates/object-detection');
 // const { segmentationTemplate } = require('../templates/segmentation');
 // const { ocrTemplate } = require('../templates/ocr');
 
@@ -38,7 +38,7 @@ $('#root').on('click', '#create-project-btn', () => {
     remote.getGlobal('projectManager').setWorkingDirectory(workingDirectory);
     $('#root').empty();
     if (taskId == 'IC') $('#root').append(classificationTemplate);
-    // else if (taskId == 'OD') $('#root').append(objectDetectionTemplate);
+    else if (taskId == 'OD') $('#root').append(objectDetectionTemplate);
     // else if (taskId == 'SS') $('#root').append(segmentationTemplate);
     // else if (taskId == 'OCR') $('#root').append(ocrTemplate);
   }

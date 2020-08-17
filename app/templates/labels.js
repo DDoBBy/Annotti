@@ -2,17 +2,24 @@ const { label } = require("../project_managers/base-classes");
 
 var labelMenu =
   '<div class="label-menu">' +
-  '<h1 class = "label-tit" style="text-align:center;">Label</h1>' +
+  '<div class="label-header">' +
+  '<h1 class = "label-tit">Label</h1>' +
+  '<button class="label-setting" id="label-setting-btn">' +
+  '<img src="../resources/imgs/annotti_setting_small.png" alt="label setting image"></img>' +
+  '</button>' +
+  '</div>' +
   '<div class="label-infos"></div>' +
-  '<button type="button" id="add-label" class="btn btn-secondary">' +
-  'Add Label' +
+  '<button type="button" id="add-label" class="add-label">' +
+  '<img src="../resources/imgs/annotti_add.png" alt="add label"></img>' +
   '</button>' +
   '</div>';
 
 function appendLabelTemplate(labelID, color, name) {
   var appendTemplate =
-    "<div class='appendLabel' id='label"+labelID+"'>" +
-    '<div>' +
+    "<div class='appendLabel' id='label" +
+    labelID +
+    "'>" +
+    '<div class="label-appended">' +
     "<span class='label-color' id='span" +
     labelID +
     "'style='background-color: " +
