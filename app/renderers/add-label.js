@@ -1,4 +1,6 @@
 const { appendLabelTemplate } = require('../templates/labels');
+const { label } = require('../project_managers/base-classes');
+
 function rgb2hex(rgb) {
   if (rgb.search('rgb') == -1) {
     return rgb;
@@ -16,6 +18,14 @@ function generateRandomColor() {
   return randomColor;
 }
 
+function findTopPosition(id) {
+  const target = document.getElementById(id);
+  const clientRect = target.getBoundingClientRect();
+  const relativeTop = clientRect.top;
+  const scrolledTopLength = pageYOffset; // 스크롤된 길이
+  const absoluteTop = scrolledTopLength + relativeTop;
+  return absoluteTop;
+}
 // Click add label button
 $('#root').on('click', '#add-label', () => {
   var randomColor = generateRandomColor();
@@ -33,27 +43,39 @@ $('#root').on('click', '#add-label', () => {
 
 // Click color selector
 $('#root').on('click', '.label-color', function (event) {
+  topPosition =
+    findTopPosition($(event.target).parent().parent()[0].id) -
+    $(event.target).parent()[0].offsetHeight / 2;
+  rightPosition = $(event.target).parent()[0].offsetWidth;
+  leftPosition = $(event.target).parent()[0].offsetLeft;
+  console.log($(event.target).parent());
+  console.log(topPosition, rightPosition, leftPosition);
   $(event.target).parent().next().toggle();
+  $(event.target).parent().next().css('top', topPosition);
+  $(event.target)
+    .parent()
+    .next()
+    .css('left', leftPosition - rightPosition - 40);
 });
 
 // Click remove button
 var $item = $('#root').on('click', '.del', function (event) {
-  $(event.target).parent().parent().remove();
-  var delKey = $(event.target).parent().parent().find('span').attr('id');
-  var fileIDs = remote.getGlobal('projectManager').deleteLabel(delKey);
+  var labelID = event.target.id;
+  document.getElementById('label' + labelID).remove();
+  var fileIDs = remote.getGlobal('projectManager').deleteLabel(labelID);
   fileIDs.forEach((element) => {
     $('#' + element + '.thumbnail').css({ border: 'none' });
   });
+  console.log(remote.getGlobal('projectManager').labelList);
 });
 
 // Change label color by select candidates
 $('#root').on('click', '.label-color-cand', function (event) {
   var prevColor = rgb2hex(
-    $(event.target).parent().prev().children('.label-color').css('background-color')
+    $(event.target).parent().parent().prev().children('.label-color').css('background-color')
   );
   var newColor = rgb2hex($(event.target).css('background-color'));
-  var labelID = $(event.target).parent().prev().find('span').attr('id');
-
+  var labelID = $(event.target).parent()[0].id;
   if (prevColor != newColor) {
     if (!remote.getGlobal('projectManager').colorAlreadyOccupied(newColor)) {
       var fileIDs = remote.getGlobal('projectManager').changeLabelColor(labelID, newColor);
@@ -61,25 +83,23 @@ $('#root').on('click', '.label-color-cand', function (event) {
         $('#' + element + '.thumbnail').css({ border: '8px solid' + newColor });
       });
       $(event.target).parent().children('#color-input').val(newColor);
-      $(event.target).parent().prev().children('.label-color').css('background-color', newColor);
+      document.getElementById('span' + labelID).style.backgroundColor = newColor;
     } else {
       alertError('Duplicate Color', 'Color already used. Please select another color.');
       return;
     }
   }
-  $(event.target).parent().toggle();
+  $('#popover' + labelID).toggle();
 });
 
 // function clickColor(r, g, b) {}
 
 // // Change label color by hex text
 $('#root').on('click', '.label-color-cand-rgb', function (event) {
-  var prevColor = rgb2hex(
-    $(event.target).parent().prev().children('.label-color').css('background-color')
-  );
-  var newColor = $(event.target).parent().children('#color-input')[0].value;
-  var labelID = $(event.target).parent().prev().find('span').attr('id');
-
+  var labelID = event.target.id;
+  var prevColor = rgb2hex(document.getElementById('span' + labelID).style.backgroundColor);
+  var newColor = document.getElementById('color-input' + labelID).value;
+  console.log(newColor);
   if (prevColor != newColor) {
     if (!remote.getGlobal('projectManager').colorAlreadyOccupied(newColor)) {
       var fileIDs = remote.getGlobal('projectManager').changeLabelColor(labelID, newColor);
@@ -87,13 +107,13 @@ $('#root').on('click', '.label-color-cand-rgb', function (event) {
         $('#' + element + '.thumbnail').css({ border: '8px solid' + newColor });
       });
       $(event.target).parent().children('#color-input').val(newColor);
-      $(event.target).parent().prev().children('.label-color').css('background-color', newColor);
+      document.getElementById('span' + labelID).style.backgroundColor = newColor;
     } else {
       alertError('Duplicate Color', 'Color already used. Please select another color.');
       return;
     }
   }
-  $(event.target).parent().toggle();
+  $('#popover' + labelID).toggle();
 });
 
 // Change label name

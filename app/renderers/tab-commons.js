@@ -1,8 +1,3 @@
-// const {remote} = require('electron')
-let $ = require('jquery');
-const fs = require('fs');
-const path = require('path');
-const { remote } = require('electron');
 const { readyTab, openTab } = require('../renderers/tab-functions.js');
 
 let id = 0;
@@ -20,7 +15,7 @@ function composeImgElements(filePath, thumbnailId) {
     ')">' +
     '<img src="' +
     filePath +
-    '" style="display: block;width:80%; height:80%"></img>' +
+    '" style="display: block;width:80px; height:80px"></img>' +
     '<a class"img-name">' +
     basename +
     '</a></div>';
@@ -67,7 +62,7 @@ async function getAllDataPaths() {
 $(document).ready(getAllDataPaths);
 
 // show grid view of images
-$('.view-files').on('click', function () {
-  $('#working-area').css('display', 'grid');
-  $('#tab-area').css('display', 'none');
+$('#view-files-btn').on('click', function () {
+  $('.working-area').css('display', 'grid');
+  $('.tab-area').css('display', 'none');
 });

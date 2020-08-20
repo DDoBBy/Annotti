@@ -1,6 +1,4 @@
-let $ = require('jquery');
-const fs = require('fs');
-const path = require('path');
+// let $ = require('jquery');
 const { remote } = require('electron');
 
 let id;
@@ -10,11 +8,11 @@ let scaleFactor = 1.05;
 let lock_num = 0;
 
 function getThumbnailId() {
-  console.log('HELLOO');
+  if (location.href === undefined) return;
   var tmp = location.href.split('?');
+  if (tmp.length <= 1) return;
   var data = tmp[1].split('=');
   id = data[1];
-  console.log(id);
   getImageCanvas(id);
 }
 
@@ -128,6 +126,12 @@ function drawImageOnCanvas(filePath) {
     return evt.preventDefault() && false;
   };
 
+  var getFullView = function () {
+    canvas.width = $('#tab-image').width();
+    canvas.height = $('#tab-image').height();
+    redraw();
+  };
+
   // add moving events
   canvas.addEventListener('mousedown', mouseDown, false);
   canvas.addEventListener('mousemove', mouseMove, false);
@@ -153,17 +157,22 @@ function drawImageOnCanvas(filePath) {
       canvas.removeEventListener('mouseup', mouseUp, false);
       canvas.removeEventListener('DOMMouseScroll', handleScroll, false);
       canvas.removeEventListener('mousewheel', handleScroll, false);
-      $('#lock-button').text('un-lock');
-      $('#lock-button').css('background-color', 'green');
+      $('#lock-button').html('<img src="../resources/imgs/annotti_unlock.png" alt="un-lock">');
     } else {
       canvas.addEventListener('mousedown', mouseDown, false);
       canvas.addEventListener('mousemove', mouseMove, false);
       canvas.addEventListener('mouseup', mouseUp, false);
       canvas.addEventListener('DOMMouseScroll', handleScroll, false);
       canvas.addEventListener('mousewheel', handleScroll, false);
-      $('#lock-button').text('lock');
-      $('#lock-button').css('background-color', '#4CAF50');
+      $('#lock-button').html('<img src="../resources/imgs/annotti_lock.png" alt="lock">');
     }
+  });
+
+  $('#back-to-original-button').on('click', function () {
+    getFullView();
+  });
+  $(window).resize(() => {
+    getFullView();
   });
 }
 
@@ -236,3 +245,5 @@ function trackTransforms(ctx) {
     return pt.matrixTransform(xform.inverse());
   };
 }
+
+module.exports = { getImageCanvas };
