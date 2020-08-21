@@ -48,14 +48,17 @@ $('#root').on('click', '.label-color', function (event) {
     $(event.target).parent()[0].offsetHeight / 2;
   rightPosition = $(event.target).parent()[0].offsetWidth;
   leftPosition = $(event.target).parent()[0].offsetLeft;
-  console.log($(event.target).parent());
-  console.log(topPosition, rightPosition, leftPosition);
   $(event.target).parent().next().toggle();
   $(event.target).parent().next().css('top', topPosition);
-  $(event.target)
-    .parent()
-    .next()
-    .css('left', leftPosition - rightPosition - 40);
+  var taskId = remote.getGlobal('projectManager').taskId;
+  if (taskId == 'IC') {
+    $(event.target)
+      .parent()
+      .next()
+      .css('left', leftPosition - rightPosition);
+  } else {
+    $(event.target).parent().next().css('transform', 'translate(-100%, -15%)');
+  }
 });
 
 // Click remove button
@@ -155,3 +158,13 @@ function getId() {
   id = data[1];
   return id;
 }
+
+$(window).resize(() => {
+  var els = document.getElementsByClassName('popover');
+  Array.from(els).forEach((el) => {
+    // Do stuff here
+    if (!(el.style.display == 'none')) {
+      document.getElementById(el.id).style.display = 'none';
+    }
+  });
+});
