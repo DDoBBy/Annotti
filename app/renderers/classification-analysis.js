@@ -1,6 +1,3 @@
-let $ = require('jquery');
-const { remote } = require('electron');
-
 function hex2rgba(hex, transparency) {
   var hex = hex.replace('#', '');
   var value = hex.match(/[a-f\d]/gi);
@@ -44,8 +41,4 @@ function showAnalytics() {
   });
 }
 
-$(document).ready(showAnalytics);
-
-$('.go-back').on('click', () => {
-  remote.getCurrentWindow().loadURL(`file://${__dirname}/../logs/log-classification.html`);
-});
+module.exports = { showAnalytics };

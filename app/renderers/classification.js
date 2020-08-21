@@ -63,11 +63,12 @@ $('.classification-close-btn').on('click', () => {
 });
 
 $('#data-analysis').on('click', () => {
-  !fs.existsSync('logs') && fs.mkdirSync('logs');
-  fs.writeFileSync('logs/log-classification.html', document.documentElement.outerHTML);
-  remote
-    .getCurrentWindow()
-    .loadURL(`file://${__dirname}/../templates/classification-analysis.html`);
+  $('.classification-analysis-window').css('display', 'block');
+  showAnalytics();
+});
+
+$('.analysis-close-btn').on('click', () => {
+  $('.classification-analysis-window').css('display', 'none');
 });
 
 $('#save').on('click', () => {

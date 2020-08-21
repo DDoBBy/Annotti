@@ -208,9 +208,6 @@ div.label-menu {
   padding: 0 20px;
   text-align: center;
 }
-div.label-header {
-  display: flex;
-}
 h1.label-tit {
   text-align: left;
   font-weight: bold;
@@ -218,6 +215,7 @@ h1.label-tit {
   height: 50px;
   margin: 0;
   margin-right: 10px;
+  display: inline-block;
   padding: 5px 0;
 }
 button.label-setting {
@@ -226,6 +224,8 @@ button.label-setting {
   border: 0;
   padding: 5px;
   background-color: transparent;
+  display: inline-block;
+  transform: translate(0, -4px);
 }
 button.label-setting > img {
   width: 100%;
@@ -431,7 +431,8 @@ div.bottom-buttons > button > img {
 }
 
 /* CLASSIFICATION ZOOM */
-div.classification-zoom-window {
+div.classification-zoom-window,
+div.classification-analysis-window {
   width: 70%;
   height: 70%;
   position: absolute;
@@ -468,4 +469,17 @@ div.classification-canvas {
 
 div#bottom-buttons-classification {
   grid-template-columns: repeat(4, 1fr);
+}
+
+/* CLASSIFICATION ANALYSIS */
+div.classification-analysis-window {
+  z-index: 3;
+}
+div.classification-analysis-contents {
+  width: 100%;
+  height: 100%;
+}
+canvas.analytic-chart {
+  position: relative;
+  top: 10%;
 }
