@@ -64,7 +64,7 @@ $('.classification-close-btn').on('click', () => {
   $('.classification-zoom-window').css('display', 'none');
 });
 
-$('#data-analysis').on('click', () => {
+$('#data-analysis-btn').on('click', () => {
   $('.classification-analysis-window').css('display', 'block');
   showAnalytics();
 });
@@ -73,7 +73,7 @@ $('.analysis-close-btn').on('click', () => {
   $('.classification-analysis-window').css('display', 'none');
 });
 
-$('#save').on('click', () => {
+$('#save-btn').on('click', () => {
   var labelInfos = remote.getGlobal('projectManager').getLabelInfos();
   var names = {};
   for ([key, value] of Object.entries(labelInfos)) {
