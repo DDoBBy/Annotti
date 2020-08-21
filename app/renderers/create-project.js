@@ -4,11 +4,7 @@ const { objectDetectionTemplate } = require('../templates/object-detection');
 // const { segmentationTemplate } = require('../templates/segmentation');
 // const { ocrTemplate } = require('../templates/ocr');
 
-let workingDirectory = [
-  '/Users/yeon/Downloads/bwh',
-  '/Users/yeon/Downloads/bwh_cjz_w',
-  '/Users/yeon/Downloads/bwh_cjz_b',
-];
+let workingDirectory = 'None';
 
 function composeUI() {
   $('#root').append(createProjectTemplate);
