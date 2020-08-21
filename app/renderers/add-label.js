@@ -18,12 +18,12 @@ function generateRandomColor() {
   return randomColor;
 }
 
-function findTopPosition(id){
-  const target = document.getElementById(id); 
-  const clientRect = target.getBoundingClientRect(); 
-  const relativeTop = clientRect.top; 
+function findTopPosition(id) {
+  const target = document.getElementById(id);
+  const clientRect = target.getBoundingClientRect();
+  const relativeTop = clientRect.top;
   const scrolledTopLength = pageYOffset; // 스크롤된 길이
-  const absoluteTop = scrolledTopLength + relativeTop; 
+  const absoluteTop = scrolledTopLength + relativeTop;
   return absoluteTop;
 }
 // Click add label button
@@ -43,11 +43,13 @@ $('#root').on('click', '#add-label', () => {
 
 // Click color selector
 $('#root').on('click', '.label-color', function (event) {
-  topPosition = findTopPosition($(event.target).parent().parent()[0].id)-($(event.target).parent()[0].offsetHeight/2)
+  topPosition =
+    findTopPosition($(event.target).parent().parent()[0].id) -
+    $(event.target).parent()[0].offsetHeight / 2;
   rightPosition = $(event.target).parent()[0].offsetWidth;
   leftPosition = $(event.target).parent()[0].offsetLeft;
-  console.log($(event.target).parent())
-  console.log(topPosition, rightPosition, leftPosition)
+  console.log($(event.target).parent());
+  console.log(topPosition, rightPosition, leftPosition);
   $(event.target).parent().next().toggle();
   $(event.target).parent().next().css('top', topPosition);
   $(event.target)
@@ -59,12 +61,12 @@ $('#root').on('click', '.label-color', function (event) {
 // Click remove button
 var $item = $('#root').on('click', '.del', function (event) {
   var labelID = event.target.id;
-  document.getElementById('label'+labelID).remove();
+  document.getElementById('label' + labelID).remove();
   var fileIDs = remote.getGlobal('projectManager').deleteLabel(labelID);
   fileIDs.forEach((element) => {
     $('#' + element + '.thumbnail').css({ border: 'none' });
   });
-  console.log(remote.getGlobal('projectManager').labelList)
+  console.log(remote.getGlobal('projectManager').labelList);
 });
 
 // Change label color by select candidates
@@ -74,21 +76,31 @@ $('#root').on('click', '.label-color-cand', function (event) {
   );
   var newColor = rgb2hex($(event.target).css('background-color'));
   var labelID = $(event.target).parent()[0].id;
+  console.log(remote.getGlobal('projectManager').labelList);
   if (prevColor != newColor) {
     if (!remote.getGlobal('projectManager').colorAlreadyOccupied(newColor)) {
-      var fileIDs = remote.getGlobal('projectManager').changeLabelColor(labelID, newColor);
-      fileIDs.forEach((element) => {
-        $('#' + element + '.thumbnail').css({ border: '8px solid' + newColor });
-      });
+      const taskId = remote.getGlobal('projectManager').taskId;
+      if (taskId == 'IC') {
+        var fileIDs = remote.getGlobal('projectManager').changeLabelColor(labelID, newColor);
+        fileIDs.forEach((element) => {
+          $('#' + element + '.thumbnail').css({ border: '8px solid' + newColor });
+        });
+      } else if (taskId == 'OD') {
+        var fileID = getId();
+        console.log(fileID);
+        var fileIds = remote
+          .getGlobal('projectManager')
+          .changeLabelColor(fileID, labelID, newColor);
+        console.log(fileIds);
+      }
       $(event.target).parent().children('#color-input').val(newColor);
-      document.getElementById('span'+labelID).style.backgroundColor = newColor;
+      document.getElementById('span' + labelID).style.backgroundColor = newColor;
     } else {
       alertError('Duplicate Color', 'Color already used. Please select another color.');
       return;
     }
   }
-  $('#popover'+labelID).toggle();
-
+  $('#popover' + labelID).toggle();
 });
 
 // function clickColor(r, g, b) {}
@@ -96,25 +108,32 @@ $('#root').on('click', '.label-color-cand', function (event) {
 // // Change label color by hex text
 $('#root').on('click', '.label-color-cand-rgb', function (event) {
   var labelID = event.target.id;
-  var prevColor = rgb2hex(
-    document.getElementById('span'+labelID).style.backgroundColor
-  );
-  var newColor = document.getElementById('color-input'+labelID).value;
-  console.log(newColor)
+  var prevColor = rgb2hex(document.getElementById('span' + labelID).style.backgroundColor);
+  var newColor = document.getElementById('color-input' + labelID).value;
+  console.log(newColor);
   if (prevColor != newColor) {
     if (!remote.getGlobal('projectManager').colorAlreadyOccupied(newColor)) {
-      var fileIDs = remote.getGlobal('projectManager').changeLabelColor(labelID, newColor);
-      fileIDs.forEach((element) => {
-        $('#' + element + '.thumbnail').css({ border: '8px solid' + newColor });
-      });
+      const taskId = remote.getGlobal('projectManager').taskId;
+      if (taskId == 'IC') {
+        var fileIDs = remote.getGlobal('projectManager').changeLabelColor(labelID, newColor);
+        fileIDs.forEach((element) => {
+          $('#' + element + '.thumbnail').css({ border: '8px solid' + newColor });
+        });
+      } else if (taskId == 'OD') {
+        var fileID = getId();
+        var fileIds = remote
+          .getGlobal('projectManager')
+          .changeLabelColor(fileID, labelID, newColor);
+        console.log(fileIds);
+      }
       $(event.target).parent().children('#color-input').val(newColor);
-      document.getElementById('span'+labelID).style.backgroundColor = newColor;
+      document.getElementById('span' + labelID).style.backgroundColor = newColor;
     } else {
       alertError('Duplicate Color', 'Color already used. Please select another color.');
       return;
     }
   }
-  $('#popover'+labelID).toggle();
+  $('#popover' + labelID).toggle();
 });
 
 // Change label name
@@ -128,3 +147,12 @@ $('#root').on('change', '.label-name', function (event) {
     return;
   }
 });
+
+function getId() {
+  if (location.href === undefined) return;
+  var tmp = location.href.split('?');
+  if (tmp.length <= 1) return;
+  var data = tmp[1].split('=');
+  id = data[1];
+  return id;
+}

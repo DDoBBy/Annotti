@@ -25,6 +25,7 @@ class detectionFileInfo extends file {
 class detectionLabel extends label {
   constructor(name, color, hotKey) {
     super(name, color, hotKey);
+    this.fileIds = new Array();
     this.blink = false;
     this.box = new Array();
   }
@@ -55,6 +56,7 @@ class detectionProjectManager extends projectManager {
     //this.odLabels = new Array()
     //this.odFileInfos = new Array()
     this.labelList = {};
+    this.fileList = {};
     this.activated = null;
   }
 
@@ -63,19 +65,19 @@ class detectionProjectManager extends projectManager {
     this.odLabels.push(label);
   }
 
-  changeLabelColor(labelID, newColor) {
+  changeLabelColor(fileID, labelID, newColor) {
     this.labelList[labelID].color = newColor;
     this.labelColors[labelID] = newColor;
+    return Object.keys(this.fileList[fileID]);
   }
 
   appendLabel(name, color) {
-    this.labelCounter += 1;
-
     if (name == null) name = 'New Label ' + this.labelCounter.toString();
 
     let newLabel = new detectionLabel(name, color);
     this.labelList[this.labelCounter] = newLabel;
     this.labelColors[this.labelCounter] = color;
+    this.labelCounter += 1;
     return newLabel;
   }
 
