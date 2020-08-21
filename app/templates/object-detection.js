@@ -10,6 +10,7 @@ var objectDetectionTemplate =
   '</div></div>' +
   etabs +
   '</div>' +
-  '<script src="../renderers/tab-commons.js"></script>';
+  '<script src="../renderers/tab-commons.js"></script>' +
+  '<script src="../renderers/object-detection.js"></script>';
 
 module.exports = { objectDetectionTemplate };

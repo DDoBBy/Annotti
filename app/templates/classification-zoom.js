@@ -9,7 +9,8 @@ var classificationZoom =
 			</button>\
 		</div>\
 		<div class="classification-canvas" id="tab-image">\
-  		<canvas id="img-canvas" style="max-width: 100%; max-height: 100%;"></canvas>\
+		  <canvas id="img-canvas" style="max-width: 100%; max-height: 100%;"></canvas>\
+		  <canvas id="label-canvas" style="max-width: 100%; max-height: 100%;"></canvas>\
 		</div>\
 		<div class="classification-label-form">\
 			<div class="bottom-menu" id="bottom-menu">\
