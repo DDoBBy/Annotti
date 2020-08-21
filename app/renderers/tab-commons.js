@@ -1,6 +1,4 @@
 const { readyTab, openTab } = require('../renderers/tab-functions.js');
-
-let id = 0;
 const imgExtensions = ['.png', '.jpg', '.jpeg', '.PNG', '.JPG', '.JPEG'];
 
 function breadCrumbHome(event) {
@@ -16,7 +14,7 @@ function breadCrumb(event) {
 }
 
 function composeImgElements(filePath, imgInfoId) {
-  remote.getGlobal('projectManager').append_file(id);
+  remote.getGlobal('projectManager').append_file(imgInfoId);
   var basename = path.basename(filePath);
   if (basename.length > 10) {
     basename = basename.slice(0, 5) + '...' + basename.slice(-5);
@@ -24,9 +22,7 @@ function composeImgElements(filePath, imgInfoId) {
   var element =
     '<div class="img-info" id="' +
     imgInfoId +
-    '" onclick="openTab(' +
-    imgInfoId +
-    ')">' +
+    '">' +
     '<img class="thumbnail" id="' +
     imgInfoId +
     '" src="' +
@@ -36,6 +32,8 @@ function composeImgElements(filePath, imgInfoId) {
     basename +
     '</a></div>';
   $('#all-imgs').append(element);
+
+  $('.img-info:last-child').on('click', { imgInfoId: imgInfoId }, openTab);
 }
 
 function composeFolderElements(folderPath) {
@@ -62,15 +60,18 @@ async function readFolder(folderPath) {
   $('#breadcrumb-list').append(folderBreadCrumb);
   $('.breadcrumb-item:last-child').children().on('click', breadCrumb);
 
-  var dataPaths = [];
+  var dataPaths = {};
   var dir = await fs.promises.opendir(folderPath);
   for await (const dirent of dir) {
     dataPath = path.resolve(folderPath, dirent.name);
     if (dirent.isDirectory()) composeFolderElements(dataPath);
     else {
       if (imgExtensions.includes(path.extname(dataPath))) {
-        composeImgElements(dataPath, id++);
-        dataPaths.push(dataPath);
+        var shasum = crypto.createHash('sha1');
+        shasum.update(dataPath);
+        var fileID = shasum.digest('hex');
+        composeImgElements(dataPath, fileID);
+        dataPaths[fileID] = dataPath;
       }
     }
   }

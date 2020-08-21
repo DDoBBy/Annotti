@@ -1,6 +1,3 @@
-const { remote } = require('electron');
-
-let id = 0;
 const imgExtensions = ['.png', '.jpg', '.jpeg', '.PNG', '.JPG', '.JPEG'];
 
 function breadCrumbHome(event) {
@@ -59,15 +56,18 @@ async function readFolder(folderPath) {
   $('#breadcrumb-list').append(folderBreadCrumb);
   $('.breadcrumb-item:last-child').children().on('click', breadCrumb);
 
-  var dataPaths = [];
+  var dataPaths = {};
   var dir = await fs.promises.opendir(folderPath);
   for await (const dirent of dir) {
     dataPath = path.resolve(folderPath, dirent.name);
     if (dirent.isDirectory()) composeFolderElements(dataPath);
     else {
       if (imgExtensions.includes(path.extname(dataPath))) {
-        composeImgElements(dataPath, id++);
-        dataPaths.push(dataPath);
+        var shasum = crypto.createHash('sha1');
+        shasum.update(dataPath);
+        var fileID = shasum.digest('hex');
+        composeImgElements(dataPath, fileID);
+        dataPaths[fileID] = dataPath;
       }
     }
   }

@@ -31,16 +31,16 @@ function appendLabelTemplate(labelID, color, name) {
     name +
     "'>";
 
-  if (remote.getGlobal('projectManager').taskId == 'IC')
-    // Activation button
-    appendTemplate +=
-      "<input type='checkbox' class='activate' id='" +
-      labelID +
-      "'>" +
-      "<span class='label-counter' id='" +
-      labelID +
-      "'>" +
-      '0</span>';
+  // if (remote.getGlobal('projectManager').taskId == 'IC')
+  // Activation button
+  appendTemplate +=
+    "<input type='checkbox' class='activate' id='" +
+    labelID +
+    "'>" +
+    "<span class='label-counter' id='" +
+    labelID +
+    "'>" +
+    '0</span>';
 
   appendTemplate +=
     "<div class='del' id='" +

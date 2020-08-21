@@ -6,7 +6,8 @@ function readyTab() {
   tabGroup = new TabGroup();
 }
 
-function openTab(thumbnailId) {
+function openTab(event) {
+  thumbnailId = event.data.imgInfoId;
   var filePath = remote.getGlobal('projectManager').dataPaths[thumbnailId];
   var basename = path.basename(filePath);
 
