@@ -78,10 +78,20 @@ $('#root').on('click', '.label-color-cand', function (event) {
   var labelID = $(event.target).parent()[0].id;
   if (prevColor != newColor) {
     if (!remote.getGlobal('projectManager').colorAlreadyOccupied(newColor)) {
-      var fileIDs = remote.getGlobal('projectManager').changeLabelColor(labelID, newColor);
-      fileIDs.forEach((element) => {
-        $('#' + element + '.thumbnail').css({ border: '8px solid' + newColor });
-      });
+      const taskId = remote.getGlobal('projectManager').taskId;
+      if (taskId == 'IC') {
+        var fileIDs = remote.getGlobal('projectManager').changeLabelColor(labelID, newColor);
+        fileIDs.forEach((element) => {
+          $('#' + element + '.thumbnail').css({ border: '8px solid' + newColor });
+        });
+      } else if (taskId == 'OD') {
+        var fileID = getId();
+        console.log(fileID);
+        var fileIds = remote
+          .getGlobal('projectManager')
+          .changeLabelColor(fileID, labelID, newColor);
+        console.log(fileIds);
+      }
       $(event.target).parent().children('#color-input').val(newColor);
       document.getElementById('span' + labelID).style.backgroundColor = newColor;
     } else {
@@ -102,10 +112,19 @@ $('#root').on('click', '.label-color-cand-rgb', function (event) {
   console.log(newColor);
   if (prevColor != newColor) {
     if (!remote.getGlobal('projectManager').colorAlreadyOccupied(newColor)) {
-      var fileIDs = remote.getGlobal('projectManager').changeLabelColor(labelID, newColor);
-      fileIDs.forEach((element) => {
-        $('#' + element + '.thumbnail').css({ border: '8px solid' + newColor });
-      });
+      const taskId = remote.getGlobal('projectManager').taskId;
+      if (taskId == 'IC') {
+        var fileIDs = remote.getGlobal('projectManager').changeLabelColor(labelID, newColor);
+        fileIDs.forEach((element) => {
+          $('#' + element + '.thumbnail').css({ border: '8px solid' + newColor });
+        });
+      } else if (taskId == 'OD') {
+        var fileID = getId();
+        var fileIds = remote
+          .getGlobal('projectManager')
+          .changeLabelColor(fileID, labelID, newColor);
+        console.log(fileIds);
+      }
       $(event.target).parent().children('#color-input').val(newColor);
       document.getElementById('span' + labelID).style.backgroundColor = newColor;
     } else {
@@ -127,3 +146,12 @@ $('#root').on('change', '.label-name', function (event) {
     return;
   }
 });
+
+function getId() {
+  if (location.href === undefined) return;
+  var tmp = location.href.split('?');
+  if (tmp.length <= 1) return;
+  var data = tmp[1].split('=');
+  id = data[1];
+  return id;
+}

@@ -40,12 +40,12 @@ class projectManager {
     this.dataPaths = this.dataPaths.concat(dataPaths);
   }
 
-  changeLabelColor(labelID, newColor) {
-    this.labelColors[labelID] = newColor;
-  }
-
   changeLabelName(labelID, newName) {
     this.labelNames[labelID] = newName;
+  }
+
+  colorAlreadyOccupied(color) {
+    return Object.values(this.labelColors).includes(color);
   }
 
   appendLabel() {

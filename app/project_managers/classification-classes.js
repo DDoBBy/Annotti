@@ -33,9 +33,7 @@ class classificationProjectManager extends projectManager {
     return this.labelList;
   }
 
-  colorAlreadyOccupied(color) {
-    return Object.values(this.labelColors).includes(color);
-  }
+  
 
   getLabelIDbyColor(color) {
     return Object.keys(this.labelColors).find((key) => this.labelColors[key] === color);

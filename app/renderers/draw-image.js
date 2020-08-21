@@ -1,6 +1,3 @@
-// let $ = require('jquery');
-// const { remote } = require('electron');
-
 let id;
 let img;
 let ratio;
