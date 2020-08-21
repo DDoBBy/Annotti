@@ -108,7 +108,6 @@ $('#root').on('click', '.label-color-cand-rgb', function (event) {
   var labelID = event.target.id;
   var prevColor = rgb2hex(document.getElementById('span' + labelID).style.backgroundColor);
   var newColor = document.getElementById('color-input' + labelID).value;
-  console.log(newColor);
   if (prevColor != newColor) {
     if (!remote.getGlobal('projectManager').colorAlreadyOccupied(newColor)) {
       const taskId = remote.getGlobal('projectManager').taskId;
