@@ -33,8 +33,6 @@ class classificationProjectManager extends projectManager {
     return this.labelList;
   }
 
-  
-
   getLabelIDbyColor(color) {
     return Object.keys(this.labelColors).find((key) => this.labelColors[key] === color);
   }

@@ -12,7 +12,7 @@ function breadCrumb(event) {
   readFolder($(event.target).attr('data-paths'));
 }
 
-function composeImgElements(filePath, imgInfoId) {
+function composeImgElements(filePath, imgInfoId, checked, labelColor) {
   var basename = path.basename(filePath);
   if (basename.length > 10) {
     basename = basename.slice(0, 5) + '...' + basename.slice(-5);
@@ -30,6 +30,11 @@ function composeImgElements(filePath, imgInfoId) {
     basename +
     '</a></div>';
   $('#all-imgs').append(element);
+  if (checked) {
+    $('.img-info:last-child')
+      .children('.thumbnail')
+      .css({ border: '8px solid' + labelColor });
+  }
 }
 
 function composeFolderElements(folderPath) {
@@ -66,7 +71,13 @@ async function readFolder(folderPath) {
         var shasum = crypto.createHash('sha1');
         shasum.update(dataPath);
         var fileID = shasum.digest('hex');
-        composeImgElements(dataPath, fileID);
+        if (remote.getGlobal('projectManager').checkedFiles.hasOwnProperty(fileID)) {
+          var labelID = remote.getGlobal('projectManager').checkedFiles[fileID];
+          var labelColor = remote.getGlobal('projectManager').getColorbyLabelID(labelID);
+          composeImgElements(dataPath, fileID, true, labelColor);
+        } else {
+          composeImgElements(dataPath, fileID, false, 0);
+        }
         dataPaths[fileID] = dataPath;
       }
     }
