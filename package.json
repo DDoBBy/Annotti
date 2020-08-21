@@ -75,6 +75,7 @@
     "electron": "^9.1.0"
   },
   "dependencies": {
+    "@simonwep/selection-js": "^1.7.1",
     "bootstrap": "^4.5.2",
     "electron-builder": "^22.8.0",
     "electron-chartjs": "^1.0.0",
