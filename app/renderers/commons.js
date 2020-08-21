@@ -1,3 +1,5 @@
+const { remote } = require('electron');
+
 let id = 0;
 const imgExtensions = ['.png', '.jpg', '.jpeg', '.PNG', '.JPG', '.JPEG'];
 

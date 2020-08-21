@@ -16,6 +16,7 @@ function breadCrumb(event) {
 }
 
 function composeImgElements(filePath, imgInfoId) {
+  remote.getGlobal('projectManager').append_file(id);
   var basename = path.basename(filePath);
   if (basename.length > 10) {
     basename = basename.slice(0, 5) + '...' + basename.slice(-5);

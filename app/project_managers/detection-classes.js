@@ -64,11 +64,14 @@ class detectionProjectManager extends projectManager {
     //this.odFileInfos[this.odFileInfos.indexOf(path)].labels.push(label)
     this.odLabels.push(label);
   }
-
+  append_file(fileID) {
+    this.fileList[fileID] = {};
+  }
   changeLabelColor(fileID, labelID, newColor) {
     this.labelList[labelID].color = newColor;
     this.labelColors[labelID] = newColor;
-    return Object.keys(this.fileList[fileID]);
+    console.log(this.fileList[fileID]);
+    return this.fileList[fileID];
   }
 
   appendLabel(name, color) {
@@ -84,6 +87,11 @@ class detectionProjectManager extends projectManager {
   deleteLabel(labelID) {
     delete this.labelList[labelID];
     delete this.labelColors[labelID];
+  }
+
+  appendDetectionBox(fileID, labelID, boxPosition) {
+    var newBox = new detectionBox(boxPosition.x1, boxPosition.y1, boxPosition.x2, boxPosition.y2);
+    this.fileList[fileID][labelID].push(newBox);
   }
 }
 

@@ -76,7 +76,6 @@ $('#root').on('click', '.label-color-cand', function (event) {
   );
   var newColor = rgb2hex($(event.target).css('background-color'));
   var labelID = $(event.target).parent()[0].id;
-  console.log(remote.getGlobal('projectManager').labelList);
   if (prevColor != newColor) {
     if (!remote.getGlobal('projectManager').colorAlreadyOccupied(newColor)) {
       const taskId = remote.getGlobal('projectManager').taskId;
