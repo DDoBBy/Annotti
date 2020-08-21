@@ -1,65 +1,102 @@
 const { readyTab, openTab } = require('../renderers/tab-functions.js');
 
 let id = 0;
+const imgExtensions = ['.png', '.jpg', '.jpeg', '.PNG', '.JPG', '.JPEG'];
 
-function composeImgElements(filePath, thumbnailId) {
+function breadCrumbHome(event) {
+  $('#all-imgs').empty();
+  showSelectedDirectories();
+}
+
+function breadCrumb(event) {
+  $(event.target).parent().nextAll().remove();
+  $(event.target).parent().remove();
+  $('#all-imgs').empty();
+  readFolder($(event.target).attr('data-paths'));
+}
+
+function composeImgElements(filePath, imgInfoId) {
   var basename = path.basename(filePath);
   if (basename.length > 10) {
     basename = basename.slice(0, 5) + '...' + basename.slice(-5);
   }
   var element =
-    '<div class="thumbnail" id="thumbnail-' +
-    thumbnailId +
+    '<div class="img-info" id="' +
+    imgInfoId +
     '" onclick="openTab(' +
-    thumbnailId +
+    imgInfoId +
     ')">' +
-    '<img src="' +
+    '<img class="thumbnail" id="' +
+    imgInfoId +
+    '" src="' +
     filePath +
-    '" style="display: block;width:80px; height:80px"></img>' +
+    '" style="display: block;"></img>' +
     '<a class"img-name">' +
     basename +
     '</a></div>';
   $('#all-imgs').append(element);
 }
 
-async function* fileWaker(ext, dir) {
-  const dirents = await fs.promises.readdir(dir, { withFileTypes: true });
-  for (const dirent of dirents) {
-    const res = path.resolve(dir, dirent.name);
-    if (dirent.isDirectory()) yield* fileWaker(ext, res);
+function composeFolderElements(folderPath) {
+  var basename = path.basename(folderPath);
+  var element =
+    '<div class="folder-info">' +
+    '<img class="folder-thumbnail" id="' +
+    folderPath +
+    '" src="../resources/imgs/folder.png" style="display: block;"></img>' +
+    '<a class"img-name">' +
+    basename +
+    '</a></div>';
+  $('#all-imgs').append(element);
+}
+
+async function readFolder(folderPath) {
+  $('#all-imgs').empty();
+  var folderBreadCrumb =
+    '<li class="breadcrumb-item" data-test="test"><a href="#" data-paths="' +
+    folderPath +
+    '">' +
+    path.basename(folderPath) +
+    '</a></li>';
+  $('#breadcrumb-list').append(folderBreadCrumb);
+  $('.breadcrumb-item:last-child').children().on('click', breadCrumb);
+
+  var dataPaths = [];
+  var dir = await fs.promises.opendir(folderPath);
+  for await (const dirent of dir) {
+    dataPath = path.resolve(folderPath, dirent.name);
+    if (dirent.isDirectory()) composeFolderElements(dataPath);
     else {
-      if (ext.includes(path.extname(res))) {
-        composeImgElements(res, id++);
-        yield res;
+      if (imgExtensions.includes(path.extname(dataPath))) {
+        composeImgElements(dataPath, id++);
+        dataPaths.push(dataPath);
       }
     }
   }
-}
-
-async function getDataPathFromDir(ext, dir) {
-  let dataPaths = [];
-  for await (const f of fileWaker(ext, dir)) dataPaths.push(f);
+  remote.getGlobal('projectManager').appendDataPaths(dataPaths);
   return dataPaths;
 }
 
-async function searchSelectedDirs(ext) {
-  let dataPaths = [];
-  let workingDirectory = remote.getGlobal('projectManager').workingDirectory;
-  for (i = 0; i < workingDirectory.length; i++) {
-    let paths = await getDataPathFromDir(ext, workingDirectory[i]);
-    dataPaths = dataPaths.concat(paths);
-  }
-  return dataPaths;
-}
-
-async function getAllDataPaths() {
+async function showSelectedDirectories() {
+  $('#breadcrumb-list').empty();
   readyTab();
-  const imgExtensions = ['.png', '.jpg', '.jpeg'];
-  let dataPaths = await searchSelectedDirs(imgExtensions);
-  remote.getGlobal('projectManager').setDataPaths(dataPaths);
+  var workingDirectory = remote.getGlobal('projectManager').workingDirectory;
+  for (const folderPath of workingDirectory) {
+    await composeFolderElements(folderPath);
+  }
+  var home =
+    '<li class="breadcrumb-item" id="home"><a href="#" data-paths="' +
+    workingDirectory +
+    '" onClick="breadCrumbHome()">Home</a></li>';
+  $('#breadcrumb-list').append(home);
 }
 
-$(document).ready(getAllDataPaths);
+$('.grid-view-files').on('click', '.folder-thumbnail', function (event) {
+  var folderPath = $(event.target).attr('id');
+  readFolder(folderPath);
+});
+
+$('document').ready(showSelectedDirectories);
 
 // show grid view of images
 $('#view-files-btn').on('click', function () {
