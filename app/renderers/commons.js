@@ -14,7 +14,7 @@ function composeImgElements(filePath, imgInfoId) {
     imgInfoId +
     '" src="' +
     filePath +
-    '" style="display: block;width:80px; height:80px"></img>' +
+    '" style="display: block;"></img>' +
     '<a class"img-name">' +
     basename +
     '</a></div>';
@@ -27,7 +27,7 @@ function composeFolderElements(folderPath) {
     '<div class="folder-info">' +
     '<img class="folder-thumbnail" id="' +
     folderPath +
-    '" src="../resources/imgs/folder.png" style="display: block;width:80px; height:80px"></img>' +
+    '" src="../resources/imgs/folder.png" style="display: block;"></img>' +
     '<a class"img-name">' +
     basename +
     '</a></div>';

@@ -1,5 +1,5 @@
 // let $ = require('jquery');
-const { remote } = require('electron');
+// const { remote } = require('electron');
 
 let id;
 let img;

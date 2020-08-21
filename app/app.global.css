@@ -161,10 +161,21 @@ div.working-area {
 div.folder-info,
 div.img-info {
   margin: 0 auto;
+  margin-bottom: 10px;
+  height: 104px;
+  display: flex;
+  flex-direction: column;
 }
 img.folder-thumbnail,
 img.thumbnail {
-  margin: 0 auto;
+  margin: auto;
+  max-width: 80px;
+  max-height: 80px;
+  width: auto;
+  height: auto;
+}
+a.img-name {
+  flex-basis: 18px;
 }
 
 /* MAIN-VIEW */
