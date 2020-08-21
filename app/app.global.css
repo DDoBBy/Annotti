@@ -311,7 +311,10 @@ input.label-name {
   border-width: 4.54264069px;
   background-color: #bbb;
 }
-
+.popover-close {
+  cursor: pointer;
+  line-height: 0.3;
+}
 /* TAB */
 div.tab-area {
   height: 100%;

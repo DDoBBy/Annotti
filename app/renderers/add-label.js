@@ -149,7 +149,9 @@ $('#root').on('change', '.label-name', function (event) {
     return;
   }
 });
-
+$('#root').on('click', '.popover-close', function (event) {
+  $('#popover' + event.target.id).toggle();
+});
 function getId() {
   if (location.href === undefined) return;
   var tmp = location.href.split('?');
