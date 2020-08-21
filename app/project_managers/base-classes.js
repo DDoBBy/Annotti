@@ -21,7 +21,7 @@ class projectManager {
     this.taskId = taskId;
 
     this.workingDirectory = [];
-    this.dataPaths = [];
+    this.dataPaths = {};
 
     this.labelCounter = 0; // To make default label ID
     this.labelColors = {}; // To check duplicated label color
@@ -32,12 +32,8 @@ class projectManager {
     this.workingDirectory = workingDirectory;
   }
 
-  setDataPaths(dataPaths) {
-    // Legacy
-    this.dataPaths = dataPaths;
-  }
   appendDataPaths(dataPaths) {
-    this.dataPaths = this.dataPaths.concat(dataPaths);
+    this.dataPaths = { ...this.dataPaths, ...dataPaths };
   }
 
   changeLabelName(labelID, newName) {
