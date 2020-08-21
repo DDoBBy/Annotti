@@ -176,6 +176,11 @@ div.main-view {
   padding: 15px 0;
   margin-right: 15px;
 }
+div.finder {
+  height: 100%;
+  width: 100%;
+  flex: 1;
+}
 div.grid-view-files {
   height: 100%;
   width: 100%;
