@@ -1,7 +1,7 @@
 const { leftMenu } = require('./left-menu');
 const { mainView } = require('./main-view');
 const { labelMenu } = require('./labels');
-const { classificationZoom } = require('./classification-tab');
+const { classificationZoom } = require('./classification-zoom');
 const { classificationAnalysisTemplate } = require('./classification-analysis');
 
 var classificationTemplate =

@@ -1,5 +1,4 @@
 const { appendLabelTemplate } = require('../templates/labels');
-const { label } = require('../project_managers/base-classes');
 
 function rgb2hex(rgb) {
   if (rgb.search('rgb') == -1) {
@@ -152,5 +151,6 @@ function getId() {
   if (tmp.length <= 1) return;
   var data = tmp[1].split('=');
   id = data[1];
+  console.log(id);
   return id;
 }

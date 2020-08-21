@@ -67,10 +67,26 @@ class detectionProjectManager extends projectManager {
   append_file(fileID) {
     this.fileList[fileID] = {};
   }
+  append_file_label(fileID, labelID) {
+    this.fileList[fileID] = { labelID: {} };
+  }
+
+  getColorbyLabelID(labelID) {
+    return this.labelColors[labelID];
+  }
+
+  getLabelIDbyColor(color) {
+    return Object.keys(this.labelColors).find((key) => this.labelColors[key] === color);
+  }
+
+  getLabelInfos() {
+    return this.labelList;
+  }
+
   changeLabelColor(fileID, labelID, newColor) {
     this.labelList[labelID].color = newColor;
     this.labelColors[labelID] = newColor;
-    console.log(this.fileList[fileID]);
+    // console.log(this.fileList[fileID]);
     return this.fileList[fileID];
   }
 
@@ -87,6 +103,10 @@ class detectionProjectManager extends projectManager {
   deleteLabel(labelID) {
     delete this.labelList[labelID];
     delete this.labelColors[labelID];
+  }
+
+  activateLabel(labelID) {
+    this.activated = labelID;
   }
 
   appendDetectionBox(fileID, labelID, boxPosition) {
