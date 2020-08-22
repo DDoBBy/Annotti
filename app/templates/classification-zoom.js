@@ -1,5 +1,3 @@
-const { labelMenu } = require('./labels');
-
 var classificationZoom =
   '<div class="classification-zoom-window">\
 		<div class="close-area">\
@@ -10,7 +8,6 @@ var classificationZoom =
 		</div>\
 		<div class="classification-canvas" id="tab-image">\
 		  <canvas id="img-canvas" style="max-width: 100%; max-height: 100%;"></canvas>\
-		  <canvas id="label-canvas" style="max-width: 100%; max-height: 100%;"></canvas>\
 		</div>\
 		<div class="classification-label-form">\
 			<div class="bottom-menu" id="bottom-menu">\
@@ -21,8 +18,7 @@ var classificationZoom =
 					<button id="lock-button"><img src="../resources/imgs/annotti_lock.png" alt="lock"></button>\
 				</div>\
 			</div>\
-  	</div>' +
-  // labelMenu +
-  '</div>';
+  	</div>\
+  </div>';
 
 module.exports = { classificationZoom };

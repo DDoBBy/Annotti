@@ -52,6 +52,15 @@ selection
     inst.keepSelection();
   });
 
+$('.working-area').on('click', '.thumbnail', function (event) {
+  var fileID = $(event.target).attr('id');
+  var filePath = $(event.target).attr('src');
+  var basename = path.basename(filePath);
+  $('#classification-file-name').text(basename);
+  $('.classification-zoom-window').css('display', 'block');
+  getImageCanvas(fileID);
+});
+
 $('.label-infos').on('click', '.activate', function (event) {
   if ($(event.target).prop('checked')) {
     $('[class=activate]').prop('checked', false);
