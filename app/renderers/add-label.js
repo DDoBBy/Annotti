@@ -1,5 +1,4 @@
 const { appendLabelTemplate } = require('../templates/labels');
-const { label } = require('../project_managers/base-classes');
 
 function rgb2hex(rgb) {
   if (rgb.search('rgb') == -1) {
@@ -112,7 +111,6 @@ $('#root').on('click', '.label-color-cand-rgb', function (event) {
   var labelID = event.target.id;
   var prevColor = rgb2hex(document.getElementById('span' + labelID).style.backgroundColor);
   var newColor = document.getElementById('color-input' + labelID).value;
-  console.log(newColor);
   if (prevColor != newColor) {
     if (!remote.getGlobal('projectManager').colorAlreadyOccupied(newColor)) {
       const taskId = remote.getGlobal('projectManager').taskId;
@@ -152,6 +150,7 @@ $('#root').on('change', '.label-name', function (event) {
 $('#root').on('click', '.popover-close', function (event) {
   $('#popover' + event.target.id).toggle();
 });
+
 function getId() {
   if (location.href === undefined) return;
   var tmp = location.href.split('?');

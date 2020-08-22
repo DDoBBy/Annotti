@@ -18,6 +18,22 @@ div#root {
 * {
   color: #707070;
 }
+a,
+a:hover {
+  color: #707070;
+  text-decoration: none;
+}
+
+/* BREADCRUMB */
+ol.breadcrumb {
+  background-color: #f0f0f0;
+}
+li.breadcrumb-item > a {
+  color: #907aef;
+}
+li.breadcrumb-item > a:hover {
+  color: #6044d8;
+}
 
 /* CREATE PROJECT */
 .create-project {
@@ -290,6 +306,7 @@ input.label-name {
   border: 0;
   background-color: transparent;
   position: absolute;
+  z-index: 2;
 }
 .popover-content {
   box-sizing: border-box;
@@ -323,6 +340,7 @@ div.tab-area {
   flex: 1;
   display: none;
   flex-direction: column;
+  overflow-y: scroll;
 }
 .etabs-tabgroup.visible {
   font-size: smaller;
@@ -357,7 +375,6 @@ div.tab-area {
   padding-top: 5px;
   width: 150px;
   max-width: 150px;
-  height: 20px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -373,6 +390,7 @@ button.etabs-tab-button-close {
   padding: 0;
   border: 0;
   background-color: transparent;
+  transform: translate(0, -5px);
 }
 
 .etabs-tabgroup::-webkit-scrollbar {
@@ -409,6 +427,13 @@ div.working-tab-area {
 div.tab-image {
   flex: 1;
   max-height: 90%;
+  position: relative;
+}
+canvas#label-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
 }
 
 div.bottom-menu {
@@ -473,6 +498,7 @@ div.close-area > button > img {
 div.classification-canvas {
   width: 100%;
   height: 80%;
+  position: relative;
 }
 
 div#bottom-buttons-classification {

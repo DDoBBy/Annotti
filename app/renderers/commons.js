@@ -1,6 +1,5 @@
-const { remote } = require('electron');
-
 let id = 0;
+
 const imgExtensions = ['.png', '.jpg', '.jpeg', '.PNG', '.JPG', '.JPEG'];
 
 function breadCrumbHome(event) {
@@ -15,7 +14,7 @@ function breadCrumb(event) {
   readFolder($(event.target).attr('data-paths'));
 }
 
-function composeImgElements(filePath, imgInfoId) {
+function composeImgElements(filePath, imgInfoId, checked, labelColor) {
   var basename = path.basename(filePath);
   if (basename.length > 10) {
     basename = basename.slice(0, 5) + '...' + basename.slice(-5);
@@ -33,6 +32,11 @@ function composeImgElements(filePath, imgInfoId) {
     basename +
     '</a></div>';
   $('#all-imgs').append(element);
+  if (checked) {
+    $('.img-info:last-child')
+      .children('.thumbnail')
+      .css({ border: '8px solid' + labelColor });
+  }
 }
 
 function composeFolderElements(folderPath) {
@@ -59,15 +63,24 @@ async function readFolder(folderPath) {
   $('#breadcrumb-list').append(folderBreadCrumb);
   $('.breadcrumb-item:last-child').children().on('click', breadCrumb);
 
-  var dataPaths = [];
+  var dataPaths = {};
   var dir = await fs.promises.opendir(folderPath);
   for await (const dirent of dir) {
     dataPath = path.resolve(folderPath, dirent.name);
     if (dirent.isDirectory()) composeFolderElements(dataPath);
     else {
       if (imgExtensions.includes(path.extname(dataPath))) {
-        composeImgElements(dataPath, id++);
-        dataPaths.push(dataPath);
+        var shasum = crypto.createHash('sha1');
+        shasum.update(dataPath);
+        var fileID = shasum.digest('hex');
+        if (remote.getGlobal('projectManager').checkedFiles.hasOwnProperty(fileID)) {
+          var labelID = remote.getGlobal('projectManager').checkedFiles[fileID];
+          var labelColor = remote.getGlobal('projectManager').getColorbyLabelID(labelID);
+          composeImgElements(dataPath, fileID, true, labelColor);
+        } else {
+          composeImgElements(dataPath, fileID, false, 0);
+        }
+        dataPaths[fileID] = dataPath;
       }
     }
   }
