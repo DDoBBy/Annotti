@@ -80,6 +80,7 @@
     "electron-builder": "^22.8.0",
     "electron-chartjs": "^1.0.0",
     "electron-tabs": "^0.15.0",
+    "fabric": "^3.6.3",
     "jquery": "^3.5.1",
     "jquery-ui": "^1.12.1",
     "popper.js": "^1.16.1"
