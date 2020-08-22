@@ -2,8 +2,8 @@ var selectTask =
   '<div id="select-task-div">' +
   '<select class="custom-select select-task">' +
   '<option disabled value="None">Select task to annotate</option>' +
-  '<option selected value="IC">Image classification</option>' +
-  '<option value="OD">Object detection</option>' +
+  '<option value="IC">Image classification</option>' +
+  '<option selected value="OD">Object detection</option>' +
   '<option value="SS">Semantic Segmentation</option>' +
   '<option value="OCR"> Optical character recognition</option>' +
   '</select>' +

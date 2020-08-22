@@ -339,6 +339,7 @@ div.tab-area {
   flex: 1;
   display: none;
   flex-direction: column;
+  overflow-y: scroll;
 }
 .etabs-tabgroup.visible {
   font-size: smaller;
