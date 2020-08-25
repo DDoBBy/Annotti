@@ -24,6 +24,8 @@ function drawImageOnCanvas(filePath) {
 
   var w = $('#tab-image').width();
   var h = $('#tab-image').height();
+  $('.canvas-container').css('max-width', '100%');
+  $('.canvas-container').css('max-height', '100%');
   canvas.setWidth(w);
   canvas.setHeight(h);
 
@@ -72,12 +74,8 @@ function drawImageOnCanvas(filePath) {
   });
 
   $(window).resize(() => {
-    w = $('#tab-image').width();
-    h = $('#tab-image').height();
-    canvas.setWidth(w);
-    canvas.setHeight(h);
-    $('.canvas-container').width = w;
-    $('.canvas-container').height = h;
+    canvas.setWidth($(window).width() - 250);
+    canvas.setHeight($('#tab-image').height());
     canvas.renderAll();
     canvas.calcOffset();
   });
