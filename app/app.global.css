@@ -27,6 +27,8 @@ a:hover {
 /* BREADCRUMB */
 ol.breadcrumb {
   background-color: #f0f0f0;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
 }
 li.breadcrumb-item > a {
   color: #907aef;
@@ -138,7 +140,7 @@ div.left-menu {
 img.small-logo {
   width: 50px;
   height: 50px;
-  margin: 5px 15px 15px 15px;
+  margin: 20px 15px 15px 15px;
 }
 button.left-img-buttons {
   width: 100%;
@@ -156,7 +158,7 @@ button.left-img-buttons > img {
 button.left-img-buttons.setting {
   position: absolute;
   width: 80px;
-  bottom: 0;
+  bottom: 10px;
 }
 
 /* MAIN CONTAINER = ALL */
@@ -218,7 +220,7 @@ div.grid-view-files {
   flex: 1;
   overflow-x: hidden;
   overflow-y: scroll;
-  border-radius: 30px;
+  border-radius: 20px;
   background-color: #f0f0f0;
   padding: 15px;
 }
@@ -226,15 +228,15 @@ div.grid-view-files {
 /* LABEL-MENU */
 div.label-menu {
   height: 100%;
-  flex-basis: 200px;
-  max-width: 200px;
+  flex-basis: 250px;
+  max-width: 250px;
   padding: 0 20px;
   text-align: center;
 }
 h1.label-tit {
   text-align: left;
   font-weight: bold;
-  font-size: 1.5em;
+  font-size: 1.4rem;
   height: 50px;
   margin: 0;
   margin-right: 10px;
@@ -463,14 +465,14 @@ div.classification-analysis-window {
   height: 70%;
   position: absolute;
   z-index: 2;
-  background-color: #f0f0f0;
+  background-color: white;
   border-radius: 15px;
   top: 15%;
   left: 15%;
   display: none;
-  -webkit-box-shadow: 10px 10px 24px -12px rgba(0, 0, 0, 0.94);
-  -moz-box-shadow: 10px 10px 24px -12px rgba(0, 0, 0, 0.94);
-  box-shadow: 10px 10px 24px -12px rgba(0, 0, 0, 0.94);
+  -webkit-box-shadow: 10px 10px 24px -12px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 10px 10px 24px -12px rgba(0, 0, 0, 0.3);
+  box-shadow: 10px 10px 24px -12px rgba(0, 0, 0, 0.3);
 }
 
 div.close-area {
@@ -495,7 +497,7 @@ div.classification-canvas {
 }
 
 div#bottom-buttons-classification {
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
 }
 
 /* CLASSIFICATION ANALYSIS */
@@ -505,6 +507,9 @@ div.classification-analysis-window {
 div.classification-analysis-contents {
   width: 100%;
   height: 100%;
+}
+div.classification-analysis-contents > h1 {
+  font-size: 2rem;
 }
 canvas.analytic-chart {
   position: relative;
