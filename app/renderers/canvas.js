@@ -76,6 +76,7 @@ function drawImageOnCanvas(filePath) {
   $(window).resize(() => {
     canvas.setWidth($(window).width() - 250);
     canvas.setHeight($('#tab-image').height());
+    canvas.backgroundImage.scaleToWidth(canvas.getWidth(), false);
     canvas.renderAll();
     canvas.calcOffset();
   });
@@ -97,6 +98,9 @@ function drawImageOnCanvas(filePath) {
   });
 
   $('#back-to-original-button').on('click', function () {
-    // getFullView();
+    canvas.backgroundImage.scaleToWidth(canvas.getWidth(), false);
+    canvas.backgroundImage.scaleToWidth(canvas.getWidth(), false);
+    canvas.renderAll();
+    canvas.calcOffset();
   });
 }
