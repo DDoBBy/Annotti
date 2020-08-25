@@ -15,7 +15,6 @@ var classificationZoom =
 					<button id="zoom-in-button"><img src="../resources/imgs/annotti_zoomin.png" alt="zoom in"></button>\
 					<button id="zoom-out-button"><img src="../resources/imgs/annotti_zoomout.png" alt="zoom out"></button>\
 					<button id="back-to-original-button"><img src="../resources/imgs/annotti_fullsize.png" alt="fullsize"></button>\
-					<button id="lock-button"><img src="../resources/imgs/annotti_lock.png" alt="lock"></button>\
 				</div>\
 			</div>\
   	</div>\

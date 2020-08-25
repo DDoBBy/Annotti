@@ -2,7 +2,6 @@ let id;
 let img;
 let ratio;
 let scaleFactor = 1.05;
-let lock_num = 0;
 
 function getThumbnailId() {
   if (location.href === undefined) return;
@@ -29,32 +28,32 @@ function drawImageOnCanvas(filePath) {
 
   trackTransforms(ctx);
 
-  var w = $('#tab-image').width();
-  var h = $('#tab-image').height();
+  var pw = $('#tab-image').width();
+  var ph = $('#tab-image').height();
+  var w = pw;
+  var h = ph;
 
   img.addEventListener(
     'load',
     function () {
-      canvas.width = w;
-      canvas.height = h;
+      canvas.width = pw;
+      canvas.height = ph;
       ratio = this.height / this.width;
       if (ratio < 1.0) {
         this.width = w;
         this.height = w * ratio;
-        ctx.drawImage(img, 0, (h - this.height) / 2, this.width, this.height);
       } else {
         this.height = h;
         this.width = h * (1 / ratio);
-        ctx.drawImage(img, (w - this.width) / 2, 0, this.width, this.height);
       }
       w = this.width;
       h = this.height;
+      ctx.drawImage(img, (pw - w) / 2, (ph - h) / 2, w, h);
     },
     false
   );
 
   function redraw() {
-    // Clear the entire canvas
     var p1 = ctx.transformedPoint(0, 0);
     var p2 = ctx.transformedPoint(canvas.width, canvas.height);
     ctx.clearRect(p1.x, p1.y, p2.x - p1.x, p2.y - p1.y);
@@ -64,8 +63,7 @@ function drawImageOnCanvas(filePath) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.restore();
 
-    if (ratio < 1.0) ctx.drawImage(img, 0, (canvas.height - h) / 2, w, h);
-    else ctx.drawImage(img, (canvas.width - w) / 2, 0, w, h);
+    ctx.drawImage(img, (pw - w) / 2, (ph - h) / 2, w, h);
   }
   redraw();
 
@@ -80,7 +78,6 @@ function drawImageOnCanvas(filePath) {
     lastX = evt.offsetX || evt.pageX - canvas.offsetLeft;
     lastY = evt.offsetY || evt.pageY - canvas.offsetTop;
     dragStart = ctx.transformedPoint(lastX, lastY);
-    dragStart = labelCtx.transformedPoint(lastX, lastY);
     dragged = false;
   };
 
@@ -116,8 +113,10 @@ function drawImageOnCanvas(filePath) {
   };
 
   var getFullView = function () {
-    canvas.width = $('#tab-image').width();
-    canvas.height = $('#tab-image').height();
+    pw = $('#tab-image').width();
+    ph = $('#tab-image').height();
+    canvas.width = pw;
+    canvas.height = ph;
     redraw();
   };
 
@@ -133,25 +132,6 @@ function drawImageOnCanvas(filePath) {
 
   $('#zoom-out-button').on('click', function () {
     zoom(-1);
-  });
-
-  $('#lock-button').on('click', function () {
-    lock_num++;
-    if (lock_num % 2 == 1) {
-      canvas.removeEventListener('mousedown', mouseDown, false);
-      canvas.removeEventListener('mousemove', mouseMove, false);
-      canvas.removeEventListener('mouseup', mouseUp, false);
-      canvas.removeEventListener('DOMMouseScroll', handleScroll, false);
-      canvas.removeEventListener('mousewheel', handleScroll, false);
-      $('#lock-button').html('<img src="../resources/imgs/annotti_unlock.png" alt="un-lock">');
-    } else {
-      canvas.addEventListener('mousedown', mouseDown, false);
-      canvas.addEventListener('mousemove', mouseMove, false);
-      canvas.addEventListener('mouseup', mouseUp, false);
-      canvas.addEventListener('DOMMouseScroll', handleScroll, false);
-      canvas.addEventListener('mousewheel', handleScroll, false);
-      $('#lock-button').html('<img src="../resources/imgs/annotti_lock.png" alt="lock">');
-    }
   });
 
   $('#back-to-original-button').on('click', function () {
