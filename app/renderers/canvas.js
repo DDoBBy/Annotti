@@ -79,4 +79,24 @@ function drawImageOnCanvas(filePath) {
     canvas.renderAll();
     canvas.calcOffset();
   });
+
+  $('#zoom-in-button').on('click', function () {
+    var zoom = canvas.getZoom();
+    zoom *= 0.999 ** -50;
+    if (zoom > 20) zoom = 20;
+    if (zoom < 0.01) zoom = 0.01;
+    canvas.setZoom(zoom);
+  });
+
+  $('#zoom-out-button').on('click', function () {
+    var zoom = canvas.getZoom();
+    zoom *= 0.999 ** 50;
+    if (zoom > 20) zoom = 20;
+    if (zoom < 0.01) zoom = 0.01;
+    canvas.setZoom(zoom);
+  });
+
+  $('#back-to-original-button').on('click', function () {
+    // getFullView();
+  });
 }
