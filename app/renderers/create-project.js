@@ -5,7 +5,7 @@ const { objectDetectionTemplate } = require('../templates/object-detection');
 // const { ocrTemplate } = require('../templates/ocr');
 
 // let workingDirectory = 'None';
-let workingDirectory = ['/Users/hansangmee/Desktop/AnnottiTestData'];
+let workingDirectory = ['/Users/yeon/Downloads/img'];
 
 function composeUI() {
   $('#root').append(createProjectTemplate);
