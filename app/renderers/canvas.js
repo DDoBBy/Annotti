@@ -28,6 +28,8 @@ function drawImageOnCanvas(filePath) {
 
   var w = $('#tab-image').width();
   var h = $('#tab-image').height();
+  $('.canvas-container').css('max-width', '100%');
+  $('.canvas-container').css('max-height', '100%');
   canvas.setWidth(w);
   canvas.setHeight(h);
 
@@ -113,12 +115,32 @@ function drawImageOnCanvas(filePath) {
   });
 
   $(window).resize(() => {
-    w = $('#tab-image').width();
-    h = $('#tab-image').height();
-    canvas.setWidth(w);
-    canvas.setHeight(h);
-    $('.canvas-container').width = w;
-    $('.canvas-container').height = h;
+    canvas.setWidth($(window).width() - 250);
+    canvas.setHeight($('#tab-image').height());
+    canvas.backgroundImage.scaleToWidth(canvas.getWidth(), false);
+    canvas.renderAll();
+    canvas.calcOffset();
+  });
+
+  $('#zoom-in-button').on('click', function () {
+    var zoom = canvas.getZoom();
+    zoom *= 0.999 ** -50;
+    if (zoom > 20) zoom = 20;
+    if (zoom < 0.01) zoom = 0.01;
+    canvas.setZoom(zoom);
+  });
+
+  $('#zoom-out-button').on('click', function () {
+    var zoom = canvas.getZoom();
+    zoom *= 0.999 ** 50;
+    if (zoom > 20) zoom = 20;
+    if (zoom < 0.01) zoom = 0.01;
+    canvas.setZoom(zoom);
+  });
+
+  $('#back-to-original-button').on('click', function () {
+    canvas.backgroundImage.scaleToWidth(canvas.getWidth(), false);
+    canvas.backgroundImage.scaleToWidth(canvas.getWidth(), false);
     canvas.renderAll();
     canvas.calcOffset();
   });
