@@ -25,7 +25,6 @@ function drawImageOnCanvas(thumbnailID, filePath) {
   var imgURL = filePath;
   var fileID = thumbnailID;
   var image = new Image();
-  canvas = new fabric.Canvas('img-canvas', {});
 
   var mayDel = null;
 
@@ -63,6 +62,24 @@ function drawImageOnCanvas(thumbnailID, filePath) {
     var x2 = e.target.aCoords.br.x;
     var y2 = e.target.aCoords.br.y;
     remote.getGlobal('projectManager').changeBoxPosition(fileID, boxID, x1, y1, x2, y2);
+  });
+
+  var canvasWrapper = document.getElementById('tab-image');
+  canvasWrapper.tabIndex = 1000;
+  canvasWrapper.addEventListener(
+    'keydown',
+    (e) => {
+      if (e.keyCode == 68 && mayDel != null) {
+        remote.getGlobal('projectManager').deleteBox(fileID, mayDel);
+      }
+    },
+    false
+  );
+
+  canvas.on('object:selected', (e) => {
+    if (e.e != undefined) {
+      mayDel = e.target.id;
+    }
   });
 
   canvas.on('selection:created', (e) => {
@@ -174,9 +191,9 @@ function drawImageOnCanvas(thumbnailID, filePath) {
   });
 
   $(window).resize(() => {
-    canvas.setWidth($(window).width() - 250);
+    canvas.setWidth($(window).width());
     canvas.setHeight($('#tab-image').height());
-    canvas.backgroundImage.scaleToWidth(canvas.getWidth(), false);
+    // canvas.backgroundImage.scaleToWidth(canvas.getWidth(), false);
     canvas.renderAll();
     canvas.calcOffset();
   });
