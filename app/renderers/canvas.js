@@ -1,6 +1,6 @@
 const fabric = require('fabric').fabric;
 
-function getThumbnailId() {
+function getThumbnailID() {
   if (location.href === undefined) return;
   var tmp = location.href.split('?');
   if (tmp.length <= 1) return;
@@ -9,16 +9,19 @@ function getThumbnailId() {
   getImageCanvas(id);
 }
 
-function getImageCanvas(thumbnailId) {
-  var filePath = remote.getGlobal('projectManager').dataPaths[thumbnailId];
+function getImageCanvas(thumbnailID) {
+  var filePath = remote.getGlobal('projectManager').dataPaths[thumbnailID];
+  remote.getGlobal('projectManager').openFileTab(thumbnailID, filePath);
+
   img = new Image();
-  drawImageOnCanvas(filePath);
+  drawImageOnCanvas(thumbnailID, filePath);
 }
 
-$(document).ready(getThumbnailId);
+$(document).ready(getThumbnailID);
 
-function drawImageOnCanvas(filePath) {
+function drawImageOnCanvas(thumbnailID, filePath) {
   var imgURL = filePath;
+  var fileID = thumbnailID;
   var canvas = new fabric.Canvas('img-canvas', {});
   var image = new Image();
 
@@ -28,8 +31,10 @@ function drawImageOnCanvas(filePath) {
 
   var w = $('#tab-image').width();
   var h = $('#tab-image').height();
+
   $('.canvas-container').css('max-width', '100%');
   $('.canvas-container').css('max-height', '100%');
+
   canvas.setWidth(w);
   canvas.setHeight(h);
 
@@ -39,6 +44,12 @@ function drawImageOnCanvas(filePath) {
     canvas.setBackgroundImage(fabricImg, canvas.renderAll.bind(canvas));
   };
   image.src = imgURL;
+
+  canvas.on('selection:created', (e) => {
+    if (e.e != undefined && e.e.altKey) {
+      canvas.discardActiveObject();
+    }
+  });
 
   canvas.on('mouse:wheel', function (opt) {
     var delta = opt.e.deltaY;
@@ -59,20 +70,30 @@ function drawImageOnCanvas(filePath) {
       this.lastPosX = evt.clientX;
       this.lastPosY = evt.clientY;
     } else if (evt.altKey) {
-      var labelID = remote.getGlobal('projectManager').activated;
+      var labelID = remote.getGlobal('projectManager').getActivatedLabel();
+      if (labelID == null) {
+        return;
+      }
       var labelColor = remote.getGlobal('projectManager').getColorbyLabelID(labelID);
 
       started = true;
       (startY = evt.offsetY), (startX = evt.offsetX);
+
+      remote.getGlobal('projectManager').activateBox(labelID, startX, startY);
+
       var square = new fabric.Rect({
         width: 0,
         height: 0,
         left: startX,
         top: startY,
         fill: 'transparent',
+        borderOpacityWhenMoving: 100,
+        hasRotatingPoint: false,
         stroke: labelColor,
-        strokeWidth: 5,
+        strokeWidth: 3,
+        strokeUniform: true,
       });
+      square.id = new Date().getTime();
 
       canvas.add(square);
       canvas.renderAll();
@@ -101,7 +122,6 @@ function drawImageOnCanvas(filePath) {
       }
 
       var square = canvas.getActiveObject();
-
       square.set('top', y_).set('left', x_).set('width', w_).set('height', h_);
 
       canvas.renderAll();
@@ -112,6 +132,22 @@ function drawImageOnCanvas(filePath) {
     this.isDragging = false;
     this.selection = true;
     started = false;
+    if (opt.e.altKey) {
+      var labelID = remote.getGlobal('projectManager').getActivatedLabel();
+      var square = canvas.getActiveObject();
+      var x2 = square.left + square.width;
+      var y2 = square.top + square.height;
+      var boxID = square.id;
+      if (boxID == undefined) {
+        square.id = new Date().getTime();
+        boxID = square.id;
+      }
+      remote.getGlobal('projectManager').appendBox(fileID, boxID, x2, y2);
+      canvas.discardActiveObject();
+      $('#' + labelID + '.label-counter').text(
+        Number($('#' + labelID + '.label-counter').text()) + 1
+      );
+    }
   });
 
   $(window).resize(() => {
