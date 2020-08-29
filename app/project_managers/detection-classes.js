@@ -13,6 +13,7 @@ class detectionBox {
 class detectionLabel extends label {
   constructor(name, color) {
     super(name, color);
+    this.numBoxes = 0;
   }
 }
 
@@ -28,7 +29,12 @@ class detectionProjectManager extends projectManager {
     super('OD');
     this.fileList = {};
     this.labelList = {};
-    this.activated = null;
+    this.activatedLabel = null;
+    this.activatedBox = null;
+  }
+
+  activateBox(labelID, x1, y1) {
+    this.activatedBox = new detectionBox(labelID, x1, y1, -1, -1);
   }
 
   appendLabel(name, color) {
@@ -59,16 +65,20 @@ class detectionProjectManager extends projectManager {
   }
 
   activateLabel(labelID) {
-    this.activated = labelID;
+    this.activatedLabel = labelID;
   }
 
   openFileTab(fileID, filePath) {
     this.fileList[fileID] = new detectionFile(filePath);
   }
 
-  appendBox(fileID, labelID, boxID, x1, y1, x2, y2) {
-    var newBox = new detectionBox(labelID, x1, y1, x2, y2);
-    this.fileList[fileID].boxes[boxID] = newBox;
+  appendBox(fileID, boxID, x2, y2) {
+    this.activatedBox.x2 = x2;
+    this.activatedBox.y2 = y2;
+    this.fileList[fileID].boxes[boxID] = this.activatedBox;
+    this.activatedBox = null;
+    this.labelList[this.activatedLabel].numBoxes += 1;
+    console.log(this.fileList[fileID]);
   }
 
   deleteBox(fileID, boxID) {
@@ -86,11 +96,15 @@ class detectionProjectManager extends projectManager {
     this.fileList[fileID].boxes[boxID].y2 = y2;
   }
 
-  getLabelInfos() {
+  getActivatedLabel() {
+    return this.activatedLabel;
+  }
+
+  getLabelList() {
     return this.labelList;
   }
 
-  getFileInfos() {
+  getFileList() {
     return this.fileList;
   }
 }
