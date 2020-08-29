@@ -1,3 +1,5 @@
+let id = 0;
+
 const imgExtensions = ['.png', '.jpg', '.jpeg', '.PNG', '.JPG', '.JPEG'];
 
 function breadCrumbHome(event) {
