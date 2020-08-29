@@ -244,6 +244,7 @@ div.label-appended {
   border-radius: 70px;
   background-color: #f0f0f0;
   margin-bottom: 5px;
+  align-items: center;
 }
 input.label-name {
   flex: 1;
@@ -251,6 +252,14 @@ input.label-name {
   font-size: smaller;
   background-color: transparent;
   border: 0;
+  margin-left: 5px;
+}
+input.activate {
+  margin-right: 10px;
+}
+.label-counter {
+  margin-right: 10px;
+  color: #bbb;
 }
 .label-color {
   height: 18px;
@@ -285,15 +294,17 @@ input.label-name {
 }
 .popover-content {
   box-sizing: border-box;
-  background-color: #bbb;
+  background-color: #f0f0f0;
   padding: 0.5rem;
+  border-radius: 4px;
+  box-shadow: 2px 0px 10px 3px lightgrey;
 }
 .popover-arrow {
   top: 50%;
   transform: translateY(-50%) rotate(45deg);
   right: 6px;
-  border-top-color: #bbb;
-  border-right-color: #bbb;
+  border-top-color: #f0f0f0;
+  border-right-color: #f0f0f0;
   border-bottom-color: transparent;
   border-left-color: transparent;
   position: absolute;
@@ -301,11 +312,29 @@ input.label-name {
   background: 0 0;
   border-style: solid;
   border-width: 4.54264069px;
-  background-color: #bbb;
+  background-color: #f0f0f0;
 }
 .popover-close {
   cursor: pointer;
   line-height: 0.3;
+}
+
+.popover-content > input {
+  border: 0;
+  margin-top: 10px;
+  padding: 0 5px;
+}
+
+.btn-wrapper {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.btn-popover {
+  background-color: #907aef;
+  border: 0;
+  border-radius: 4px;
+  color: white;
 }
 /* TAB */
 div.tab-area {

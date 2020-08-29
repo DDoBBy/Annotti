@@ -38,7 +38,7 @@ function appendLabelTemplate(labelID, color, name) {
   appendTemplate +=
     "<div class='del' id='" +
     labelID +
-    "'>X</div></div>" +
+    "'>×</div></div>" +
     "<div class = 'select-color bubble popover' id='popover" +
     labelID +
     "' style='display: none;'>" +
@@ -48,7 +48,7 @@ function appendLabelTemplate(labelID, color, name) {
     "<div class='popover-arrow'></div>" +
     "<div class='popover-close close' id='" +
     labelID +
-    "'>x</div>" +
+    "'>×</div>" +
     "<span class='label-color-cand label-color-circle' style='background-color: #10b1fe;'></span>" +
     "<span class='label-color-cand label-color-circle' style='background-color: #3fc56b;'></span>" +
     "<span class='label-color-cand label-color-circle' style='background-color: #ce9887;'></span>" +
@@ -67,9 +67,9 @@ function appendLabelTemplate(labelID, color, name) {
     color +
     "'>" +
     '</br>' +
-    "<button class='btn btn-secondary label-color-cand-rgb' id='" +
+    "<div class='btn-wrapper'><button class='btn-popover label-color-cand-rgb' id='" +
     labelID +
-    "'>OK</button>" +
+    "'>OK</button></div>" +
     '</div>' +
     '</div>' +
     '</div>' +
