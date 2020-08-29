@@ -2,13 +2,15 @@ const { leftMenu } = require('./left-menu');
 const { mainView } = require('./main-view');
 const { etabs } = require('./etabs');
 const { detectionAnalysisTemplate } = require('./detection-analysis');
+const { InformationTemplate } = require('./information');
 
 var objectDetectionTemplate =
   '<div class="main-container">' +
   leftMenu +
+  InformationTemplate +
+  detectionAnalysisTemplate +
   '<div class="working-area">' +
   mainView +
-  detectionAnalysisTemplate +
   '</div></div>' +
   etabs +
   '</div>' +
