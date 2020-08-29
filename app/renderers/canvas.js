@@ -25,7 +25,6 @@ function drawImageOnCanvas(thumbnailID, filePath) {
   var imgURL = filePath;
   var fileID = thumbnailID;
   var image = new Image();
-  canvas = new fabric.Canvas('img-canvas', {});
 
   var mayDel = null;
 
@@ -50,14 +49,10 @@ function drawImageOnCanvas(thumbnailID, filePath) {
   image.src = imgURL;
 
   canvas.on('object:modified', (e) => {
-<<<<<<< HEAD
-    var boxID = e.target.id;
-=======
     console.log(e);
 
     var boxID = e.target.id;
     console.log(boxID);
->>>>>>> a7430dc134a703f55030961aeec232d8d0374100
     var x1 = e.target.aCoords.tl.x;
     var y1 = e.target.aCoords.tl.y;
     var x2 = e.target.aCoords.br.x;
@@ -65,13 +60,12 @@ function drawImageOnCanvas(thumbnailID, filePath) {
     remote.getGlobal('projectManager').changeBoxPosition(fileID, boxID, x1, y1, x2, y2);
   });
 
-<<<<<<< HEAD
   var canvasWrapper = document.getElementById('tab-image');
   canvasWrapper.tabIndex = 1000;
   canvasWrapper.addEventListener(
     'keydown',
     (e) => {
-      if (e.key == 'Delete' && mayDel != null) {
+      if (e.keyCode == 68 && mayDel != null) {
         remote.getGlobal('projectManager').deleteBox(fileID, mayDel);
       }
     },
@@ -84,8 +78,6 @@ function drawImageOnCanvas(thumbnailID, filePath) {
     }
   });
 
-=======
->>>>>>> a7430dc134a703f55030961aeec232d8d0374100
   canvas.on('selection:created', (e) => {
     if (e.e != undefined && e.e.altKey) {
       canvas.discardActiveObject();
