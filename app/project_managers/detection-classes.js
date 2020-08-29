@@ -94,6 +94,8 @@ class detectionProjectManager extends projectManager {
   }
 
   changeBoxPosition(fileID, boxID, x1, y1, x2, y2) {
+    console.log(fileID, boxID, x1, y1, x2, y2);
+    console.log(this.fileList[fileID].boxes);
     this.fileList[fileID].boxes[boxID].x1 = x1;
     this.fileList[fileID].boxes[boxID].y1 = y1;
     this.fileList[fileID].boxes[boxID].x2 = x2;
