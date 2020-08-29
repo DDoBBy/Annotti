@@ -50,14 +50,14 @@ $('#root').on('click', '.label-color', function (event) {
   $(event.target).parent().next().toggle();
   $(event.target).parent().next().css('top', topPosition);
   var taskId = remote.getGlobal('projectManager').taskId;
-  if (taskId == 'IC') {
-    $(event.target)
-      .parent()
-      .next()
-      .css('left', leftPosition - rightPosition);
-  } else {
-    $(event.target).parent().next().css('transform', 'translate(-100%, -15%)');
-  }
+  // if (taskId == 'IC') {
+  $(event.target)
+    .parent()
+    .next()
+    .css('left', leftPosition - rightPosition);
+  // } else {
+  //   $(event.target).parent().next().css('transform', 'translate(-100%, -15%)');
+  // }
 });
 
 // Click remove button

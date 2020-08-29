@@ -87,6 +87,7 @@ class detectionProjectManager extends projectManager {
     this.activatedBox = null;
     this.labelList[this.activatedLabel].numBoxes += 1;
     this.labelList[this.activatedLabel].boxtoFile[boxID] = fileID;
+    console.log(this.fileList[fileID]);
   }
 
   deleteBox(fileID, boxID) {
