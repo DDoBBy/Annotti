@@ -1,3 +1,5 @@
+$('.label-menu').css('padding', '15px 20px');
+
 $('.label-infos').on('click', '.activate', function (event) {
   if ($(event.target).prop('checked')) {
     $('[class=activate]').prop('checked', false);

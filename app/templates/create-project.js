@@ -24,8 +24,9 @@ var createProjectBtn =
 var createProjectTemplate =
   '<div class="create-project">' +
   '<div class="create-project-box">' +
-  '<img id="project-logo" src="../resources/imgs/annotti_logo_alternative.png" alt="logo">' +
-  '<h1>Annotti</h1>' +
+  // '<img id="project-logo" src="../resources/imgs/annotti_3.png" alt="logo">' +
+  // '<h1>Annotti</h1>' +
+  '<img id="project-logo" src="../resources/imgs/annotti_1.png" alt="logo">' +
   selectTask +
   selectDirs +
   createProjectBtn +
