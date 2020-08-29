@@ -39,7 +39,7 @@ li.breadcrumb-item > a:hover {
 
 /* CREATE PROJECT */
 .create-project {
-  background-color: #f4f4f4;
+  background: linear-gradient(to bottom, #90a0ef, #907aef);
   text-align: center;
   min-height: 100vh;
   display: flex;
@@ -55,25 +55,18 @@ li.breadcrumb-item > a:hover {
   margin: auto;
   padding: 20px;
   border-radius: 20px;
-  border: 2px solid #907aef;
 }
 #project-logo {
-  width: 70px;
-  height: 70px;
-  position: relative;
-  top: -50px;
+  width: 170px;
+  margin-top: 10px;
 }
 .create-project-box > h1 {
   color: #907aef;
   font-weight: bold;
-  position: relative;
-  top: -50px;
 }
 #select-task-div {
   width: 70%;
-  position: relative;
-  top: -40px;
-  margin-top: 10px;
+  margin-top: 50px;
   margin-bottom: 16px;
   margin-left: auto;
   margin-right: auto;
@@ -85,8 +78,6 @@ li.breadcrumb-item > a:hover {
   border-radius: 30px;
 }
 .select-dirs {
-  position: relative;
-  top: -40px;
   width: auto;
   text-align: center;
 }
@@ -115,10 +106,9 @@ li.breadcrumb-item > a:hover {
   width: 20px;
 }
 #create-project-btn {
-  position: relative;
-  top: -20px;
   width: 200px;
-  margin: auto;
+  margin: 10px auto;
+  margin-top: 20px;
   border-radius: 50px;
   background-color: #907aef;
   border: 0;
@@ -138,9 +128,9 @@ div.left-menu {
   width: 80px;
 }
 img.small-logo {
-  width: 50px;
-  height: 50px;
-  margin: 20px 15px 15px 15px;
+  width: 40px;
+  height: 40px;
+  margin: 20px 20px 15px 20px;
 }
 button.left-img-buttons {
   width: 100%;
@@ -154,11 +144,6 @@ button.left-img-buttons {
 button.left-img-buttons > img {
   width: 50px;
   padding: 10px;
-}
-button.left-img-buttons.setting {
-  position: absolute;
-  width: 80px;
-  bottom: 10px;
 }
 
 /* MAIN CONTAINER = ALL */
@@ -242,19 +227,6 @@ h1.label-tit {
   margin-right: 10px;
   display: inline-block;
   padding: 5px 0;
-}
-button.label-setting {
-  width: 30px;
-  height: 30px;
-  border: 0;
-  padding: 5px;
-  background-color: transparent;
-  display: inline-block;
-  transform: translate(0, -4px);
-}
-button.label-setting > img {
-  width: 100%;
-  padding: 0;
 }
 button.add-label {
   border: 0;
@@ -396,7 +368,8 @@ button.etabs-tab-button-close {
   transform: translate(0, -5px);
 }
 
-.etabs-tabgroup::-webkit-scrollbar {
+.etabs-tabgroup::-webkit-scrollbar,
+.tab-area::-webkit-scrollbar {
   width: 0;
   height: 0;
 }
@@ -447,7 +420,7 @@ div.bottom-buttons {
   height: 100%;
   margin: 0;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(5, 1fr);
 }
 div.bottom-buttons > button {
   width: 100%;
@@ -461,6 +434,7 @@ div.bottom-buttons > button > img {
 }
 
 /* CLASSIFICATION ZOOM */
+div.information-window,
 div.classification-zoom-window,
 div.classification-analysis-window {
   width: 70%;
@@ -505,10 +479,12 @@ div#bottom-buttons-classification {
 /* CLASSIFICATION ANALYSIS */
 div.classification-analysis-window {
   z-index: 3;
+  background: #f0f0f0;
 }
 div.classification-analysis-contents {
   width: 100%;
   height: 100%;
+  overflow-y: auto;
 }
 div.classification-analysis-contents > h1 {
   font-size: 2rem;
@@ -516,4 +492,103 @@ div.classification-analysis-contents > h1 {
 canvas.analytic-chart {
   position: relative;
   top: 10%;
+}
+
+/* INFORMATION WINDOW */
+div.information-window {
+  z-index: 4;
+  flex-direction: column;
+}
+
+div.information-window > div.close-area {
+  display: flex;
+  height: 50px;
+}
+div.information-window > div.close-area > h1 {
+  flex: 1;
+  display: inline-block;
+  font-size: 1.8rem;
+  margin: 0;
+}
+div.information-contents {
+  flex: 1;
+  overflow-y: auto;
+}
+div.information-area {
+  padding: 15px;
+}
+div.information-title {
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+div.information-table {
+  background-color: #f0f0f0;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  border-radius: 5px;
+}
+div.keyboard,
+div.desc {
+  padding: 10px;
+  border: 1px solid white;
+  font-size: 0.9rem;
+}
+div.keyboard > div {
+  display: inline-block;
+  height: 40px;
+  padding: 5px;
+}
+div.button-event {
+  width: 40px;
+  border-radius: 5px;
+  background-color: white;
+}
+div.button-event > img {
+  width: 100%;
+  height: 100%;
+}
+div.key {
+  width: 40px;
+  text-align: center;
+  background-color: white;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+div.plus {
+  color: #bbb;
+}
+div.event {
+  color: black;
+}
+div.desc-gif {
+  width: 100%;
+  padding: 20px;
+}
+div.desc-gif > img {
+  width: 100%;
+}
+
+/* DETECTION ANALYSIS */
+div.detection-analysis-window {
+  width: 70%;
+  height: 70%;
+  position: absolute;
+  z-index: 2;
+  background-color: white;
+  border-radius: 15px;
+  top: 15%;
+  left: 15%;
+  display: none;
+  -webkit-box-shadow: 10px 10px 24px -12px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 10px 10px 24px -12px rgba(0, 0, 0, 0.3);
+  box-shadow: 10px 10px 24px -12px rgba(0, 0, 0, 0.3);
+  z-index: 3;
+}
+div.detection-analysis-contents {
+  width: 100%;
+  height: 100%;
+}
+div.detection-analysis-contents > h1 {
+  font-size: 2rem;
 }
