@@ -367,7 +367,8 @@ button.etabs-tab-button-close {
   transform: translate(0, -5px);
 }
 
-.etabs-tabgroup::-webkit-scrollbar {
+.etabs-tabgroup::-webkit-scrollbar,
+.tab-area::-webkit-scrollbar {
   width: 0;
   height: 0;
 }
