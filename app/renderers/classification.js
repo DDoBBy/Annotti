@@ -84,6 +84,13 @@ $('.analysis-close-btn').on('click', () => {
   $('.classification-analysis-window').css('display', 'none');
 });
 
+$('#info-btn').on('click', () => {
+  $('.information-window').css('display', 'flex');
+});
+$('.information-close-btn').on('click', () => {
+  $('.information-window').css('display', 'none');
+});
+
 $('#save-btn').on('click', () => {
   var labelInfos = remote.getGlobal('projectManager').getLabelInfos();
   var names = {};

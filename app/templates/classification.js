@@ -1,6 +1,7 @@
 const { leftMenu } = require('./left-menu');
 const { mainView } = require('./main-view');
 const { labelMenu } = require('./labels');
+const { InformationTemplate } = require('./information');
 const { classificationZoom } = require('./classification-zoom');
 const { classificationAnalysisTemplate } = require('./classification-analysis');
 
@@ -10,6 +11,7 @@ var classificationTemplate =
   '<div class="working-area">' +
   mainView +
   labelMenu +
+  InformationTemplate +
   classificationZoom +
   classificationAnalysisTemplate +
   '</div>' +
