@@ -4,8 +4,7 @@ const { objectDetectionTemplate } = require('../templates/object-detection');
 // const { segmentationTemplate } = require('../templates/segmentation');
 // const { ocrTemplate } = require('../templates/ocr');
 
-// let workingDirectory = 'None';
-let workingDirectory = ['/Users/hansangmee/Desktop/AnnottiTestData'];
+let workingDirectory = ['/Users/sinhyeonji/Downloads/annotti_icon'];
 
 function composeUI() {
   $('#root').append(createProjectTemplate);

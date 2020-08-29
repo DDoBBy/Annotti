@@ -8,7 +8,6 @@ class label {
   constructor(name, color) {
     this.name = name;
     this.color = color;
-    this.hotKey = null;
     this.labelShow = true; // blink status
   }
   setHotKey(hotKey) {
@@ -34,6 +33,18 @@ class projectManager {
 
   appendDataPaths(dataPaths) {
     this.dataPaths = { ...this.dataPaths, ...dataPaths };
+  }
+
+  getColorbyLabelID(labelID) {
+    return this.labelColors[labelID];
+  }
+
+  getLabelIDbyColor(color) {
+    return Object.keys(this.labelColors).find((key) => this.labelColors[key] === color);
+  }
+
+  nameAlreadyOccupied(name) {
+    return Object.values(this.labelNames).includes(name);
   }
 
   changeLabelName(labelID, newName) {
