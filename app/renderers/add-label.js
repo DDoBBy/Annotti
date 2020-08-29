@@ -54,7 +54,7 @@ $('#root').on('click', '.label-color', function (event) {
     $(event.target)
       .parent()
       .next()
-      .css('left', leftPosition - rightPosition);
+      .css('left', leftPosition - rightPosition + 40);
   } else {
     $(event.target).parent().next().css('transform', 'translate(-100%, -15%)');
   }

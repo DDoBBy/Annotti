@@ -299,6 +299,7 @@ input.label-name {
   cursor: pointer;
 }
 
+/* LABEL MENU - POPOVER */
 .popover {
   padding-right: 10px;
   text-align: left;
