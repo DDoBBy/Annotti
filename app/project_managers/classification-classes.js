@@ -21,20 +21,8 @@ class classificationProjectManager extends projectManager {
     this.activated = null;
   }
 
-  getColorbyLabelID(labelID) {
-    return this.labelColors[labelID];
-  }
-
-  getLabelIDbyColor(color) {
-    return Object.keys(this.labelColors).find((key) => this.labelColors[key] === color);
-  }
-
   getLabelInfos() {
     return this.labelList;
-  }
-
-  getLabelIDbyColor(color) {
-    return Object.keys(this.labelColors).find((key) => this.labelColors[key] === color);
   }
 
   changeLabelColor(labelID, newColor) {
@@ -98,18 +86,12 @@ class classificationProjectManager extends projectManager {
     this.checkedFiles[fileID] = labelID;
   }
 
-  colorAlreadyOccupied(color) {
-    return Object.values(this.labelColors).includes(color);
-  }
   changeLabelColor(labelID, newColor) {
     this.labelList[labelID].color = newColor;
     this.labelColors[labelID] = newColor;
     return Object.keys(this.labelList[labelID].files);
   }
 
-  nameAlreadyOccupied(name) {
-    return Object.values(this.labelNames).includes(name);
-  }
   changeLabelName(labelID, newName) {
     this.labelList[labelID].name = newName;
     this.labelNames[labelID] = newName;
