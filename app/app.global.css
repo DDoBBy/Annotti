@@ -39,7 +39,7 @@ li.breadcrumb-item > a:hover {
 
 /* CREATE PROJECT */
 .create-project {
-  background-color: #f4f4f4;
+  background: linear-gradient(to bottom, #90a0ef, #907aef);
   text-align: center;
   min-height: 100vh;
   display: flex;
@@ -55,25 +55,18 @@ li.breadcrumb-item > a:hover {
   margin: auto;
   padding: 20px;
   border-radius: 20px;
-  border: 2px solid #907aef;
 }
 #project-logo {
-  width: 70px;
-  height: 70px;
-  position: relative;
-  top: -50px;
+  width: 170px;
+  margin-top: 10px;
 }
 .create-project-box > h1 {
   color: #907aef;
   font-weight: bold;
-  position: relative;
-  top: -50px;
 }
 #select-task-div {
   width: 70%;
-  position: relative;
-  top: -40px;
-  margin-top: 10px;
+  margin-top: 50px;
   margin-bottom: 16px;
   margin-left: auto;
   margin-right: auto;
@@ -85,8 +78,6 @@ li.breadcrumb-item > a:hover {
   border-radius: 30px;
 }
 .select-dirs {
-  position: relative;
-  top: -40px;
   width: auto;
   text-align: center;
 }
@@ -115,10 +106,9 @@ li.breadcrumb-item > a:hover {
   width: 20px;
 }
 #create-project-btn {
-  position: relative;
-  top: -20px;
   width: 200px;
-  margin: auto;
+  margin: 10px auto;
+  margin-top: 20px;
   border-radius: 50px;
   background-color: #907aef;
   border: 0;
@@ -138,9 +128,9 @@ div.left-menu {
   width: 80px;
 }
 img.small-logo {
-  width: 50px;
-  height: 50px;
-  margin: 20px 15px 15px 15px;
+  width: 40px;
+  height: 40px;
+  margin: 20px 20px 15px 20px;
 }
 button.left-img-buttons {
   width: 100%;

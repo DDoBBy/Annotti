@@ -1,6 +1,6 @@
 var leftMenu =
   '<div class="left-menu">' +
-  '<img class="small-logo" src="../resources/imgs/annotti_logo_alternative.png" alt="logo"></img>' +
+  '<img class="small-logo" src="../resources/imgs/annotti_4.png" alt="logo"></img>' +
   '<button class="left-img-buttons" id="view-files-btn">' +
   '<img src="../resources/imgs/annotti_directory.png" alt="folder image"></img>' +
   '</button>' +
