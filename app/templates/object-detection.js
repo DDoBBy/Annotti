@@ -12,6 +12,7 @@ var objectDetectionTemplate =
   detectionAnalysisTemplate +
   '<div class="working-area">' +
   mainView +
+  detectionAnalysisTemplate +
   '</div></div>' +
   etabs +
   labelMenu +

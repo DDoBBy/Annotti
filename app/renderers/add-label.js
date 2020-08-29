@@ -64,11 +64,16 @@ $('#root').on('click', '.label-color', function (event) {
 var $item = $('#root').on('click', '.del', function (event) {
   var labelID = event.target.id;
   document.getElementById('label' + labelID).remove();
-  var fileIDs = remote.getGlobal('projectManager').deleteLabel(labelID);
-  fileIDs.forEach((element) => {
-    $('#' + element + '.thumbnail').css({ border: 'none' });
-  });
-  console.log(remote.getGlobal('projectManager').labelList);
+  const taskId = remote.getGlobal('projectManager').taskId;
+  if (taskId == 'IC') {
+    var fileIDs = remote.getGlobal('projectManager').deleteLabel(labelID);
+    fileIDs.forEach((element) => {
+      $('#' + element + '.thumbnail').css({ border: 'none' });
+    });
+  } else if (taskId == 'OD') {
+    var boxIDs = remote.getGlobal('projectManager').deleteLabel(labelID);
+    ODDeleteLabel(boxIDs);
+  }
 });
 
 // Change label color by select candidates
@@ -87,12 +92,8 @@ $('#root').on('click', '.label-color-cand', function (event) {
           $('#' + element + '.thumbnail').css({ border: '8px solid' + newColor });
         });
       } else if (taskId == 'OD') {
-        var fileID = getId();
-        console.log(fileID);
-        var fileIds = remote
-          .getGlobal('projectManager')
-          .changeLabelColor(fileID, labelID, newColor);
-        console.log(fileIds);
+        var boxIDs = remote.getGlobal('projectManager').changeLabelColor(labelID, newColor);
+        ODChangeColor(boxIDs, newColor);
       }
       $(event.target).parent().children('#color-input').val(newColor);
       document.getElementById('span' + labelID).style.backgroundColor = newColor;
@@ -103,8 +104,6 @@ $('#root').on('click', '.label-color-cand', function (event) {
   }
   $('#popover' + labelID).toggle();
 });
-
-// function clickColor(r, g, b) {}
 
 // // Change label color by hex text
 $('#root').on('click', '.label-color-cand-rgb', function (event) {
@@ -120,11 +119,8 @@ $('#root').on('click', '.label-color-cand-rgb', function (event) {
           $('#' + element + '.thumbnail').css({ border: '8px solid' + newColor });
         });
       } else if (taskId == 'OD') {
-        var fileID = getId();
-        var fileIds = remote
-          .getGlobal('projectManager')
-          .changeLabelColor(fileID, labelID, newColor);
-        console.log(fileIds);
+        var boxIDs = remote.getGlobal('projectManager').changeLabelColor(labelID, newColor);
+        ODChangeColor(boxIDs, newColor);
       }
       $(event.target).parent().children('#color-input').val(newColor);
       document.getElementById('span' + labelID).style.backgroundColor = newColor;
