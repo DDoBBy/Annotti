@@ -428,7 +428,7 @@ div.bottom-buttons {
   height: 100%;
   margin: 0;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(5, 1fr);
 }
 div.bottom-buttons > button {
   width: 100%;
