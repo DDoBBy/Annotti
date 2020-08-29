@@ -217,6 +217,7 @@ div.label-menu {
   max-width: 250px;
   padding: 0 20px;
   text-align: center;
+  overflow: scroll;
 }
 h1.label-tit {
   text-align: left;
