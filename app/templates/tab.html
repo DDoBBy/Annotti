@@ -9,39 +9,39 @@
   </head>
 
   <body>
-    <div id="root">
-      <div class="tab-wrapper">
-        <div class="working-tab-area">
-          <div class="tab-image" id="tab-image">
-            <canvas id="img-canvas" style="max-width: 100%; max-height: 100%;"></canvas>
-          </div>
-          <div class="bottom-menu" id="bottom-menu">
-            <div class="bottom-buttons" id="bottom-buttons">
-              <button id="zoom-in-button">
-                <img src="../resources/imgs/annotti_zoomin.png" alt="zoom in" />
-              </button>
-              <button id="zoom-out-button">
-                <img src="../resources/imgs/annotti_zoomout.png" alt="zoom out" />
-              </button>
-              <button id="undo-button">
-                <img src="../resources/imgs/annotti_undo.png" alt="undo" />
-              </button>
-              <button id="redo-button">
-                <img src="../resources/imgs/annotti_redo.png" alt="redo" />
-              </button>
-              <button id="back-to-original-button">
-                <img src="../resources/imgs/annotti_fullsize.png" alt="fullsize" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <script>
-      let $ = require('jquery');
-    </script>
-    <script src="../scripts.js"></script>
-    <script src="../renderers/canvas.js"></script>
-    <script src="../renderers/object-detection.js"></script>
+		<div id="root">
+			<div class="tab-wrapper">
+				<div class="working-tab-area">
+					<div class="tab-image" id="tab-image">
+						<canvas id="img-canvas" style="max-width: 100%; max-height: 100%;"></canvas>
+					</div>
+					<div class="bottom-menu" id="bottom-menu">
+						<div class="bottom-buttons" id="bottom-buttons">
+							<button id="zoom-in-button"><img src="../resources/imgs/annotti_zoomin.png" alt="zoom in"></button>
+							<button id="zoom-out-button"><img src="../resources/imgs/annotti_zoomout.png" alt="zoom out"></button>
+							<button id="undo-button"><img src="../resources/imgs/annotti_undo.png" alt="undo"></button>
+							<button id="redo-button"><img src="../resources/imgs/annotti_redo.png" alt="redo"></button>
+							<button id="back-to-original-button"><img src="../resources/imgs/annotti_fullsize.png" alt="fullsize"></button>
+						</div>
+					</div>
+				</div>
+				<div class="label-menu">
+					<div class="label-header">
+						<h1 class = "label-tit">Label</h1>
+					</div>
+					<div class="label-infos"></div>
+						<button type="button" id="add-label" class="add-label">
+							<img src="../resources/imgs/annotti_add.png" alt="add label"></img>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>let $ = require('jquery');</script>
+		<script src="../scripts.js"></script>
+		<!-- <script src="../renderers/draw-image.js"></script> -->
+		<script src="../renderers/canvas.js"></script>
+		<script src="../renderers/add-label.js"></script>
+		<script src="../renderers/object-detection.js"></script>
   </body>
 </html>
