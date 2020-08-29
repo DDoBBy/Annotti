@@ -86,12 +86,6 @@ class classificationProjectManager extends projectManager {
     this.checkedFiles[fileID] = labelID;
   }
 
-  changeLabelColor(labelID, newColor) {
-    this.labelList[labelID].color = newColor;
-    this.labelColors[labelID] = newColor;
-    return Object.keys(this.labelList[labelID].files);
-  }
-
   changeLabelName(labelID, newName) {
     this.labelList[labelID].name = newName;
     this.labelNames[labelID] = newName;

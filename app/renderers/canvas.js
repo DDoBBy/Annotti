@@ -1,4 +1,5 @@
 const fabric = require('fabric').fabric;
+var canvas = null;
 
 function getThumbnailID() {
   if (location.href === undefined) return;
@@ -22,8 +23,8 @@ $(document).ready(getThumbnailID);
 function drawImageOnCanvas(thumbnailID, filePath) {
   var imgURL = filePath;
   var fileID = thumbnailID;
-  var canvas = new fabric.Canvas('img-canvas', {});
   var image = new Image();
+  canvas = new fabric.Canvas('img-canvas', {});
 
   var started = false;
   var startX = 0;
@@ -45,8 +46,22 @@ function drawImageOnCanvas(thumbnailID, filePath) {
   };
   image.src = imgURL;
 
+  canvas.on('object:modified', (e) => {
+    console.log(e);
+
+    var boxID = e.target.id;
+    console.log(boxID);
+    var x1 = e.target.aCoords.tl.x;
+    var y1 = e.target.aCoords.tl.y;
+    var x2 = e.target.aCoords.br.x;
+    var y2 = e.target.aCoords.br.y;
+    remote.getGlobal('projectManager').changeBoxPosition(fileID, boxID, x1, y1, x2, y2);
+  });
+
   canvas.on('selection:created', (e) => {
     if (e.e != undefined && e.e.altKey) {
+      canvas.discardActiveObject();
+    } else if (e.selected.length > 1) {
       canvas.discardActiveObject();
     }
   });
@@ -180,4 +195,18 @@ function drawImageOnCanvas(thumbnailID, filePath) {
     canvas.renderAll();
     canvas.calcOffset();
   });
+}
+
+function ODChangeColor(boxIDs, newColor) {
+  canvas.getObjects().forEach(function (o) {
+    if (boxIDs.includes(o.id)) {
+      o.stroke = newColor;
+    }
+  });
+  canvas.renderAll();
+  console.log('Change box color on UI');
+}
+
+function ODDeleteLabel(boxIDs) {
+  console.log('Delete box on UI');
 }
