@@ -18,13 +18,15 @@ function showAnalytics() {
 
   var labelInfos = Object.values(remote.getGlobal('projectManager').getLabelList());
   labelInfos.forEach((element) => {
+    if (element == undefined) {
+      return;
+    }
     graphLables.push(element.name);
     datas.push(element.numBoxes);
     backgroundColors.push(hex2rgba(element.color, 1));
     borderColors.push(hex2rgba(element.color, 1));
   });
 
-  console.log(datas);
   var graph = document.getElementById('detection-chart').getContext('2d');
   new Chart(graph, {
     type: 'doughnut',

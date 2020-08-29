@@ -13,6 +13,7 @@ class detectionBox {
 class detectionLabel extends label {
   constructor(name, color) {
     super(name, color);
+    this.boxtoFile = {};
     this.numBoxes = 0;
   }
 }
@@ -49,14 +50,21 @@ class detectionProjectManager extends projectManager {
   }
 
   deleteLabel(labelID) {
+    var boxInfos = this.labelList[labelID].boxtoFile;
+    var boxIDs = Object.keys(boxInfos);
+    boxIDs.forEach((boxID) => {
+      delete this.fileList[boxInfos[boxID]].boxes[boxID];
+    });
+
     delete this.labelList[labelID];
     delete this.labelColors[labelID];
+    return boxIDs;
   }
 
-  changeLabelColor(fileID, labelID, newColor) {
+  changeLabelColor(labelID, newColor) {
     this.labelList[labelID].color = newColor;
     this.labelColors[labelID] = newColor;
-    return this.fileList[fileID];
+    return Object.keys(this.labelList[labelID].boxtoFile);
   }
 
   changeLabelName(labelID, newName) {
@@ -78,7 +86,7 @@ class detectionProjectManager extends projectManager {
     this.fileList[fileID].boxes[boxID] = this.activatedBox;
     this.activatedBox = null;
     this.labelList[this.activatedLabel].numBoxes += 1;
-    console.log(this.fileList[fileID]);
+    this.labelList[this.activatedLabel].boxtoFile[boxID] = fileID;
   }
 
   deleteBox(fileID, boxID) {
@@ -90,6 +98,8 @@ class detectionProjectManager extends projectManager {
   }
 
   changeBoxPosition(fileID, boxID, x1, y1, x2, y2) {
+    console.log(fileID, boxID, x1, y1, x2, y2);
+    console.log(this.fileList[fileID].boxes);
     this.fileList[fileID].boxes[boxID].x1 = x1;
     this.fileList[fileID].boxes[boxID].y1 = y1;
     this.fileList[fileID].boxes[boxID].x2 = x2;
