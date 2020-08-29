@@ -31,11 +31,6 @@ class detectionProjectManager extends projectManager {
     this.fileList = {};
     this.labelList = {};
     this.activatedLabel = null;
-    this.activatedBox = null;
-  }
-
-  activateBox(labelID, x1, y1) {
-    this.activatedBox = new detectionBox(labelID, x1, y1, -1, -1);
   }
 
   appendLabel(name, color) {
@@ -80,18 +75,18 @@ class detectionProjectManager extends projectManager {
     this.fileList[fileID] = new detectionFile(filePath);
   }
 
-  appendBox(fileID, boxID, x2, y2) {
-    this.activatedBox.x2 = x2;
-    this.activatedBox.y2 = y2;
-    this.fileList[fileID].boxes[boxID] = this.activatedBox;
-    this.activatedBox = null;
+  appendBox(fileID, boxID, x1, y1, x2, y2) {
+    this.fileList[fileID].boxes[boxID] = new detectionBox(this.activatedLabel, x1, y1, x2, y2);
     this.labelList[this.activatedLabel].numBoxes += 1;
     this.labelList[this.activatedLabel].boxtoFile[boxID] = fileID;
-    console.log(this.fileList[fileID]);
   }
 
   deleteBox(fileID, boxID) {
+    var labelID = this.fileList[fileID].boxes[boxID].labelID;
+    this.labelList[labelID].numBoxes -= 1;
+    delete this.labelList[labelID].boxtoFile[boxID];
     delete this.fileList[fileID].boxes[boxID];
+    console.log(this.fileList[fileID].boxes);
   }
 
   changeBoxLable(fileID, labelID, boxID) {
