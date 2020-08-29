@@ -47,14 +47,17 @@ $('#root').on('click', '.label-color', function (event) {
     $(event.target).parent()[0].offsetHeight / 2;
   rightPosition = $(event.target).parent()[0].offsetWidth;
   leftPosition = $(event.target).parent()[0].offsetLeft;
-  console.log($(event.target).parent());
-  console.log(topPosition, rightPosition, leftPosition);
   $(event.target).parent().next().toggle();
   $(event.target).parent().next().css('top', topPosition);
-  $(event.target)
-    .parent()
-    .next()
-    .css('left', leftPosition - rightPosition - 40);
+  var taskId = remote.getGlobal('projectManager').taskId;
+  if (taskId == 'IC') {
+    $(event.target)
+      .parent()
+      .next()
+      .css('left', leftPosition - rightPosition);
+  } else {
+    $(event.target).parent().next().css('transform', 'translate(-100%, -15%)');
+  }
 });
 
 // Click remove button
@@ -144,6 +147,9 @@ $('#root').on('change', '.label-name', function (event) {
     return;
   }
 });
+$('#root').on('click', '.popover-close', function (event) {
+  $('#popover' + event.target.id).toggle();
+});
 
 function getId() {
   if (location.href === undefined) return;
@@ -151,6 +157,15 @@ function getId() {
   if (tmp.length <= 1) return;
   var data = tmp[1].split('=');
   id = data[1];
-  console.log(id);
   return id;
 }
+
+$(window).resize(() => {
+  var els = document.getElementsByClassName('popover');
+  Array.from(els).forEach((el) => {
+    // Do stuff here
+    if (!(el.style.display == 'none')) {
+      document.getElementById(el.id).style.display = 'none';
+    }
+  });
+});

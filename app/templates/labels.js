@@ -53,6 +53,9 @@ function appendLabelTemplate(labelID, color, name) {
     labelID +
     "'>" +
     "<div class='popover-arrow'></div>" +
+    "<div class='popover-close close' id='" +
+    labelID +
+    "'>x</div>" +
     "<span class='label-color-cand label-color-circle' style='background-color: #10b1fe;'></span>" +
     "<span class='label-color-cand label-color-circle' style='background-color: #3fc56b;'></span>" +
     "<span class='label-color-cand label-color-circle' style='background-color: #ce9887;'></span>" +
