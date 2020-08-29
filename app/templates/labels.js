@@ -1,12 +1,7 @@
-const { label } = require('../project_managers/base-classes');
-
 var labelMenu =
   '<div class="label-menu">' +
   '<div class="label-header">' +
   '<h1 class = "label-tit">Label</h1>' +
-  '<button class="label-setting" id="label-setting-btn">' +
-  '<img src="../resources/imgs/annotti_setting_small.png" alt="label setting image"></img>' +
-  '</button>' +
   '</div>' +
   '<div class="label-infos"></div>' +
   '<button type="button" id="add-label" class="add-label">' +
@@ -31,8 +26,6 @@ function appendLabelTemplate(labelID, color, name) {
     name +
     "'>";
 
-  // if (remote.getGlobal('projectManager').taskId == 'IC')
-  // Activation button
   appendTemplate +=
     "<input type='checkbox' class='activate' id='" +
     labelID +

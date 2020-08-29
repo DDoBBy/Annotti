@@ -155,11 +155,6 @@ button.left-img-buttons > img {
   width: 50px;
   padding: 10px;
 }
-button.left-img-buttons.setting {
-  position: absolute;
-  width: 80px;
-  bottom: 10px;
-}
 
 /* MAIN CONTAINER = ALL */
 div.main-container {
@@ -242,19 +237,6 @@ h1.label-tit {
   margin-right: 10px;
   display: inline-block;
   padding: 5px 0;
-}
-button.label-setting {
-  width: 30px;
-  height: 30px;
-  border: 0;
-  padding: 5px;
-  background-color: transparent;
-  display: inline-block;
-  transform: translate(0, -4px);
-}
-button.label-setting > img {
-  width: 100%;
-  padding: 0;
 }
 button.add-label {
   border: 0;
@@ -460,6 +442,7 @@ div.bottom-buttons > button > img {
 }
 
 /* CLASSIFICATION ZOOM */
+div.information-window,
 div.classification-zoom-window,
 div.classification-analysis-window {
   width: 70%;
@@ -504,10 +487,12 @@ div#bottom-buttons-classification {
 /* CLASSIFICATION ANALYSIS */
 div.classification-analysis-window {
   z-index: 3;
+  background: #f0f0f0;
 }
 div.classification-analysis-contents {
   width: 100%;
   height: 100%;
+  overflow-y: auto;
 }
 div.classification-analysis-contents > h1 {
   font-size: 2rem;
@@ -515,6 +500,81 @@ div.classification-analysis-contents > h1 {
 canvas.analytic-chart {
   position: relative;
   top: 10%;
+}
+
+/* INFORMATION WINDOW */
+div.information-window {
+  z-index: 4;
+  flex-direction: column;
+}
+
+div.information-window > div.close-area {
+  display: flex;
+  height: 50px;
+}
+div.information-window > div.close-area > h1 {
+  flex: 1;
+  display: inline-block;
+  font-size: 1.8rem;
+  margin: 0;
+}
+div.information-contents {
+  flex: 1;
+  overflow-y: auto;
+}
+div.information-area {
+  padding: 15px;
+}
+div.information-title {
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+div.information-table {
+  background-color: #f0f0f0;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  border-radius: 5px;
+}
+div.keyboard,
+div.desc {
+  padding: 10px;
+  border: 1px solid white;
+  font-size: 0.9rem;
+}
+div.keyboard > div {
+  display: inline-block;
+  height: 40px;
+  padding: 5px;
+}
+div.button-event {
+  width: 40px;
+  border-radius: 5px;
+  background-color: white;
+}
+div.button-event > img {
+  width: 100%;
+  height: 100%;
+}
+div.key {
+  width: 40px;
+  text-align: center;
+  background-color: white;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+div.plus {
+  color: #bbb;
+}
+div.event {
+  color: black;
+}
+div.desc-gif {
+  width: 100%;
+  padding: 20px;
+}
+div.desc-gif > img {
+  width: 100%;
 }
 
 /* DETECTION ANALYSIS */
