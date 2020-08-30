@@ -95,11 +95,13 @@ class detectionProjectManager extends projectManager {
       Math.round(x2 * ratio),
       Math.round(y2 * ratio)
     );
+    // console.log(this.fileList[fileID].boxes);
     this.labelList[this.activatedLabel].numBoxes += 1;
     this.labelList[this.activatedLabel].boxtoFile[boxID] = fileID;
   }
 
   deleteBox(fileID, boxID) {
+    // console.log(fileID, boxID);
     var labelID = this.fileList[fileID].boxes[boxID].labelID;
     this.labelList[labelID].numBoxes -= 1;
     delete this.labelList[labelID].boxtoFile[boxID];

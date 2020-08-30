@@ -73,13 +73,15 @@ function createCanvas(fileID, filePath) {
     'keydown',
     (e) => {
       if (e.keyCode == 68 && mayDel != null) {
-        remote.getGlobal('projectManager').deleteBox(fileID, mayDel);
-        // console.log(mayDel);
         canvas.getObjects().forEach(function (o) {
-          //   console.log(o);
           if (o.id != undefined && mayDel == o.id) {
+            remote.getGlobal('projectManager').deleteBox(fileID, mayDel);
             canvas.remove(o);
             canvas.renderAll();
+            var labelID = remote.getGlobal('projectManager').getLabelIDbyColor(o.stroke);
+            $('#' + labelID + '.label-counter').text(
+              Number($('#' + labelID + '.label-counter').text()) - 1
+            );
           }
         });
       }
@@ -162,30 +164,29 @@ function createCanvas(fileID, filePath) {
     this.isDragging = false;
     this.selection = true;
     started = false;
-    if (opt.e.altKey) {
+    if (opt.e.altKey || canvas.getActiveObject() != null) {
       var labelID = remote.getGlobal('projectManager').getActivatedLabel();
       var square = canvas.getActiveObject();
       var x2 = square.left + square.width;
       var y2 = square.top + square.height;
       var boxID = square.id;
+      if (square.id != undefined) return;
+      else {
+        while (square.id == undefined) {
+          boxID = new Date().getTime();
+          square.set('id', boxID);
+        }
 
-      while (square.id == undefined) {
-        boxID = new Date().getTime();
-        square.id = boxID;
-        square.set('id', boxID);
+        remote
+          .getGlobal('projectManager')
+          .appendBox(fileID, square.id, square.left, square.top, x2, y2);
+
+        canvas.discardActiveObject();
+        $('#' + labelID + '.label-counter').text(
+          Number($('#' + labelID + '.label-counter').text()) + 1
+        );
       }
-      //   console.log(square.id);
-
-      remote
-        .getGlobal('projectManager')
-        .appendBox(fileID, square.id, square.left, square.top, x2, y2);
-
-      canvas.discardActiveObject();
-      $('#' + labelID + '.label-counter').text(
-        Number($('#' + labelID + '.label-counter').text()) + 1
-      );
     }
-    canvasList[fileID] = canvas;
   });
 
   $(window).resize(() => {
@@ -212,6 +213,8 @@ function createCanvas(fileID, filePath) {
     $('.working-area').css('display', 'grid');
     $('.detection-area').css('display', 'none');
   });
+
+  canvasList[fileID] = canvas;
 }
 
 function ODChangeColor(boxIDs, newColor) {

@@ -42,7 +42,6 @@ class projectManager {
   getColorbyLabelID(labelID) {
     return this.labelColors[labelID];
   }
-  ㅅ;
 
   getLabelIDbyColor(color) {
     return Object.keys(this.labelColors).find((key) => this.labelColors[key] === color);
