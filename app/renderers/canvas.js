@@ -13,8 +13,6 @@ function getThumbnailID() {
 function getImageCanvas(thumbnailID) {
   var filePath = remote.getGlobal('projectManager').dataPaths[thumbnailID];
   remote.getGlobal('projectManager').openFileTab(thumbnailID, filePath);
-
-  img = new Image();
   drawImageOnCanvas(thumbnailID, filePath);
 }
 
@@ -32,6 +30,8 @@ function drawImageOnCanvas(thumbnailID, filePath) {
   var startX = 0;
   var startY = 0;
 
+  var mayDel = null;
+
   var started = false;
   var startX = 0;
   var startY = 0;
@@ -48,15 +48,13 @@ function drawImageOnCanvas(thumbnailID, filePath) {
   image.onload = function (img) {
     var fabricImg = new fabric.Image(image);
     fabricImg.scaleToWidth(w, false);
+    remote.getGlobal('projectManager').setFileSize(fileID, fabricImg.width, fabricImg.height, w);
     canvas.setBackgroundImage(fabricImg, canvas.renderAll.bind(canvas));
   };
   image.src = imgURL;
 
   canvas.on('object:modified', (e) => {
-    console.log(e);
-
     var boxID = e.target.id;
-    console.log(boxID);
     var x1 = e.target.aCoords.tl.x;
     var y1 = e.target.aCoords.tl.y;
     var x2 = e.target.aCoords.br.x;
@@ -90,25 +88,9 @@ function drawImageOnCanvas(thumbnailID, filePath) {
     }
   });
 
-  canvas.on('mouse:wheel', function (opt) {
-    var delta = opt.e.deltaY;
-    var zoom = canvas.getZoom();
-    zoom *= 0.999 ** delta;
-    if (zoom > 20) zoom = 20;
-    if (zoom < 0.01) zoom = 0.01;
-    canvas.setZoom(zoom);
-    opt.e.preventDefault();
-    opt.e.stopPropagation();
-  });
-
   canvas.on('mouse:down', function (opt) {
     var evt = opt.e;
-    if (evt.shiftKey) {
-      this.isDragging = true;
-      this.selection = false;
-      this.lastPosX = evt.clientX;
-      this.lastPosY = evt.clientY;
-    } else if (evt.altKey) {
+    if (evt.altKey) {
       var labelID = remote.getGlobal('projectManager').getActivatedLabel();
       if (labelID == null) {
         return;
@@ -196,22 +178,6 @@ function drawImageOnCanvas(thumbnailID, filePath) {
     // canvas.backgroundImage.scaleToWidth(canvas.getWidth(), false);
     canvas.renderAll();
     canvas.calcOffset();
-  });
-
-  $('#zoom-in-button').on('click', function () {
-    var zoom = canvas.getZoom();
-    zoom *= 0.999 ** -50;
-    if (zoom > 20) zoom = 20;
-    if (zoom < 0.01) zoom = 0.01;
-    canvas.setZoom(zoom);
-  });
-
-  $('#zoom-out-button').on('click', function () {
-    var zoom = canvas.getZoom();
-    zoom *= 0.999 ** 50;
-    if (zoom > 20) zoom = 20;
-    if (zoom < 0.01) zoom = 0.01;
-    canvas.setZoom(zoom);
   });
 
   $('#back-to-original-button').on('click', function () {
