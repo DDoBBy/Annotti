@@ -1,5 +1,5 @@
 const { appendLabelTemplate } = require('../templates/labels');
-
+var randomColor = require('randomcolor');
 function rgb2hex(rgb) {
   if (rgb.search('rgb') == -1) {
     return rgb;
@@ -13,8 +13,8 @@ function rgb2hex(rgb) {
 }
 
 function generateRandomColor() {
-  var randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
-  return randomColor;
+  var color = randomColor();
+  return color;
 }
 
 function findTopPosition(id) {
@@ -50,14 +50,10 @@ $('#root').on('click', '.label-color', function (event) {
   $(event.target).parent().next().toggle();
   $(event.target).parent().next().css('top', topPosition);
   var taskId = remote.getGlobal('projectManager').taskId;
-  // if (taskId == 'IC') {
   $(event.target)
     .parent()
     .next()
-    .css('left', leftPosition - rightPosition);
-  // } else {
-  //   $(event.target).parent().next().css('transform', 'translate(-100%, -15%)');
-  // }
+    .css('left', leftPosition - rightPosition + 45);
 });
 
 // Click remove button

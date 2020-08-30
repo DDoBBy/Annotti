@@ -32,6 +32,10 @@ function drawImageOnCanvas(thumbnailID, filePath) {
   var startX = 0;
   var startY = 0;
 
+  var started = false;
+  var startX = 0;
+  var startY = 0;
+
   var w = $('#tab-image').width();
   var h = $('#tab-image').height();
 
@@ -113,7 +117,6 @@ function drawImageOnCanvas(thumbnailID, filePath) {
 
       started = true;
       (startY = evt.offsetY), (startX = evt.offsetX);
-
       var square = new fabric.Rect({
         width: 0,
         height: 0,
