@@ -31,8 +31,8 @@ function composeImgElements(filePath, imgInfoId) {
     '<a class"img-name">' +
     basename +
     '</a></div>';
-  $('#all-imgs').append(element);
 
+  $('#all-imgs').append(element);
   $('.img-info:last-child').on('click', { imgInfoId: imgInfoId }, openTab);
 }
 
