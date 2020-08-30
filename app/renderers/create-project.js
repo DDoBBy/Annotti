@@ -2,7 +2,7 @@ const { createProjectTemplate } = require('../templates/create-project');
 const { classificationTemplate } = require('../templates/classification');
 const { objectDetectionTemplate } = require('../templates/object-detection');
 
-let workingDirectory = ['/Users/yeon/Downloads/img'];
+let workingDirectory = ['/Users/hansangmee/Downloads/101_ObjectCategories'];
 
 function composeUI() {
   $('#root').append(createProjectTemplate);

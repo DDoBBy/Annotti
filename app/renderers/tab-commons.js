@@ -1,4 +1,4 @@
-const { readyTab, openTab } = require('../renderers/tab-functions.js');
+// const { openTab } = require('../renderers/detection-functions.js');
 const imgExtensions = ['.png', '.jpg', '.jpeg', '.PNG', '.JPG', '.JPEG'];
 
 function breadCrumbHome(event) {
@@ -81,7 +81,6 @@ async function readFolder(folderPath) {
 
 async function showSelectedDirectories() {
   $('#breadcrumb-list').empty();
-  readyTab();
   var workingDirectory = remote.getGlobal('projectManager').workingDirectory;
   for (const folderPath of workingDirectory) {
     await composeFolderElements(folderPath);
@@ -99,9 +98,3 @@ $('.grid-view-files').on('click', '.folder-thumbnail', function (event) {
 });
 
 $('document').ready(showSelectedDirectories);
-
-// show grid view of images
-$('#view-files-btn').on('click', function () {
-  $('.working-area').css('display', 'grid');
-  $('.tab-area').css('display', 'none');
-});
