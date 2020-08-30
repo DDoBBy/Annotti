@@ -21,6 +21,10 @@ class detectionLabel extends label {
 class detectionFile extends file {
   constructor(path) {
     super(path);
+    this.naturalWidth = 0;
+    this.naturalHeight = 0;
+    this.width = 0;
+    this.ratio = 0;
     this.boxes = {};
   }
 }
@@ -75,8 +79,22 @@ class detectionProjectManager extends projectManager {
     this.fileList[fileID] = new detectionFile(filePath);
   }
 
+  setFileSize(fileID, naturalWidth, naturalHeight, width) {
+    this.fileList[fileID].naturalWidth = naturalWidth;
+    this.fileList[fileID].naturalHeight = naturalHeight;
+    this.fileList[fileID].width = width;
+    this.fileList[fileID].ratio = naturalWidth / width;
+  }
+
   appendBox(fileID, boxID, x1, y1, x2, y2) {
-    this.fileList[fileID].boxes[boxID] = new detectionBox(this.activatedLabel, x1, y1, x2, y2);
+    var ratio = this.fileList[fileID].ratio;
+    this.fileList[fileID].boxes[boxID] = new detectionBox(
+      this.activatedLabel,
+      Math.round(x1 * ratio),
+      Math.round(y1 * ratio),
+      Math.round(x2 * ratio),
+      Math.round(y2 * ratio)
+    );
     this.labelList[this.activatedLabel].numBoxes += 1;
     this.labelList[this.activatedLabel].boxtoFile[boxID] = fileID;
   }
@@ -86,7 +104,7 @@ class detectionProjectManager extends projectManager {
     this.labelList[labelID].numBoxes -= 1;
     delete this.labelList[labelID].boxtoFile[boxID];
     delete this.fileList[fileID].boxes[boxID];
-    console.log(this.fileList[fileID].boxes);
+    // console.log(this.fileList[fileID].boxes);
   }
 
   changeBoxLable(fileID, labelID, boxID) {
@@ -94,12 +112,17 @@ class detectionProjectManager extends projectManager {
   }
 
   changeBoxPosition(fileID, boxID, x1, y1, x2, y2) {
-    console.log(fileID, boxID, x1, y1, x2, y2);
-    console.log(this.fileList[fileID].boxes);
-    this.fileList[fileID].boxes[boxID].x1 = x1;
-    this.fileList[fileID].boxes[boxID].y1 = y1;
-    this.fileList[fileID].boxes[boxID].x2 = x2;
-    this.fileList[fileID].boxes[boxID].y2 = y2;
+    var ratio = this.fileList[fileID].ratio;
+    // console.log(fileID, boxID, x1, y1, x2, y2);
+    // console.log(this.fileList[fileID].boxes);
+    this.fileList[fileID].boxes[boxID].x1 = Math.round(x1 * ratio);
+    this.fileList[fileID].boxes[boxID].y1 = Math.round(y1 * ratio);
+    this.fileList[fileID].boxes[boxID].x2 = Math.round(x2 * ratio);
+    this.fileList[fileID].boxes[boxID].y2 = Math.round(y2 * ratio);
+  }
+
+  getBoxes(fileID) {
+    return this.fileList[fileID].boxes;
   }
 
   getActivatedLabel() {

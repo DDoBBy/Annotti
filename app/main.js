@@ -8,10 +8,9 @@ global.projectManager = null;
 
 function createWindow() {
   win = new BrowserWindow({
-    width: 1200,
-    height: 810,
-    minWidth: 640,
-    minHeight: 360,
+    fullscreen: true,
+    minWidth: 1200,
+    minHeight: 810,
     webPreferences: {
       enableRemoteModule: true,
       nodeIntegration: true,

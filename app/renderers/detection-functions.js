@@ -1,29 +1,32 @@
 const fabric = require('fabric').fabric;
-var canvas = null;
+let canvasList = {};
 
-function getThumbnailID() {
-  if (location.href === undefined) return;
-  var tmp = location.href.split('?');
-  if (tmp.length <= 1) return;
-  var data = tmp[1].split('=');
-  id = data[1];
-  getImageCanvas(id);
+function openTab(event) {
+  var fileID = event.data.imgInfoId;
+  var filePath = remote.getGlobal('projectManager').dataPaths[fileID];
+
+  $('.working-area').css('display', 'none');
+  $('.detection-area').css('display', 'block');
+
+  var canvasEl = $(`#canvas-${fileID}`);
+  if (canvasEl.length == 0) {
+    createCanvas(fileID, filePath);
+  } else {
+    canvasEl.parent('.canvas-container').css('display', 'block');
+    canvasEl.css('display', 'block');
+    canvasEl.siblings().css('display', 'block');
+  }
 }
 
-function getImageCanvas(thumbnailID) {
-  var filePath = remote.getGlobal('projectManager').dataPaths[thumbnailID];
-  remote.getGlobal('projectManager').openFileTab(thumbnailID, filePath);
+function createCanvas(fileID, filePath) {
+  $('.detection-image').append(
+    `<canvas id="canvas-${fileID}" class="img-canvas" style="max-width: 100%; max-height: 100%"></canvas>`
+  );
+  var canvas = new fabric.Canvas(`canvas-${fileID}`, {});
 
-  img = new Image();
-  drawImageOnCanvas(thumbnailID, filePath);
-}
-
-$(document).ready(getThumbnailID);
-
-function drawImageOnCanvas(thumbnailID, filePath) {
-  canvas = new fabric.Canvas('img-canvas', {});
+  var basename = path.basename(filePath);
+  $('.image-name').text(basename);
   var imgURL = filePath;
-  var fileID = thumbnailID;
   var image = new Image();
 
   var mayDel = null;
@@ -32,12 +35,15 @@ function drawImageOnCanvas(thumbnailID, filePath) {
   var startX = 0;
   var startY = 0;
 
+  var mayDel = null;
+
   var started = false;
   var startX = 0;
   var startY = 0;
 
-  var w = $('#tab-image').width();
-  var h = $('#tab-image').height();
+  var canvasWrapper = document.getElementById('detection-image');
+  var w = $('#detection-image').width();
+  var h = $('#detection-image').height();
 
   $('.canvas-container').css('max-width', '100%');
   $('.canvas-container').css('max-height', '100%');
@@ -48,15 +54,13 @@ function drawImageOnCanvas(thumbnailID, filePath) {
   image.onload = function (img) {
     var fabricImg = new fabric.Image(image);
     fabricImg.scaleToWidth(w, false);
+    remote.getGlobal('projectManager').setFileSize(fileID, fabricImg.width, fabricImg.height, w);
     canvas.setBackgroundImage(fabricImg, canvas.renderAll.bind(canvas));
   };
   image.src = imgURL;
 
   canvas.on('object:modified', (e) => {
-    console.log(e);
-
     var boxID = e.target.id;
-    console.log(boxID);
     var x1 = e.target.aCoords.tl.x;
     var y1 = e.target.aCoords.tl.y;
     var x2 = e.target.aCoords.br.x;
@@ -64,13 +68,20 @@ function drawImageOnCanvas(thumbnailID, filePath) {
     remote.getGlobal('projectManager').changeBoxPosition(fileID, boxID, x1, y1, x2, y2);
   });
 
-  var canvasWrapper = document.getElementById('tab-image');
   canvasWrapper.tabIndex = 1000;
   canvasWrapper.addEventListener(
     'keydown',
     (e) => {
       if (e.keyCode == 68 && mayDel != null) {
         remote.getGlobal('projectManager').deleteBox(fileID, mayDel);
+        // console.log(mayDel);
+        canvas.getObjects().forEach(function (o) {
+          //   console.log(o);
+          if (o.id != undefined && mayDel == o.id) {
+            canvas.remove(o);
+            canvas.renderAll();
+          }
+        });
       }
     },
     false
@@ -90,25 +101,9 @@ function drawImageOnCanvas(thumbnailID, filePath) {
     }
   });
 
-  canvas.on('mouse:wheel', function (opt) {
-    var delta = opt.e.deltaY;
-    var zoom = canvas.getZoom();
-    zoom *= 0.999 ** delta;
-    if (zoom > 20) zoom = 20;
-    if (zoom < 0.01) zoom = 0.01;
-    canvas.setZoom(zoom);
-    opt.e.preventDefault();
-    opt.e.stopPropagation();
-  });
-
   canvas.on('mouse:down', function (opt) {
     var evt = opt.e;
-    if (evt.shiftKey) {
-      this.isDragging = true;
-      this.selection = false;
-      this.lastPosX = evt.clientX;
-      this.lastPosY = evt.clientY;
-    } else if (evt.altKey) {
+    if (evt.altKey) {
       var labelID = remote.getGlobal('projectManager').getActivatedLabel();
       if (labelID == null) {
         return;
@@ -177,7 +172,9 @@ function drawImageOnCanvas(thumbnailID, filePath) {
       while (square.id == undefined) {
         boxID = new Date().getTime();
         square.id = boxID;
+        square.set('id', boxID);
       }
+      //   console.log(square.id);
 
       remote
         .getGlobal('projectManager')
@@ -188,50 +185,46 @@ function drawImageOnCanvas(thumbnailID, filePath) {
         Number($('#' + labelID + '.label-counter').text()) + 1
       );
     }
+    canvasList[fileID] = canvas;
   });
 
   $(window).resize(() => {
     canvas.setWidth($(window).width());
-    canvas.setHeight($('#tab-image').height());
+    canvas.setHeight($('#detection-image').height());
     // canvas.backgroundImage.scaleToWidth(canvas.getWidth(), false);
     canvas.renderAll();
     canvas.calcOffset();
   });
 
-  $('#zoom-in-button').on('click', function () {
-    var zoom = canvas.getZoom();
-    zoom *= 0.999 ** -50;
-    if (zoom > 20) zoom = 20;
-    if (zoom < 0.01) zoom = 0.01;
-    canvas.setZoom(zoom);
-  });
-
-  $('#zoom-out-button').on('click', function () {
-    var zoom = canvas.getZoom();
-    zoom *= 0.999 ** 50;
-    if (zoom > 20) zoom = 20;
-    if (zoom < 0.01) zoom = 0.01;
-    canvas.setZoom(zoom);
-  });
-
-  $('#back-to-original-button').on('click', function () {
-    canvas.backgroundImage.scaleToWidth(canvas.getWidth(), false);
-    canvas.backgroundImage.scaleToWidth(canvas.getWidth(), false);
-    canvas.renderAll();
-    canvas.calcOffset();
+  $('.detection-close').on('click', function () {
+    $(`#canvas-${fileID}`).parent('.canvas-container').css('display', 'none');
+    $(`#canvas-${fileID}`).siblings().css('display', 'none');
+    $(`#canvas-${fileID}`).css('display', 'none');
+    $('.detection-area').css('display', 'none');
+    $('.working-area').css('display', 'grid');
   });
 }
 
 function ODChangeColor(boxIDs, newColor) {
-  canvas.getObjects().forEach(function (o) {
-    if (boxIDs.includes(o.id)) {
-      o.stroke = newColor;
-    }
-  });
-  canvas.renderAll();
-  console.log('Change box color on UI');
+  for (const [_, canvas] of Object.entries(canvasList)) {
+    canvas.getObjects().forEach(function (o) {
+      //   console.log(o);
+      if (o.id != undefined && boxIDs.includes(o.id.toString())) {
+        o.set('stroke', newColor);
+        canvas.renderAll();
+      }
+    });
+  }
 }
 
 function ODDeleteLabel(boxIDs) {
-  console.log('Delete box on UI');
+  for (const [_, canvas] of Object.entries(canvasList)) {
+    canvas.getObjects().forEach(function (o) {
+      //   console.log(o);
+      if (o.id != undefined && boxIDs.includes(o.id.toString())) {
+        canvas.remove(o);
+        canvas.renderAll();
+      }
+    });
+  }
 }
