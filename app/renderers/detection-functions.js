@@ -203,6 +203,15 @@ function createCanvas(fileID, filePath) {
     $('.detection-area').css('display', 'none');
     $('.working-area').css('display', 'grid');
   });
+
+  // show grid view of images
+  $('#view-files-btn').on('click', function () {
+    $(`#canvas-${fileID}`).parent('.canvas-container').css('display', 'none');
+    $(`#canvas-${fileID}`).siblings().css('display', 'none');
+    $(`#canvas-${fileID}`).css('display', 'none');
+    $('.working-area').css('display', 'grid');
+    $('.detection-area').css('display', 'none');
+  });
 }
 
 function ODChangeColor(boxIDs, newColor) {

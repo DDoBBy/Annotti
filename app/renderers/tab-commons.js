@@ -98,9 +98,3 @@ $('.grid-view-files').on('click', '.folder-thumbnail', function (event) {
 });
 
 $('document').ready(showSelectedDirectories);
-
-// show grid view of images
-$('#view-files-btn').on('click', function () {
-  $('.working-area').css('display', 'grid');
-  $('.detection-area').css('display', 'none');
-});
