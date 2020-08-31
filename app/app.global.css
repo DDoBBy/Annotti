@@ -577,3 +577,8 @@ div.detection-analysis-contents {
 div.detection-analysis-contents > h1 {
   font-size: 2rem;
 }
+
+canvas.analytic-chart {
+  position: relative;
+  top: 5%;
+}

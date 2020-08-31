@@ -1,5 +1,6 @@
 const fabric = require('fabric').fabric;
 let canvasList = {};
+let boxId = 0;
 
 function openTab(event) {
   var fileID = event.data.imgInfoId;
@@ -54,6 +55,7 @@ function createCanvas(fileID, filePath) {
   image.onload = function (img) {
     var fabricImg = new fabric.Image(image);
     fabricImg.scaleToWidth(w, false);
+    fabricImg.scaleToHeight(h, false);
     remote.getGlobal('projectManager').setFileSize(fileID, fabricImg.width, fabricImg.height, w);
     canvas.setBackgroundImage(fabricImg, canvas.renderAll.bind(canvas));
   };
@@ -173,7 +175,8 @@ function createCanvas(fileID, filePath) {
       if (square.id != undefined) return;
       else {
         while (square.id == undefined) {
-          boxID = new Date().getTime();
+          // boxID = new Date().getTime();
+          boxID = boxId++;
           square.set('id', boxID);
         }
 

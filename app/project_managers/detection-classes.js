@@ -106,7 +106,7 @@ class detectionProjectManager extends projectManager {
     this.labelList[labelID].numBoxes -= 1;
     delete this.labelList[labelID].boxtoFile[boxID];
     delete this.fileList[fileID].boxes[boxID];
-    // console.log(this.fileList[fileID].boxes);
+    console.log(this.fileList[fileID].boxes);
   }
 
   changeBoxLable(fileID, labelID, boxID) {
