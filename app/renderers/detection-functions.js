@@ -1,27 +1,32 @@
 const fabric = require('fabric').fabric;
-var canvas = null;
+let canvasList = {};
 
-function getThumbnailID() {
-  if (location.href === undefined) return;
-  var tmp = location.href.split('?');
-  if (tmp.length <= 1) return;
-  var data = tmp[1].split('=');
-  id = data[1];
-  getImageCanvas(id);
+function openTab(event) {
+  var fileID = event.data.imgInfoId;
+  var filePath = remote.getGlobal('projectManager').dataPaths[fileID];
+
+  $('.working-area').css('display', 'none');
+  $('.detection-area').css('display', 'block');
+
+  var canvasEl = $(`#canvas-${fileID}`);
+  if (canvasEl.length == 0) {
+    createCanvas(fileID, filePath);
+  } else {
+    canvasEl.parent('.canvas-container').css('display', 'block');
+    canvasEl.css('display', 'block');
+    canvasEl.siblings().css('display', 'block');
+  }
 }
 
-function getImageCanvas(thumbnailID) {
-  var filePath = remote.getGlobal('projectManager').dataPaths[thumbnailID];
-  remote.getGlobal('projectManager').openFileTab(thumbnailID, filePath);
-  drawImageOnCanvas(thumbnailID, filePath);
-}
+function createCanvas(fileID, filePath) {
+  $('.detection-image').append(
+    `<canvas id="canvas-${fileID}" class="img-canvas" style="max-width: 100%; max-height: 100%"></canvas>`
+  );
+  var canvas = new fabric.Canvas(`canvas-${fileID}`, {});
 
-$(document).ready(getThumbnailID);
-
-function drawImageOnCanvas(thumbnailID, filePath) {
-  canvas = new fabric.Canvas('img-canvas', {});
+  var basename = path.basename(filePath);
+  $('.image-name').text(basename);
   var imgURL = filePath;
-  var fileID = thumbnailID;
   var image = new Image();
 
   var mayDel = null;
@@ -36,8 +41,9 @@ function drawImageOnCanvas(thumbnailID, filePath) {
   var startX = 0;
   var startY = 0;
 
-  var w = $('#tab-image').width();
-  var h = $('#tab-image').height();
+  var canvasWrapper = document.getElementById('detection-image');
+  var w = $('#detection-image').width();
+  var h = $('#detection-image').height();
 
   $('.canvas-container').css('max-width', '100%');
   $('.canvas-container').css('max-height', '100%');
@@ -62,13 +68,22 @@ function drawImageOnCanvas(thumbnailID, filePath) {
     remote.getGlobal('projectManager').changeBoxPosition(fileID, boxID, x1, y1, x2, y2);
   });
 
-  var canvasWrapper = document.getElementById('tab-image');
   canvasWrapper.tabIndex = 1000;
   canvasWrapper.addEventListener(
     'keydown',
     (e) => {
       if (e.keyCode == 68 && mayDel != null) {
-        remote.getGlobal('projectManager').deleteBox(fileID, mayDel);
+        canvas.getObjects().forEach(function (o) {
+          if (o.id != undefined && mayDel == o.id) {
+            remote.getGlobal('projectManager').deleteBox(fileID, mayDel);
+            canvas.remove(o);
+            canvas.renderAll();
+            var labelID = remote.getGlobal('projectManager').getLabelIDbyColor(o.stroke);
+            $('#' + labelID + '.label-counter').text(
+              Number($('#' + labelID + '.label-counter').text()) - 1
+            );
+          }
+        });
       }
     },
     false
@@ -149,55 +164,79 @@ function drawImageOnCanvas(thumbnailID, filePath) {
     this.isDragging = false;
     this.selection = true;
     started = false;
-    if (opt.e.altKey) {
+    if (opt.e.altKey || canvas.getActiveObject() != null) {
       var labelID = remote.getGlobal('projectManager').getActivatedLabel();
       var square = canvas.getActiveObject();
       var x2 = square.left + square.width;
       var y2 = square.top + square.height;
       var boxID = square.id;
+      if (square.id != undefined) return;
+      else {
+        while (square.id == undefined) {
+          boxID = new Date().getTime();
+          square.set('id', boxID);
+        }
 
-      while (square.id == undefined) {
-        boxID = new Date().getTime();
-        square.id = boxID;
+        remote
+          .getGlobal('projectManager')
+          .appendBox(fileID, square.id, square.left, square.top, x2, y2);
+
+        canvas.discardActiveObject();
+        $('#' + labelID + '.label-counter').text(
+          Number($('#' + labelID + '.label-counter').text()) + 1
+        );
       }
-
-      remote
-        .getGlobal('projectManager')
-        .appendBox(fileID, square.id, square.left, square.top, x2, y2);
-
-      canvas.discardActiveObject();
-      $('#' + labelID + '.label-counter').text(
-        Number($('#' + labelID + '.label-counter').text()) + 1
-      );
     }
   });
 
   $(window).resize(() => {
     canvas.setWidth($(window).width());
-    canvas.setHeight($('#tab-image').height());
+    canvas.setHeight($('#detection-image').height());
     // canvas.backgroundImage.scaleToWidth(canvas.getWidth(), false);
     canvas.renderAll();
     canvas.calcOffset();
   });
 
-  $('#back-to-original-button').on('click', function () {
-    canvas.backgroundImage.scaleToWidth(canvas.getWidth(), false);
-    canvas.backgroundImage.scaleToWidth(canvas.getWidth(), false);
-    canvas.renderAll();
-    canvas.calcOffset();
+  $('.detection-close').on('click', function () {
+    $(`#canvas-${fileID}`).parent('.canvas-container').css('display', 'none');
+    $(`#canvas-${fileID}`).siblings().css('display', 'none');
+    $(`#canvas-${fileID}`).css('display', 'none');
+    $('.detection-area').css('display', 'none');
+    $('.working-area').css('display', 'grid');
   });
+
+  // show grid view of images
+  $('#view-files-btn').on('click', function () {
+    $(`#canvas-${fileID}`).parent('.canvas-container').css('display', 'none');
+    $(`#canvas-${fileID}`).siblings().css('display', 'none');
+    $(`#canvas-${fileID}`).css('display', 'none');
+    $('.working-area').css('display', 'grid');
+    $('.detection-area').css('display', 'none');
+  });
+
+  canvasList[fileID] = canvas;
 }
 
 function ODChangeColor(boxIDs, newColor) {
-  canvas.getObjects().forEach(function (o) {
-    if (boxIDs.includes(o.id)) {
-      o.stroke = newColor;
-    }
-  });
-  canvas.renderAll();
-  console.log('Change box color on UI');
+  for (const [_, canvas] of Object.entries(canvasList)) {
+    canvas.getObjects().forEach(function (o) {
+      //   console.log(o);
+      if (o.id != undefined && boxIDs.includes(o.id.toString())) {
+        o.set('stroke', newColor);
+        canvas.renderAll();
+      }
+    });
+  }
 }
 
 function ODDeleteLabel(boxIDs) {
-  console.log('Delete box on UI');
+  for (const [_, canvas] of Object.entries(canvasList)) {
+    canvas.getObjects().forEach(function (o) {
+      //   console.log(o);
+      if (o.id != undefined && boxIDs.includes(o.id.toString())) {
+        canvas.remove(o);
+        canvas.renderAll();
+      }
+    });
+  }
 }
