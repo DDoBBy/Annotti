@@ -166,7 +166,7 @@ function createCanvas(fileID, filePath) {
     this.isDragging = false;
     this.selection = true;
     started = false;
-    if (opt.e.altKey) {
+    if (opt.e.altKey || canvas.getActiveObject() != null) {
       var labelID = remote.getGlobal('projectManager').getActivatedLabel();
       var square = canvas.getActiveObject();
       var x2 = square.left + square.width;
