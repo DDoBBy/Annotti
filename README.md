@@ -5,7 +5,7 @@
 # Annotti
 Data annotation tool for deep learning
 
-# Intallation
+# Installation
 You need NVM v12.8.2.
 ```
 git clone https://github.com/DDoBBy/Annotti.git
@@ -17,7 +17,7 @@ npm install
 npm start
 ```
 # Functions
-* ### __Common__
+* ## __Common__
 
     <img width="400px" src="https://user-images.githubusercontent.com/43779313/91729543-ad8aa380-ebdf-11ea-98df-fc06f4c56d45.png">
     
@@ -47,7 +47,7 @@ npm start
     
      You can see the graph of labeling when you click the second button on the left.
     
-* ### __Classification__
+* ## __Classification__
 
     <img width="600px" src="https://user-images.githubusercontent.com/43779313/91987427-ffab0080-ed68-11ea-8b72-1aced0ef1472.png">  
     <img width="600px" src="https://github.com/DDoBBy/Annotti/blob/master/app/resources/gifs/classification_sunflower.gif">
@@ -58,7 +58,7 @@ npm start
     
     You can see full image by clicking thumbnail.
     
-* ### __Object Detection__
+* ## __Object Detection__
 
     <img width="600px" src="https://github.com/DDoBBy/Annotti/blob/master/app/resources/gifs/detection_road.gif">
     <img width="600px" src="https://user-images.githubusercontent.com/43779313/91992889-a397aa80-ed6f-11ea-8d09-d2efebde4d8b.gif">
@@ -71,7 +71,7 @@ npm start
 # Json File structure
 
    * ### Classification
-   results / classification.json
+   **results / classification.json**
     
 ```json
 {
@@ -82,7 +82,7 @@ npm start
 }
 ```
    * ### Object Detection
-   results / detection-labelInfos.json
+   **results / detection-labelInfos.json**
     
 ```json
 {
@@ -97,7 +97,7 @@ npm start
 }
 ```
 	
-   results / detection-boxInfos.json
+   **results / detection-boxInfos.json**
     
 ```json
 {
@@ -113,7 +113,7 @@ npm start
 }
 ```
 	
-   results / detection-dataPaths.json
+   **results / detection-dataPaths.json**
     
 ```json
 {
@@ -123,7 +123,7 @@ npm start
 ```
 <br>
 
-## Code structure
+# Code structure
 ```
   ├─ app  
   │   ├─ main             : Related to main process
