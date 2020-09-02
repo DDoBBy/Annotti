@@ -175,7 +175,6 @@ function createCanvas(fileID, filePath) {
       if (square.id != undefined) return;
       else {
         while (square.id == undefined) {
-          // boxID = new Date().getTime();
           boxID = boxId++;
           square.set('id', boxID);
         }
@@ -208,7 +207,6 @@ function createCanvas(fileID, filePath) {
     $('.working-area').css('display', 'grid');
   });
 
-  // show grid view of images
   $('#view-files-btn').on('click', function () {
     $(`#canvas-${fileID}`).parent('.canvas-container').css('display', 'none');
     $(`#canvas-${fileID}`).siblings().css('display', 'none');
@@ -223,7 +221,6 @@ function createCanvas(fileID, filePath) {
 function ODChangeColor(boxIDs, newColor) {
   for (const [_, canvas] of Object.entries(canvasList)) {
     canvas.getObjects().forEach(function (o) {
-      //   console.log(o);
       if (o.id != undefined && boxIDs.includes(o.id.toString())) {
         o.set('stroke', newColor);
         canvas.renderAll();
@@ -235,7 +232,6 @@ function ODChangeColor(boxIDs, newColor) {
 function ODDeleteLabel(boxIDs) {
   for (const [_, canvas] of Object.entries(canvasList)) {
     canvas.getObjects().forEach(function (o) {
-      //   console.log(o);
       if (o.id != undefined && boxIDs.includes(o.id.toString())) {
         canvas.remove(o);
         canvas.renderAll();
