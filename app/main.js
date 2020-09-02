@@ -1,4 +1,3 @@
-// Main process
 const { app, BrowserWindow, ipcMain } = require('electron');
 
 const selectDir = require('./main/select-file.js');
@@ -11,14 +10,15 @@ function createWindow() {
     fullscreen: true,
     minWidth: 1200,
     minHeight: 810,
+    resizable: false,
+    autoHideMenuBar: true,
     webPreferences: {
       enableRemoteModule: true,
       nodeIntegration: true,
-      webviewTag: true,
     },
   });
   win.loadURL(`file://${__dirname}/templates/index.html`);
-  win.webContents.openDevTools();
+  // win.webContents.openDevTools();
 }
 
 ipcMain.on('selectDir', selectDir);
