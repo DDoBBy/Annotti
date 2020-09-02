@@ -54,8 +54,12 @@ function createCanvas(fileID, filePath) {
 
   image.onload = function (img) {
     var fabricImg = new fabric.Image(image);
-    fabricImg.scaleToWidth(w, false);
-    fabricImg.scaleToHeight(h, false);
+    var canvasAspect = canvas.width / canvas.height;
+    var imgAspect = fabricImg.width / fabricImg.height;
+
+    if (canvasAspect >= imgAspect) fabricImg.scaleToHeight(h, false);
+    else fabricImg.scaleToWidth(w, false);
+
     remote.getGlobal('projectManager').setFileSize(fileID, fabricImg.width, fabricImg.height, w);
     canvas.setBackgroundImage(fabricImg, canvas.renderAll.bind(canvas));
   };
@@ -191,13 +195,13 @@ function createCanvas(fileID, filePath) {
     }
   });
 
-  $(window).resize(() => {
-    canvas.setWidth($(window).width());
-    canvas.setHeight($('#detection-image').height());
-    // canvas.backgroundImage.scaleToWidth(canvas.getWidth(), false);
-    canvas.renderAll();
-    canvas.calcOffset();
-  });
+  //   $(window).resize(() => {
+  //     canvas.setWidth($(window).width());
+  //     canvas.setHeight($('#detection-image').height());
+  //     // canvas.backgroundImage.scaleToWidth(canvas.getWidth(), false);
+  //     canvas.renderAll();
+  //     canvas.calcOffset();
+  //   });
 
   $('.detection-close').on('click', function () {
     $(`#canvas-${fileID}`).parent('.canvas-container').css('display', 'none');
