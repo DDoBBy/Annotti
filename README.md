@@ -13,7 +13,7 @@ npm install
 npm start
 ```
 # Functions
-* __Common__
+* ### __Common__
 
     <img width="400px" src="https://user-images.githubusercontent.com/43779313/91729543-ad8aa380-ebdf-11ea-98df-fc06f4c56d45.png">
     
@@ -39,16 +39,28 @@ npm start
     
      You can see the graph of labeling when you click the second button on the left.
     
-* __Classification__
+* ### __Classification__
 
     <img width="500px" src="https://user-images.githubusercontent.com/43779313/91987427-ffab0080-ed68-11ea-8b72-1aced0ef1472.png">  
     
     You can annotate images by clicking or dragging images while pushing 'alt' after you activate the label.  
     
-* __Object Detection__
+* ### __Object Detection__
 
-    Object Detection
+    <img width="500px" src="https://user-images.githubusercontent.com/43779313/91992889-a397aa80-ed6f-11ea-8d09-d2efebde4d8b.gif">
     
+    You can add a box by dragging while pushing 'alt' after you activate the label.  
+    You can move or resize a box.
+    You can delete a box by pushing 'D'.
+    
+    
+# Json File structure
+
+   * ### Classification
+   
+   * ### Object Detection
+<br>
+
 ## Code structure
 ```
   ├─ main             : Related to main process
