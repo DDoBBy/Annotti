@@ -20,10 +20,11 @@ npm start
     You can select a task between **'Classification'** and **'Object Detection'**.  
     You can select multiple folders for your task.
     _____
-    <img width="400px" src="https://user-images.githubusercontent.com/43779313/91730685-03138000-ebe1-11ea-8373-74e6b2291d7e.png">
+    <img width="400px" src="https://user-images.githubusercontent.com/43779313/91989160-25d1a000-ed6b-11ea-8f2e-00e900b1976c.gif">
     
     You can add a label by clicking '+' button on the right.  
     You can change a label color through the popup window that appears when you click the label.  
+    If you check the label, that label will be activated.  
     _____
     <img align="left" height="200px" src="https://user-images.githubusercontent.com/43779313/91732603-67cfda00-ebe3-11ea-971e-efc19d110fe7.png">  
     <br>Folder : Move to top-level folder <br>
@@ -32,9 +33,17 @@ npm start
     <br>Export : Export json file for labeling <br>
     <br>
     
+     **Analytics**
+    
+     <img width="400px" src="https://user-images.githubusercontent.com/43779313/91989345-616c6a00-ed6b-11ea-9850-d41d1d4985e4.gif">
+    
+     You can see the graph of labeling when you click the second button on the left.
+    
 * __Classification__
 
-    Classification
+    <img width="500px" src="https://user-images.githubusercontent.com/43779313/91987427-ffab0080-ed68-11ea-8b72-1aced0ef1472.png">  
+    
+    You can annotate images by clicking or dragging images while pushing 'alt' after you activate the label.  
     
 * __Object Detection__
 
@@ -42,15 +51,17 @@ npm start
     
 ## Code structure
 ```
-  ├─ main         : Related to main process
-  ├─ renderers    : Related to renderer processes
-  ├─ commons      : Used for both processes
-  ├─ templates    : html files
+  ├─ main             : Related to main process
+  ├─ project_managers : Related to each project manager
+  ├─ renderers        : Related to renderer processes
+  ├─ templates        : js files for html
+  ├─ utils
+  ├─ app.global.css
   ├─ resources
-  │   ├─ imgs
-  │   └─ styles   : css files
-  ├─ main.js      : main process
-  └─ package.json : npm guide
+  │   ├─ imgs         : Annotti icons
+  │   └─ gifs         : Related to Annotti guide
+  ├─ main.js          : main process
+  └─ package.json     : npm guide
 ```
 
 	
