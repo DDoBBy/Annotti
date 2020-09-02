@@ -75,9 +75,9 @@ npm start
     
 ```json
 {
-    labelID: {
-	"name": labelName,
-	"files": [fileName1, fileName2, fileNameN]
+    "LABELID": {
+	"name": "LABELNAME",
+	"files": ["FILENAME", "FILENAME"]
     }
 }
 ```
@@ -86,13 +86,13 @@ npm start
     
 ```json
 {
-    labelID: {
-	"name": labelName,
-	"color": color(hexa),
+    "LABELID": {
+	"name": "LABELNAME",
+	"color": "COLORCODE",
 	"boxtoFile": {
-		boxID: fileID
+		"BOXID": "FILEID"
 	},
-	"numBoxes": NumberOfBoxes
+	"numBoxes": "NUMBEROFBOXES"
     }
 }
 ```
@@ -101,13 +101,13 @@ npm start
     
 ```json
 {
-    fileID: {
-	boxID: {
-		"labelID": labelID,
-		"x1": x1,
-		"y1": y1,
-		"x2": x2,
-		"y2": y2
+    "FILEID": {
+	"BOXID": {
+		"labelID": "LABELID",
+		"x1": "X1",
+		"y1": "Y1",
+		"x2": "X2",
+		"y2": "Y2"
 	}
     }
 }
@@ -117,8 +117,8 @@ npm start
     
 ```json
 {
-    fileID: filePath,
-    fileID: filePath
+    "FILEID": "FILEPATH",
+    "FILEID": "FILEPATH"
 }
 ```
 <br>
