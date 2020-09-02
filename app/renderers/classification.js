@@ -93,11 +93,19 @@ $('.information-close-btn').on('click', () => {
 
 $('#save-btn').on('click', () => {
   var labelInfos = remote.getGlobal('projectManager').getLabelInfos();
-  var names = {};
+  var jsons = {};
   for ([key, value] of Object.entries(labelInfos)) {
-    names[key] = value.name;
+    labelinfo = {};
+    var files = [];
+    labelinfo['name'] = value.name;
+    for ([fileID, filevalues] of Object.entries(labelInfos[key].files)) {
+      // console.log(fileID, path.basename(filevalues.path));
+      files.push(path.basename(filevalues.path));
+    }
+    labelinfo['files'] = files;
+    jsons[key] = labelinfo;
   }
-  jsonInfo = JSON.stringify(names);
+  jsonInfo = JSON.stringify(jsons);
   !fs.existsSync('results') && fs.mkdirSync('results');
   fs.writeFileSync('results/classification.json', jsonInfo);
 });
