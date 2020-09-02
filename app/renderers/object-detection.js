@@ -53,7 +53,11 @@ $('#save-btn').on('click', () => {
   !fs.existsSync('results') && fs.mkdirSync('results');
 
   var dataPaths = remote.getGlobal('projectManager').getDataPaths();
-  dataPathsInfo = JSON.stringify(dataPaths);
+  var dataPathJson = {};
+  for ([key, value] of Object.entries(dataPaths)) {
+    dataPathJson[key] = path.basename(value);
+  }
+  dataPathsInfo = JSON.stringify(dataPathJson);
   fs.writeFileSync('results/detection-dataPaths.json', dataPathsInfo);
 
   var labelList = remote.getGlobal('projectManager').getLabelList();
@@ -61,6 +65,10 @@ $('#save-btn').on('click', () => {
   fs.writeFileSync('results/detection-labelInfos.json', labelInfos);
 
   var fileList = remote.getGlobal('projectManager').getFileList();
-  boxInfos = JSON.stringify(fileList);
+  var boxInfosJson = {};
+  for ([key, value] of Object.entries(fileList)) {
+    boxInfosJson[key] = value.boxes;
+  }
+  boxInfos = JSON.stringify(boxInfosJson);
   fs.writeFileSync('results/detection-boxInfos.json', boxInfos);
 });
