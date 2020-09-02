@@ -2,7 +2,7 @@ const { createProjectTemplate } = require('../templates/create-project');
 const { classificationTemplate } = require('../templates/classification');
 const { objectDetectionTemplate } = require('../templates/object-detection');
 
-let workingDirectory = ['/Users/yeon/Downloads/101_ObjectCategories'];
+let workingDirectory = 'None';
 
 function composeUI() {
   $('#root').append(createProjectTemplate);
@@ -37,8 +37,6 @@ $('#root').on('click', '#create-project-btn', () => {
     $('#root').empty();
     if (taskId == 'IC') $('#root').append(classificationTemplate);
     else if (taskId == 'OD') $('#root').append(objectDetectionTemplate);
-    // else if (taskId == 'SS') $('#root').append(segmentationTemplate);
-    // else if (taskId == 'OCR') $('#root').append(ocrTemplate);
   }
 });
 

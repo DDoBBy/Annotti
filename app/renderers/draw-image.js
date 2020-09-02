@@ -1,24 +1,12 @@
-let id;
 let img;
 let ratio;
 let scaleFactor = 1.05;
 
-function getThumbnailId() {
-  if (location.href === undefined) return;
-  var tmp = location.href.split('?');
-  if (tmp.length <= 1) return;
-  var data = tmp[1].split('=');
-  id = data[1];
-  getImageCanvas(id);
-}
-
-function getImageCanvas(thumbnailId) {
-  var filePath = remote.getGlobal('projectManager').dataPaths[thumbnailId];
+function getImageCanvas(fileID) {
+  var filePath = remote.getGlobal('projectManager').dataPaths[fileID];
   img = new Image();
   drawImageOnCanvas(filePath);
 }
-
-$(document).ready(getThumbnailId);
 
 function drawImageOnCanvas(filePath) {
   img.src = filePath;

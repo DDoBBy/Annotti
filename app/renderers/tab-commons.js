@@ -1,5 +1,4 @@
-// const { openTab } = require('../renderers/detection-functions.js');
-const imgExtensions = ['.png', '.jpg', '.jpeg', '.PNG', '.JPG', '.JPEG'];
+const { imgExtensions } = require('../utils/exts');
 
 function breadCrumbHome(event) {
   $('#all-imgs').empty();

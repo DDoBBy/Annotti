@@ -8,12 +8,7 @@ function setProjectManager(event, taskId) {
   else if (taskId == 'OD') {
     // Object detection
     global.projectManager = new detectionProjectManager();
-  } else if (taskId == 'SS')
-    // Symantic segmentation
-    console.log('SS');
-  else if (taskId == 'OCR')
-    // Optical character recognition
-    console.log('OCR');
+  }
   event.returnValue = 'Set project manager -Done';
 }
 

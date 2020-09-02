@@ -10,6 +10,17 @@ var InformationTemplate = `<div class="information-window">
         <div class="information-title">Common</div>
         <div class="information-table">
             <div class="keyboard">
+                <div class="event">Label</div>
+            </div>
+            <div class="desc">
+                <div>Create label.</div>
+                <div class="desc-gif"><img src="../resources/gifs/create_label.gif" style="width:50%"></img></div>
+                <div>Delete label.</div>
+                <div class="desc-gif"><img src="../resources/gifs/delete_label.gif" style="width:50%"></img></div>
+                <div>Change label.</div>
+                <div class="desc-gif"><img src="../resources/gifs/change_color.gif" style="width:50%"></img></div>
+            </div>
+            <div class="keyboard">
                 <div class="button-event">
                     <img src="../resources/imgs/annotti_directory.png"></img>
                 </div>
@@ -26,7 +37,7 @@ var InformationTemplate = `<div class="information-window">
                 </div>
             </div>
             <div class="desc">
-                <div>Shows the overall statistics of images and labels.</div>
+                <div>Show the overall statistics of images and labels.</div>
                 <div class="desc-gif">
                     <img src="../resources/gifs/classification_analysis.gif"></img>
                 </div>
@@ -66,7 +77,30 @@ var InformationTemplate = `<div class="information-window">
             </div>
             <div class="desc">
                 <div>Labeling images with activated label.</div>
-                <div class="desc-gif"></div>
+                <div class="desc-gif"><img src="../resources/gifs/classification_sunflower.gif"></div>
+            </div>
+        </div>
+    </div>
+    <div class="information-area">
+        <div class="information-title">Object Detection</div>
+        <div class="information-table">
+            <div class="keyboard">
+                <div class="key">alt</div>
+                <div class="plus">+</div>
+                <div class="event">Drag</div>
+            </div>
+            <div class="desc">
+                <div>Create bounding box on the image with activated label.</div>
+                <div class="desc-gif"><img src="../resources/gifs/detection_road.gif"></div>
+            </div>
+            <div class="keyboard">
+                <div class="event">Click</div>
+                <div class="plus">+</div>
+                <div class="key">d</div>
+            </div>
+            <div class="desc">
+                <div>Delete the clicked box.</div>
+                <div class="desc-gif"><img src="../resources/gifs/delete_box.gif"></div>
             </div>
         </div>
     </div>

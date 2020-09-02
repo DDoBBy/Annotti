@@ -49,7 +49,6 @@ $('#root').on('click', '.label-color', function (event) {
   leftPosition = $(event.target).parent()[0].offsetLeft;
   $(event.target).parent().next().toggle();
   $(event.target).parent().next().css('top', topPosition);
-  var taskId = remote.getGlobal('projectManager').taskId;
   $(event.target)
     .parent()
     .next()
@@ -57,7 +56,7 @@ $('#root').on('click', '.label-color', function (event) {
 });
 
 // Click remove button
-var $item = $('#root').on('click', '.del', function (event) {
+$('#root').on('click', '.del', function (event) {
   var labelID = event.target.id;
   document.getElementById('label' + labelID).remove();
   const taskId = remote.getGlobal('projectManager').taskId;
@@ -101,7 +100,7 @@ $('#root').on('click', '.label-color-cand', function (event) {
   $('#popover' + labelID).toggle();
 });
 
-// // Change label color by hex text
+// Change label color by hex text
 $('#root').on('click', '.label-color-cand-rgb', function (event) {
   var labelID = event.target.id;
   var prevColor = rgb2hex(document.getElementById('span' + labelID).style.backgroundColor);
@@ -139,23 +138,14 @@ $('#root').on('change', '.label-name', function (event) {
     return;
   }
 });
+
 $('#root').on('click', '.popover-close', function (event) {
   $('#popover' + event.target.id).toggle();
 });
 
-function getId() {
-  if (location.href === undefined) return;
-  var tmp = location.href.split('?');
-  if (tmp.length <= 1) return;
-  var data = tmp[1].split('=');
-  id = data[1];
-  return id;
-}
-
 $(window).resize(() => {
   var els = document.getElementsByClassName('popover');
   Array.from(els).forEach((el) => {
-    // Do stuff here
     if (!(el.style.display == 'none')) {
       document.getElementById(el.id).style.display = 'none';
     }

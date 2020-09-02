@@ -1,5 +1,6 @@
 const fabric = require('fabric').fabric;
 let canvasList = {};
+let boxId = 0;
 
 function openTab(event) {
   var fileID = event.data.imgInfoId;
@@ -53,7 +54,12 @@ function createCanvas(fileID, filePath) {
 
   image.onload = function (img) {
     var fabricImg = new fabric.Image(image);
-    fabricImg.scaleToWidth(w, false);
+    var canvasAspect = canvas.width / canvas.height;
+    var imgAspect = fabricImg.width / fabricImg.height;
+
+    if (canvasAspect >= imgAspect) fabricImg.scaleToHeight(h, false);
+    else fabricImg.scaleToWidth(w, false);
+
     remote.getGlobal('projectManager').setFileSize(fileID, fabricImg.width, fabricImg.height, w);
     canvas.setBackgroundImage(fabricImg, canvas.renderAll.bind(canvas));
   };
@@ -173,7 +179,7 @@ function createCanvas(fileID, filePath) {
       if (square.id != undefined) return;
       else {
         while (square.id == undefined) {
-          boxID = new Date().getTime();
+          boxID = boxId++;
           square.set('id', boxID);
         }
 
@@ -189,13 +195,13 @@ function createCanvas(fileID, filePath) {
     }
   });
 
-  $(window).resize(() => {
-    canvas.setWidth($(window).width());
-    canvas.setHeight($('#detection-image').height());
-    // canvas.backgroundImage.scaleToWidth(canvas.getWidth(), false);
-    canvas.renderAll();
-    canvas.calcOffset();
-  });
+  //   $(window).resize(() => {
+  //     canvas.setWidth($(window).width());
+  //     canvas.setHeight($('#detection-image').height());
+  //     // canvas.backgroundImage.scaleToWidth(canvas.getWidth(), false);
+  //     canvas.renderAll();
+  //     canvas.calcOffset();
+  //   });
 
   $('.detection-close').on('click', function () {
     $(`#canvas-${fileID}`).parent('.canvas-container').css('display', 'none');
@@ -205,7 +211,6 @@ function createCanvas(fileID, filePath) {
     $('.working-area').css('display', 'grid');
   });
 
-  // show grid view of images
   $('#view-files-btn').on('click', function () {
     $(`#canvas-${fileID}`).parent('.canvas-container').css('display', 'none');
     $(`#canvas-${fileID}`).siblings().css('display', 'none');
@@ -220,7 +225,6 @@ function createCanvas(fileID, filePath) {
 function ODChangeColor(boxIDs, newColor) {
   for (const [_, canvas] of Object.entries(canvasList)) {
     canvas.getObjects().forEach(function (o) {
-      //   console.log(o);
       if (o.id != undefined && boxIDs.includes(o.id.toString())) {
         o.set('stroke', newColor);
         canvas.renderAll();
@@ -232,7 +236,6 @@ function ODChangeColor(boxIDs, newColor) {
 function ODDeleteLabel(boxIDs) {
   for (const [_, canvas] of Object.entries(canvasList)) {
     canvas.getObjects().forEach(function (o) {
-      //   console.log(o);
       if (o.id != undefined && boxIDs.includes(o.id.toString())) {
         canvas.remove(o);
         canvas.renderAll();

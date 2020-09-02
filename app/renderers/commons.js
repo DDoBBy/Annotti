@@ -1,6 +1,5 @@
 let id = 0;
-
-const imgExtensions = ['.png', '.jpg', '.jpeg', '.PNG', '.JPG', '.JPEG'];
+const { imgExtensions } = require('../utils/exts');
 
 function breadCrumbHome(event) {
   $('#all-imgs').empty();

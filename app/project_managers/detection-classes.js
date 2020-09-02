@@ -100,12 +100,10 @@ class detectionProjectManager extends projectManager {
   }
 
   deleteBox(fileID, boxID) {
-    // console.log(fileID, boxID);
     var labelID = this.fileList[fileID].boxes[boxID].labelID;
     this.labelList[labelID].numBoxes -= 1;
     delete this.labelList[labelID].boxtoFile[boxID];
     delete this.fileList[fileID].boxes[boxID];
-    // console.log(this.fileList[fileID].boxes);
   }
 
   changeBoxLable(fileID, labelID, boxID) {
@@ -114,8 +112,6 @@ class detectionProjectManager extends projectManager {
 
   changeBoxPosition(fileID, boxID, x1, y1, x2, y2) {
     var ratio = this.fileList[fileID].ratio;
-    // console.log(fileID, boxID, x1, y1, x2, y2);
-    // console.log(this.fileList[fileID].boxes);
     this.fileList[fileID].boxes[boxID].x1 = Math.round(x1 * ratio);
     this.fileList[fileID].boxes[boxID].y1 = Math.round(y1 * ratio);
     this.fileList[fileID].boxes[boxID].x2 = Math.round(x2 * ratio);
