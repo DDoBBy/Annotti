@@ -3,7 +3,8 @@
 </p>
 
 # Annotti
-Data annotation tool for deep learning
+Data annotation tool for deep learning  
+[Demo](https://www.youtube.com/watch?v=9IJtSo7Fq2Y&feature=youtu.be)
 
 # Installation
 You need NVM v12.8.2.
@@ -139,4 +140,6 @@ npm start
   └─ package.json     : npm guide
 ```
 
+## Related Github
+https://github.com/Team-DDoBBy/Annotti-React
 	
